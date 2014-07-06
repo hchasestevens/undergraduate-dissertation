@@ -4,7 +4,6 @@ import collections
 import operator
 from matplotlib import pyplot as pl
 
-PLOT = True
 
 class Particle(object):
 
@@ -41,30 +40,32 @@ class Particle(object):
         return self.Position(fitness=self._best_fitness, position=self._best_position)
 
 
-def plot(particles):
-    if not PLOT:
-        return
-    pl.scatter(*zip(*[particle._position for particle in particles]))
-    pl.axis([0, 1, 0, 1])
-    pl.show()
+class Swarm(object):
 
+    def __init__(self, no_params, no_particles, inertia=0.5, cognitive_comp=0.25, social_comp=0.25):
+        self.particles = [Particle(no_params, inertia, cognitive_comp, social_comp) for __ in xrange(no_particles)]
+        self.best_position = None
 
-def optimize(fitness_function, no_params, no_particles, inertia=0.5, cognitive_comp=0.1, social_comp=0.1, max_iterations=None):
-    """
-    Performs PSO to optimize the given function. Uses global neighborhood.
-    """
+    def get_best_position(self, fitness_function):
+        positions = (particle.best_position(fitness_function) for particle in self.particles)
+        return max(positions, key=operator.attrgetter('fitness')).position
 
-    max_iterations = max_iterations or 100
+    def step(self, fitness_function):
+        if self.best_position is None:
+           self.best_position = self.get_best_position(fitness_function)
 
-    particles = [Particle(no_params, inertia, cognitive_comp, social_comp) for __ in xrange(no_particles)]
-    positions = (particle.best_position(fitness_function) for particle in particles)
-    best_position = max(positions, key=operator.attrgetter('fitness')).position
-    plot(particles)
+        [particle.update(self.best_position) for particle in self.particles]
+        self.best_position = self.get_best_position(fitness_function)
 
-    for i in xrange(max_iterations):
-        [particle.update(best_position) for particle in particles]
-        positions = (particle.best_position(fitness_function) for particle in particles)
-        best_position = max(positions, key=operator.attrgetter('fitness')).position
-        plot(particles)
+        return self.particles
 
-    return best_position
+    def step_until(self, fitness_function, termination_function=None, max_iterations=None):
+        assert max_iterations or termination_function, "No termination criteria."
+
+        max_iterations = xrange(max_iterations) if max_iterations is not None else itertools.count()
+        termination_function = termination_function if termination_function is not None else lambda x: False
+        
+        for i in max_iterations:
+            yield self.step(fitness_function)
+            if termination_function(self):
+                break

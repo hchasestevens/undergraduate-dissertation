@@ -15,13 +15,15 @@ class Particle(object):
         self._social_comp = social_comp
 
         self._position = numpy.array([random.random() for param in xrange(no_params)])
-        self._best_position = self._position
-        self._best_fitness = None
+        self._best_position = self._position.copy()
+        self._best_fitness = float('-inf')
         self._velocity = numpy.array([random.uniform(-1, 1) for param in xrange(no_params)])
 
     def update(self, best_neighbor_position):
         cognitive_mod = random.random()
         social_mod = random.random()
+
+        self._inertia /= 1.001
 
         inertial_velocity = self._inertia * self._velocity
         cognitive_velocity = self._cognitive_comp * cognitive_mod * (self._best_position - self._position)
@@ -29,20 +31,26 @@ class Particle(object):
 
         self._velocity = inertial_velocity + cognitive_velocity + social_velocity
 
+        self._velocity = numpy.maximum(self._velocity, [-1] * len(self._velocity))
+        self._velocity = numpy.minimum(self._velocity, [1] * len(self._velocity))
+
         self._position += self._velocity
+
+        self._position = numpy.maximum(self._position, [-10] * len(self._position))
+        self._position = numpy.minimum(self._position, [10] * len(self._position))
 
     def best_position(self, fitness_function):
         if self._position.max() <= 1 and self._position.min() >= 0: # Engelbrecht 2005
             fitness = fitness_function(self._position)
-            if self._best_fitness is None or self._best_fitness < fitness:
+            if self._best_fitness < fitness:
                 self._best_fitness = fitness
-                self._best_position = self._position
+                self._best_position = self._position.copy()
         return self.Position(fitness=self._best_fitness, position=self._best_position)
 
 
 class Swarm(object):
 
-    def __init__(self, no_params, no_particles, inertia=0.5, cognitive_comp=0.3, social_comp=0.1):
+    def __init__(self, no_params, no_particles, inertia=1.2, cognitive_comp=2, social_comp=2): # Shi & Eberhart 1998
         self.particles = [Particle(no_params, inertia, cognitive_comp, social_comp) for __ in xrange(no_particles)]
         self.best_position = None
 

@@ -42,7 +42,7 @@ class Particle(object):
 
 class Swarm(object):
 
-    def __init__(self, no_params, no_particles, inertia=0.5, cognitive_comp=0.25, social_comp=0.25):
+    def __init__(self, no_params, no_particles, inertia=0.5, cognitive_comp=0.3, social_comp=0.1):
         self.particles = [Particle(no_params, inertia, cognitive_comp, social_comp) for __ in xrange(no_particles)]
         self.best_position = None
 

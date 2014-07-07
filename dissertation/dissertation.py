@@ -4,7 +4,7 @@ from matplotlib import animation
 
 
 def update_plot(i, swarm, plot, fitness_func):
-    print i, '\b' * 4,
+    print i, '\b' * (len(str(i)) + 2),
     plot.set_offsets(zip([particle._position for particle in swarm.step(fitness_func)]))
     return plot,
 
@@ -27,3 +27,4 @@ if __name__ == '__main__':
 
     final = swarm.get_best_position(fitness_func)
     print final, fitness_func(final)
+    raw_input()

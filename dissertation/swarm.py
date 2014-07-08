@@ -7,6 +7,10 @@ from matplotlib import pyplot as pl
 
 class Particle(object):
 
+    MAX_VELOCITY = 1
+    MAX_POSITION = 10
+    INERTIAL_DAMPENING_SCHEDULE = lambda __, inertia: inertia / 1.001
+
     Position = collections.namedtuple('Position', 'fitness position')
 
     def __init__(self, no_params, inertia, cognitive_comp, social_comp):
@@ -17,13 +21,17 @@ class Particle(object):
         self._position = numpy.array([random.random() for param in xrange(no_params)])
         self._best_position = self._position.copy()
         self._best_fitness = float('-inf')
-        self._velocity = numpy.array([random.uniform(-1, 1) for param in xrange(no_params)])
+        self._velocity = numpy.array([random.uniform(-self.MAX_VELOCITY, self.MAX_VELOCITY) 
+                                      for param in 
+                                      xrange(no_params)
+                                      ]
+                                     )
 
     def update(self, best_neighbor_position):
         cognitive_mod = random.random()
         social_mod = random.random()
 
-        self._inertia /= 1.001
+        self._inertia = self.INERTIAL_DAMPENING_SCHEDULE(self._inertia)
 
         inertial_velocity = self._inertia * self._velocity
         cognitive_velocity = self._cognitive_comp * cognitive_mod * (self._best_position - self._position)
@@ -31,13 +39,13 @@ class Particle(object):
 
         self._velocity = inertial_velocity + cognitive_velocity + social_velocity
 
-        self._velocity = numpy.maximum(self._velocity, [-1] * len(self._velocity))
-        self._velocity = numpy.minimum(self._velocity, [1] * len(self._velocity))
+        self._velocity = numpy.maximum(self._velocity, [-self.MAX_VELOCITY] * len(self._velocity))
+        self._velocity = numpy.minimum(self._velocity, [self.MAX_VELOCITY] * len(self._velocity))
 
         self._position += self._velocity
 
-        self._position = numpy.maximum(self._position, [-10] * len(self._position))
-        self._position = numpy.minimum(self._position, [10] * len(self._position))
+        self._position = numpy.maximum(self._position, [-self.MAX_POSITION] * len(self._position))
+        self._position = numpy.minimum(self._position, [self.MAX_POSITION] * len(self._position))
 
     def best_position(self, fitness_function):
         if self._position.max() <= 1 and self._position.min() >= 0: # Engelbrecht 2005
@@ -57,6 +65,9 @@ class Swarm(object):
     def get_best_position(self, fitness_function):
         positions = (particle.best_position(fitness_function) for particle in self.particles)
         return max(positions, key=operator.attrgetter('fitness')).position
+
+    def _set_best_position(self, position):
+        self.best_position = position
 
     def step(self, fitness_function):
         if self.best_position is None:

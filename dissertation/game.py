@@ -8,7 +8,7 @@ def communicate(player, partner, costs, ambiguous_cost, success):
         if ambiguity_probability > random.random():
             result += ambiguous_cost
             if (partner[i] / float(sum(partner))) > random.random():
-                score += success
+                result += success
         else:
             result += cost
             result += success

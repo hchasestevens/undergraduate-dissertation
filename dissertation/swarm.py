@@ -3,6 +3,8 @@ import numpy
 import collections
 import operator
 import itertools
+import inspect
+import functools
 
 
 class Particle(object):
@@ -63,7 +65,8 @@ class Particle(object):
 class Swarm(object):
 
     def __init__(self, no_params, no_particles, no_groups=1, inertia=1.2, cognitive_comp=2, social_comp=2): # Shi & Eberhart 1998
-        assert int(no_particles / no_groups) == float(no_particles) / no_groups
+        assert int(no_particles / no_groups) == float(no_particles) / no_groups, "Number of particles must be evenly divisible by number of groups."
+
         self.particle_groups = [[Particle(no_params, inertia, cognitive_comp, social_comp)
                                  for group_members in
                                  xrange(no_particles / no_groups)
@@ -72,6 +75,7 @@ class Swarm(object):
                                 xrange(no_groups)
                                 ]
         self.particles = [particle for group in self.particle_groups for particle in group]
+
         self.best_overall_position_coords = None
         self.best_group_positions = [None for group in self.particle_groups]
 
@@ -80,13 +84,21 @@ class Swarm(object):
 
     def _get_best_position(self, fitness_function, particles=None):
         particles = self.particles if particles is None else particles
+
+        fitness_args = inspect.getargspec(fitness_function).args
+        assert len(fitness_args) in (1, 2), "Fitness function must take either one or two arguments."
+
+        if len(fitness_args) == 2:
+            assert particles is not None, "Fitness function expects to be given a group."
+            fitness_function = functools.partial(fitness_function, map(operator.attrgetter('position'), particles))
+
         positions = (particle.best_position(fitness_function) for particle in particles)
         return max(positions, key=operator.attrgetter('fitness'))
 
     def _set_best_position(self, position):
         self.best_overall_position_coords = position
 
-    def step(self, fitness_function):
+    def step(self, fitness_function, return_groups=False):
         if self.best_overall_position_coords is None:
             self.best_group_positions = [self._get_best_position(fitness_function, particles=group)
                                          for group in
@@ -109,15 +121,15 @@ class Swarm(object):
 
         self.best_overall_position_coords = max(self.best_group_positions, key=operator.attrgetter('fitness'))
 
-        return self.particles
+        return self.particles if not return_groups else self.particle_groups
 
-    def step_until(self, fitness_function, termination_function=None, max_iterations=None):
+    def step_until(self, fitness_function, termination_function=None, max_iterations=None, return_groups=False):
         assert max_iterations or termination_function, "No termination criteria."
 
         max_iterations = xrange(max_iterations) if max_iterations is not None else itertools.count()
         termination_function = termination_function if termination_function is not None else lambda x: False
 
         for i in max_iterations:
-            yield self.step(fitness_function)
+            yield self.step(fitness_function, return_groups=return_groups)
             if termination_function(self):
                 break

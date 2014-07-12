@@ -64,12 +64,11 @@ class Particle(object):
 
 class Swarm(object):
 
-    def __init__(self, no_params, no_particles, no_groups=1, inertia=1.2, cognitive_comp=2, social_comp=2): # Shi & Eberhart 1998
-        assert int(no_particles / no_groups) == float(no_particles) / no_groups, "Number of particles must be evenly divisible by number of groups."
-
-        self.particle_groups = [[Particle(no_params, inertia, cognitive_comp, social_comp)
+    def __init__(self, no_dimensions, group_size, no_groups=1, inertia=1.2, cognitive_comp=2, social_comp=2): # Shi & Eberhart 1998
+        
+        self.particle_groups = [[Particle(no_dimensions, inertia, cognitive_comp, social_comp)
                                  for group_members in
-                                 xrange(no_particles / no_groups)
+                                 xrange(group_size)
                                  ]
                                 for groups in
                                 xrange(no_groups)

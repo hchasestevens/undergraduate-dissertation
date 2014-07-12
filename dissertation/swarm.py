@@ -12,16 +12,14 @@ class Particle(object):
     MAX_VELOCITY = 1
     MAX_POSITION = 10
     MIN_POSITION = -10
-    INERTIAL_DAMPENING = 1.001
 
     Position = collections.namedtuple('Position', 'fitness position')
 
-    def __init__(self, no_params, inertia, cognitive_comp, social_comp, respect_boundaries=True):
-        self._inertia = inertia
-        self._cognitive_comp = cognitive_comp
-        self._social_comp = social_comp
+    def __init__(self, no_params, **kwargs):
         
-        if respect_boundaries:
+        self._get_config(kwargs)
+        
+        if self._respect_boundaries:
             self.MAX_POSITION = 1
             self.MIN_POSITION = 0
 
@@ -34,9 +32,18 @@ class Particle(object):
                                       ]
                                      )
 
-    @staticmethod
-    def _inertial_dampening_schedule(inertia):
-        return inertia / Particle.INERTIAL_DAMPENING
+    def _get_config(self, kwargs):
+        # Values from Shi & Eberhart 1998
+        self._inertia = kwargs.get('inertia', 1.2)
+        self._cognitive_comp = kwargs.get('cognitive_comp', 2)
+        self._social_comp = kwargs.get('social_comp', 2)
+        self._respect_boundaries = kwargs.get('respect_boundaries', False)
+
+        self._inertial_dampening = kwargs.get('inertial_dampening', 1.001)
+        self._velocity_dampening = kwargs.get('velocity_dampening', 1)
+
+    def _inertial_dampening_schedule(self, inertia):
+        return inertia / self._inertial_dampening
 
     def update(self, best_neighbor_position):
         cognitive_mod = random.random()
@@ -53,13 +60,13 @@ class Particle(object):
         self._velocity = numpy.maximum(self._velocity, [-self.MAX_VELOCITY] * len(self._velocity))
         self._velocity = numpy.minimum(self._velocity, [self.MAX_VELOCITY] * len(self._velocity))
 
-        self.position += self._velocity
+        self.position += self._velocity * self._velocity_dampening
 
         self.position = numpy.maximum(self.position, [self.MIN_POSITION] * len(self.position))
         self.position = numpy.minimum(self.position, [self.MAX_POSITION] * len(self.position))
 
     def best_position(self, fitness_function):
-        if self.position.max() <= 1 and self.position.min() >= 0: # Engelbrecht 2005
+        if self.position.max() <= 1 and self.position.min() >= 0:  # Technique from Engelbrecht 2005
             fitness = fitness_function(self.position)
             if self._best_fitness < fitness:
                 self._best_fitness = fitness
@@ -69,9 +76,9 @@ class Particle(object):
 
 class Swarm(object):
 
-    def __init__(self, no_dimensions, group_size, no_groups=1, inertia=1.2, cognitive_comp=2, social_comp=2, respect_boundaries=True): # Shi & Eberhart 1998
-        
-        self.particle_groups = [[Particle(no_dimensions, inertia, cognitive_comp, social_comp, respect_boundaries=True)
+    def __init__(self, no_dimensions, group_size, no_groups, **kwargs):
+
+        self.particle_groups = [[Particle(no_dimensions, **kwargs)
                                  for group_members in
                                  xrange(group_size)
                                  ]
@@ -128,7 +135,7 @@ class Swarm(object):
         return self.particles if not return_groups else self.particle_groups
 
     def step_until(self, fitness_function, termination_function=None, max_iterations=None, return_groups=False):
-        assert max_iterations or termination_function, "No termination criteria."
+        assert max_iterations or termination_function, "No termination criteria supplied."
 
         max_iterations = xrange(max_iterations) if max_iterations is not None else itertools.count()
         termination_function = termination_function if termination_function is not None else lambda x: False

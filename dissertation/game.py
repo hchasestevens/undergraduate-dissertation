@@ -17,7 +17,7 @@ def communicate(player, partner, costs, ambiguous_cost, success):
 
 def game(group, player):
     costs = (-1, -2)
-    ambiguous_cost = -0.75
+    ambiguous_cost = -1.25
     success = 1
 
     score = 0

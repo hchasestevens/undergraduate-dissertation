@@ -13,14 +13,16 @@ def update_plot(i, swarm, plot, fitness_func):
 
 
 if __name__ == '__main__':
-    iterations = 1000
+    iterations = 10000
     dimensions = 2
+    group_size = 2
+    no_groups = 100
     save = True
 
     fig = pl.figure()
     pl.axis([0, 1,] * dimensions)
 
-    swarm = Swarm(dimensions, 3, no_groups=1)
+    swarm = Swarm(dimensions, group_size, no_groups, respect_boundaries=True, velocity_dampening=0.2)
     fitness_func = lambda (x, y): -abs(((x * 10) ** 1.5) - (y * 10)) - (100 if x <= 0 else 0)
     fitness_func = lambda (x, y): -sqrt((0.5 - x) ** 2 + (0.5 - y) ** 2)
     fitness_func = lambda (x, y): sin(10 * x) + cos(10 * y)

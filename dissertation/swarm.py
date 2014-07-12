@@ -11,14 +11,19 @@ class Particle(object):
 
     MAX_VELOCITY = 1
     MAX_POSITION = 10
+    MIN_POSITION = -10
     INERTIAL_DAMPENING = 1.001
 
     Position = collections.namedtuple('Position', 'fitness position')
 
-    def __init__(self, no_params, inertia, cognitive_comp, social_comp):
+    def __init__(self, no_params, inertia, cognitive_comp, social_comp, respect_boundaries=True):
         self._inertia = inertia
         self._cognitive_comp = cognitive_comp
         self._social_comp = social_comp
+        
+        if respect_boundaries:
+            self.MAX_POSITION = 1
+            self.MIN_POSITION = 0
 
         self.position = numpy.array([random.random() for param in xrange(no_params)])
         self._best_position = self.position.copy()
@@ -50,7 +55,7 @@ class Particle(object):
 
         self.position += self._velocity
 
-        self.position = numpy.maximum(self.position, [-self.MAX_POSITION] * len(self.position))
+        self.position = numpy.maximum(self.position, [self.MIN_POSITION] * len(self.position))
         self.position = numpy.minimum(self.position, [self.MAX_POSITION] * len(self.position))
 
     def best_position(self, fitness_function):
@@ -64,9 +69,9 @@ class Particle(object):
 
 class Swarm(object):
 
-    def __init__(self, no_dimensions, group_size, no_groups=1, inertia=1.2, cognitive_comp=2, social_comp=2): # Shi & Eberhart 1998
+    def __init__(self, no_dimensions, group_size, no_groups=1, inertia=1.2, cognitive_comp=2, social_comp=2, respect_boundaries=True): # Shi & Eberhart 1998
         
-        self.particle_groups = [[Particle(no_dimensions, inertia, cognitive_comp, social_comp)
+        self.particle_groups = [[Particle(no_dimensions, inertia, cognitive_comp, social_comp, respect_boundaries=True)
                                  for group_members in
                                  xrange(group_size)
                                  ]

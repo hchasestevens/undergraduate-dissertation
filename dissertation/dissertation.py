@@ -20,7 +20,7 @@ if __name__ == '__main__':
     fig = pl.figure()
     pl.axis([0, 1,] * dimensions)
 
-    swarm = Swarm(dimensions, 3, no_groups=20)
+    swarm = Swarm(dimensions, 3, no_groups=1)
     fitness_func = lambda (x, y): -abs(((x * 10) ** 1.5) - (y * 10)) - (100 if x <= 0 else 0)
     fitness_func = lambda (x, y): -sqrt((0.5 - x) ** 2 + (0.5 - y) ** 2)
     fitness_func = lambda (x, y): sin(10 * x) + cos(10 * y)

@@ -1,8 +1,14 @@
+"""Communication game to be used as fitness function."""
+
 import itertools
 import random
 
 
 def communicate(player, partner, costs, ambiguous_cost, success):
+    """
+    Determine the cost incurred and points awarded when player attempts to
+    communicate all meanings to their partner.
+    """
     result = 0
     for i, (cost, ambiguity_probability) in enumerate(itertools.izip(costs, player)):
         if ambiguity_probability > random.random():
@@ -16,6 +22,10 @@ def communicate(player, partner, costs, ambiguous_cost, success):
 
 
 def game(group, player):
+    """
+    Given group positions and a player position, run a communication game and
+    return the player's score.
+    """
     costs = (-1, -2)
     ambiguous_cost = -1.25
     success = 1

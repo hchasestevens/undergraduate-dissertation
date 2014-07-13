@@ -1,3 +1,5 @@
+"""Main file."""
+
 from swarm import Swarm
 from matplotlib import pyplot as pl
 from matplotlib import animation
@@ -7,6 +9,7 @@ import random
 
 
 def update_plot(i, swarm, plot, fitness_func):
+    """Update the swarm and scatterplot."""
     print i, '\b' * (len(str(i)) + 2),
     plot.set_offsets(zip([particle.position for particle in swarm.step(fitness_func)]))
     return plot,

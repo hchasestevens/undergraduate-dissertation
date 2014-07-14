@@ -126,10 +126,10 @@ class Swarm(object):
         (either) the particles or groups of particles in their new positions.
         """
         if self.best_overall_position_coords is None:
-            self.best_group_positions = [self._get_best_position(fitness_function, particles=group)
+            self.best_group_positions = (self._get_best_position(fitness_function, particles=group)
                                          for group in
                                          self.particle_groups
-                                         ]
+                                         )
 
             self.best_overall_position_coords = max(self.best_group_positions, key=operator.attrgetter('fitness'))
 
@@ -140,10 +140,10 @@ class Swarm(object):
          group
          ]
 
-        self.best_group_positions = [self._get_best_position(fitness_function, particles=group)
+        self.best_group_positions = (self._get_best_position(fitness_function, particles=group)
                                      for group in
                                      self.particle_groups
-                                     ]
+                                     )
 
         self.best_overall_position_coords = max(self.best_group_positions, key=operator.attrgetter('fitness'))
 

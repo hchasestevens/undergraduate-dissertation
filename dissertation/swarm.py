@@ -62,7 +62,7 @@ class Particle(object):
         social_velocity = self._social_comp * social_mod * (best_neighbor_position - self.position)
 
         self._velocity = inertial_velocity + cognitive_velocity + social_velocity
-        numpy.clip(self._velocity, -1 * self.MAX_VELOCITY, self.MAX_VELOCITY, out=self._velocity)
+        numpy.clip(self._velocity, -self.MAX_VELOCITY, self.MAX_VELOCITY, out=self._velocity)
 
         self.position += self._velocity * self._velocity_dampening
         numpy.clip(self.position, self.MIN_POSITION, self.MAX_POSITION, out=self.position)

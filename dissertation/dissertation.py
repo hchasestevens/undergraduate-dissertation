@@ -1,8 +1,6 @@
 """Main file."""
 
 from swarm import Swarm
-from matplotlib import pyplot as pl
-from matplotlib import animation
 from math import sqrt, sin, cos
 from game import game
 import random
@@ -22,21 +20,31 @@ if __name__ == '__main__':
     no_groups = 100
     save = True
 
-    fig = pl.figure()
-    pl.axis([0, 1,] * dimensions)
+    graph = False
 
     swarm = Swarm(dimensions, group_size, no_groups, respect_boundaries=True, velocity_dampening=0.2)
     fitness_func = lambda (x, y): -abs(((x * 10) ** 1.5) - (y * 10)) - (100 if x <= 0 else 0)
     fitness_func = lambda (x, y): -sqrt((0.5 - x) ** 2 + (0.5 - y) ** 2)
     fitness_func = lambda (x, y): sin(10 * x) + cos(10 * y)
     fitness_func = lambda (x, y): -abs((random.random() > x) - (random.random() > y))
+    fitness_func = game
 
-    plot = pl.scatter(*zip(*[particle.position for particle in swarm.step(game)]))
+    if graph:
+        from matplotlib import pyplot as pl
+        from matplotlib import animation
 
-    anim = animation.FuncAnimation(fig, update_plot, frames=xrange(iterations), fargs=(swarm, plot, fitness_func))
+        fig = pl.figure()
+        pl.axis([0, 1,] * dimensions)
 
-    pl.show()
+        plot = pl.scatter(*zip(*[particle.position for particle in swarm.step(fitness_func)]))
+
+        anim = animation.FuncAnimation(fig, update_plot, frames=xrange(iterations), fargs=(swarm, plot, fitness_func))
+
+        pl.show()
+    else:
+        for i in swarm.step_until(game, max_iterations=iterations):
+            pass
+        print i
 
     final = swarm.get_best_position_coords(fitness_func)
     #print final, fitness_func(final)
-    raw_input()

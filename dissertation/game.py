@@ -10,10 +10,11 @@ def communicate(player, partner, costs, ambiguous_cost, success):
     communicate all meanings to their partner.
     """
     result = 0
-    for i, (cost, ambiguity_probability) in enumerate(itertools.izip(costs, player)):
+    partner_sum = float(sum(partner))
+    for cost, ambiguity_probability, partner_ambiguity_probability in itertools.izip(costs, player, partner):
         if ambiguity_probability > random.random():
             result += ambiguous_cost
-            if (partner[i] / float(sum(partner))) > random.random():
+            if (partner_ambiguity_probability / partner_sum) > random.random():
                 result += success
         else:
             result += cost

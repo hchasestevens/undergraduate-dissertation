@@ -216,4 +216,3 @@ pip-log.txt
 *.pyproj
 *.sln
 *.pyperf
-*.vsps

@@ -20,7 +20,7 @@ if __name__ == '__main__':
     no_groups = 100
     save = True
 
-    graph = False
+    graph = True
 
     swarm = Swarm(dimensions, group_size, no_groups, respect_boundaries=True, velocity_dampening=0.2)
     fitness_func = lambda (x, y): -abs(((x * 10) ** 1.5) - (y * 10)) - (100 if x <= 0 else 0)

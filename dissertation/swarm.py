@@ -86,14 +86,15 @@ class Swarm(object):
     """A swarm of particles."""
 
     def __init__(self, no_dimensions, group_size, no_groups, **kwargs):
-        self.particle_groups = [[Particle(no_dimensions, **kwargs)
-                                 for group_members in
-                                 xrange(group_size)
-                                 ]
-                                for groups in
-                                xrange(no_groups)
-                                ]
-        self.particles = [particle for group in self.particle_groups for particle in group]
+        self.particle_groups = frozenset(
+            frozenset(Particle(no_dimensions, **kwargs)
+                      for group_members in
+                      xrange(group_size)
+                      )
+            for groups in
+            xrange(no_groups)
+        )
+        self.particles = frozenset(particle for group in self.particle_groups for particle in group)
 
         self.best_overall_position_coords = None
         self.best_group_positions = [None for group in self.particle_groups]

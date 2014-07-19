@@ -85,6 +85,11 @@ class Particle(object):
 class Swarm(object):
     """A swarm of particles."""
 
+    @staticmethod
+    def _make_groups(particles, group_size, overlap):
+        particles = (particles + particles[:group_size - 1])
+        return zip(*(particles[i::group_size - overlap] for i in xrange(group_size)))
+
     def __init__(self, no_dimensions, group_size, no_groups, **kwargs):
         self.particle_groups = frozenset(
             frozenset(Particle(no_dimensions, **kwargs)

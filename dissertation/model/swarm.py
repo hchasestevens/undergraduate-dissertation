@@ -166,7 +166,7 @@ class Swarm(object):
          itertools.izip(self.best_group_positions, self.particle_groups)
          for particle in
          group
-         ]
+        ]
 
         self.best_group_positions = [
             self._get_best_position(fitness_function, particles=group)

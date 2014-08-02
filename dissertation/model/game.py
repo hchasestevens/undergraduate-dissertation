@@ -2,9 +2,12 @@
 
 from itertools import izip
 
+import utils
+
 
 def communication_scenario_factory(reference_costs, ambiguous_reference_cost, success_points):
     """Create a function which will evaluate the communicative success of two agents."""
+    @utils.cached
     def comm(player, partner):
         """
         Determine the cost incurred and points awarded when player attempts to

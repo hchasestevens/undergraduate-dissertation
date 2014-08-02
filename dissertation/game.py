@@ -41,3 +41,10 @@ two_item_game = game_factory(
         1.5
     )
 )
+
+rohde_games = map(game_factory, (
+    communication_scenario_factory((-60, -120, -280), -80, 85),  # Flowers
+    communication_scenario_factory((-60, -120, -250), -80, 85),  # Trees
+    communication_scenario_factory((-80, -140, -165), -80, 85),  # Flowers (similar cost)
+    communication_scenario_factory((-80, -135, -170), -80, 85),  # Trees (similar cost)
+))

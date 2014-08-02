@@ -2,7 +2,6 @@
 
 import contextlib
 import functools
-import collections
 
 
 @contextlib.contextmanager
@@ -30,7 +29,7 @@ def cached(func):
     return cached_func
 
 
-def nth_argument_factory(n):
+def nth_argument_factory(arg_n):
     """Create an nth_argument decorator factory."""
     def nth_argument(arg):
         """
@@ -42,7 +41,7 @@ def nth_argument_factory(n):
         def decorator(func):
             @functools.wraps(func)
             def wrapper(*args, **kwargs):
-                return func(*(args[:n] + arg_tuple + args[n:]), **kwargs)
+                return func(*(args[:arg_n] + arg_tuple + args[arg_n:]), **kwargs)
             return wrapper
         return decorator
     return nth_argument

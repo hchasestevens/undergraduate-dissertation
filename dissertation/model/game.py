@@ -4,6 +4,7 @@ from itertools import izip
 
 
 def communication_scenario_factory(reference_costs, ambiguous_reference_cost, success_points):
+    """Create a function which will evaluate the communicative success of two agents."""
     def comm(player, partner):
         """
         Determine the cost incurred and points awarded when player attempts to
@@ -21,6 +22,7 @@ def communication_scenario_factory(reference_costs, ambiguous_reference_cost, su
 
 
 def game_factory(comm_func):
+    """Create a fitness function which evalutates an agent's fitness within its group."""
     def game(player, group):
         """
         Given group positions and a player position, run a communication game and

@@ -5,7 +5,6 @@ import collections
 import operator
 import itertools
 import inspect
-import functools
 from random import random as rand_float, uniform as rand_uniform
 
 import utils
@@ -90,6 +89,7 @@ class Swarm(object):
 
     @staticmethod
     def _make_groups(particles, group_size, overlap):
+        """Given particles, return groups of specified size, sharing specified number of particles."""
         particles = (particles + particles[:group_size - 1])
         return zip(*(particles[i::group_size - overlap] for i in xrange(group_size)))
 
@@ -104,10 +104,10 @@ class Swarm(object):
             xrange(no_groups)
         )
         self.particles = frozenset(
-            particle 
-            for group in 
-            self.particle_groups 
-            for particle in 
+            particle
+            for group in
+            self.particle_groups
+            for particle in
             group
         )
 
@@ -121,6 +121,7 @@ class Swarm(object):
     @staticmethod
     @utils.cached
     def _expects_group(fitness_function):
+        """Return whether the fitness function expects both a particle and its group."""
         fitness_args = inspect.getargspec(fitness_function).args
         num_args = len(fitness_args)
         assert num_args in (1, 2), "Fitness function must take either one or two arguments."

@@ -7,7 +7,6 @@ import utils
 
 def communication_scenario_factory(reference_costs, ambiguous_reference_cost, success_points):
     """Create a function which will evaluate the communicative success of two agents."""
-    @utils.cached
     def comm(player, partner):
         """
         Determine the cost incurred and points awarded when player attempts to
@@ -41,15 +40,8 @@ def game_factory(comm_func):
 
 two_item_game = game_factory(
     communication_scenario_factory(
-        (-1, -2),
-        -1.25,
-        1.5
+        reference_costs=(-1., -2.), 
+        ambiguous_cost=-1.25, 
+        success_points=1.
     )
 )
-
-rohde_games = map(game_factory, (
-    communication_scenario_factory((-60, -120, -280), -80, 85),  # Flowers
-    communication_scenario_factory((-60, -120, -250), -80, 85),  # Trees
-    communication_scenario_factory((-80, -140, -165), -80, 85),  # Flowers (similar cost)
-    communication_scenario_factory((-80, -135, -170), -80, 85),  # Trees (similar cost)
-))

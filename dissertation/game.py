@@ -1,38 +1,43 @@
-"""Communication game to be used as fitness function."""
+"""Functions for creating communication games/fitness functions."""
 
 from itertools import izip
-from random import random
 
 
-COSTS = (-1, -2)
-AMBIGUOUS_COST = -1.25
-SUCCESS = 1
+def communication_scenario_factory(reference_costs, ambiguous_reference_cost, success_points):
+    def comm(player, partner):
+        """
+        Determine the cost incurred and points awarded when player attempts to
+        communicate all meanings to their partner.
+        """
+        partner_sum = float(sum(partner))
+        return sum(
+            (ambiguous_reference_cost * player_ambiguity_probability) +  # Times using ambiguous term
+            (success_points * player_ambiguity_probability * (partner_ambiguity_probability / partner_sum)) +  # Times ambiguous term is understood
+            ((cost + success_points) * (1 - player_ambiguity_probability))  # Times using unambiguous term (always understood)
+            for cost, player_ambiguity_probability, partner_ambiguity_probability in
+            izip(reference_costs, player, partner)
+        )
+    return comm
 
 
-def communicate(player, partner):
-    """
-    Determine the cost incurred and points awarded when player attempts to
-    communicate all meanings to their partner.
-    """
-    result = 0
-    partner_sum = float(sum(partner))
-    for cost, ambiguity_probability, partner_ambiguity_probability in izip(COSTS, player, partner):
-        if ambiguity_probability > random():
-            result += AMBIGUOUS_COST
-            if (partner_ambiguity_probability / partner_sum) > random():
-                result += SUCCESS
-        else:
-            result += cost
-            result += SUCCESS
-    return result
+def game_factory(comm_func):
+    def game(player, group):
+        """
+        Given group positions and a player position, run a communication game and
+        return the player's score.
+        """
+        return sum(
+            comm_func(player, partner) + comm_func(partner, player)
+            for partner in group
+            if partner is player
+        )
+    return game
 
 
-def game(group, player):
-    """
-    Given group positions and a player position, run a communication game and
-    return the player's score.
-    """
-    return sum(communicate(player, partner) + communicate(partner, player)
-               for partner in group
-               if partner is not player
-               )
+two_item_game = game_factory(
+    communication_scenario_factory(
+        (-1, -2),
+        -1.25,
+        1.5
+    )
+)

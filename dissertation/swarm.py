@@ -1,12 +1,14 @@
 """Particle Swarm Optimization implementation."""
 
-import random
 import numpy
 import collections
 import operator
 import itertools
 import inspect
 import functools
+from random import random as rand_float, uniform as rand_uniform
+
+import utils
 
 
 class Particle(object):
@@ -25,13 +27,14 @@ class Particle(object):
             self.MAX_POSITION = 1
             self.MIN_POSITION = 0
 
-        self.position = numpy.array([random.random() for param in xrange(no_params)])
+        self.position = numpy.array([rand_float() for param in xrange(no_params)])
         self._best_position = self.position.copy()
         self._best_fitness = float('-inf')
-        self._velocity = numpy.array([random.uniform(-self.MAX_VELOCITY, self.MAX_VELOCITY)
-                                      for param in
-                                      xrange(no_params)
-                                      ])
+        self._velocity = numpy.array([
+            rand_uniform(-self.MAX_VELOCITY, self.MAX_VELOCITY)
+            for param in
+            xrange(no_params)
+        ])
 
         self._time = 0
 
@@ -52,8 +55,8 @@ class Particle(object):
 
     def update(self, best_neighbor_position):
         """Update the particle's position, velocity, and inertia."""
-        cognitive_mod = random.random()
-        social_mod = random.random()
+        cognitive_mod = rand_float()
+        social_mod = rand_float()
 
         self._inertia = self._inertial_dampening_schedule(self._inertia, self._time)
 
@@ -92,14 +95,21 @@ class Swarm(object):
 
     def __init__(self, no_dimensions, group_size, no_groups, **kwargs):
         self.particle_groups = frozenset(
-            frozenset(Particle(no_dimensions, **kwargs)
-                      for group_members in
-                      xrange(group_size)
-                      )
+            frozenset(
+                Particle(no_dimensions, **kwargs)
+                for group_members in
+                xrange(group_size)
+            )
             for groups in
             xrange(no_groups)
         )
-        self.particles = frozenset(particle for group in self.particle_groups for particle in group)
+        self.particles = frozenset(
+            particle 
+            for group in 
+            self.particle_groups 
+            for particle in 
+            group
+        )
 
         self.best_overall_position_coords = None
         self.best_group_positions = [None for group in self.particle_groups]
@@ -107,6 +117,14 @@ class Swarm(object):
     def get_best_position_coords(self, fitness_function, particles=None):
         """Get the coordinates of the best-found solution."""
         return self._get_best_position(fitness_function, particles=particles).position
+
+    @staticmethod
+    @utils.cached
+    def _expects_group(fitness_function):
+        fitness_args = inspect.getargspec(fitness_function).args
+        num_args = len(fitness_args)
+        assert num_args in (1, 2), "Fitness function must take either one or two arguments."
+        return num_args == 2
 
     def _get_best_position(self, fitness_function, particles=None):
         """
@@ -116,14 +134,16 @@ class Swarm(object):
         """
         particles = self.particles if particles is None else particles
 
-        fitness_args = inspect.getargspec(fitness_function).args
-        assert len(fitness_args) in (1, 2), "Fitness function must take either one or two arguments."
-
-        if len(fitness_args) == 2:
+        if self._expects_group(fitness_function):
             assert particles is not None, "Fitness function expects to be given a group."
-            fitness_function = functools.partial(fitness_function, map(operator.attrgetter('position'), particles))
+            group_positions = [particle.position for particle in particles]
+            fitness_function = utils.second_argument(group_positions)(fitness_function)
 
-        positions = (particle.best_position(fitness_function) for particle in particles)
+        positions = (
+            particle.best_position(fitness_function)
+            for particle in
+            particles
+        )
         return max(positions, key=operator.attrgetter('fitness'))
 
     def step(self, fitness_function, return_groups=False):
@@ -132,10 +152,11 @@ class Swarm(object):
         (either) the particles or groups of particles in their new positions.
         """
         if self.best_overall_position_coords is None:
-            self.best_group_positions = [self._get_best_position(fitness_function, particles=group)
-                                         for group in
-                                         self.particle_groups
-                                         ]
+            self.best_group_positions = [
+                self._get_best_position(fitness_function, particles=group)
+                for group in
+                self.particle_groups
+            ]
 
             self.best_overall_position_coords = max(self.best_group_positions, key=operator.attrgetter('fitness'))
 
@@ -146,10 +167,11 @@ class Swarm(object):
          group
          ]
 
-        self.best_group_positions = [self._get_best_position(fitness_function, particles=group)
-                                     for group in
-                                     self.particle_groups
-                                     ]
+        self.best_group_positions = [
+            self._get_best_position(fitness_function, particles=group)
+            for group in
+            self.particle_groups
+        ]
 
         self.best_overall_position_coords = max(self.best_group_positions, key=operator.attrgetter('fitness'))
 

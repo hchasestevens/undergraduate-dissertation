@@ -48,3 +48,7 @@ def nth_argument_factory(arg_n):
 
 first_argument = nth_argument_factory(0)
 second_argument = nth_argument_factory(1)
+
+
+def scale_float(value, x_min, x_max):
+    return float(value) * (x_max - x_min) + x_min

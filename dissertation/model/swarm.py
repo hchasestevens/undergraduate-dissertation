@@ -41,12 +41,12 @@ class Particle(object):
         """Set particle configuration, using values from the literature as defaults."""
         # Values from Shi & Eberhart 1998
         self._inertia = kwargs.get('inertia', 1.2)
-        self._cognitive_comp = kwargs.get('cognitive_comp', 2)
-        self._social_comp = kwargs.get('social_comp', 2)
+        self._cognitive_comp = kwargs.get('cognitive_comp', 2.)
+        self._social_comp = kwargs.get('social_comp', 2.)
         self._respect_boundaries = kwargs.get('respect_boundaries', False)
 
         self._inertial_dampening = kwargs.get('inertial_dampening', 1.001)
-        self._velocity_dampening = kwargs.get('velocity_dampening', 1)
+        self._velocity_dampening = kwargs.get('velocity_dampening', 1.)
 
     def _inertial_dampening_schedule(self, inertia, time):
         """Return a new inertia as a function of the current inertia and time."""

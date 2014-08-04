@@ -33,7 +33,7 @@ def game_factory(comm_func):
         return sum(
             comm_func(player, partner) + comm_func(partner, player)
             for partner in group
-            if partner is player
+            if partner is not player
         )
     return game
 
@@ -41,7 +41,7 @@ def game_factory(comm_func):
 two_item_game = game_factory(
     communication_scenario_factory(
         reference_costs=(-1., -2.), 
-        ambiguous_cost=-1.25, 
+        ambiguous_reference_cost=-1.25, 
         success_points=1.
     )
 )

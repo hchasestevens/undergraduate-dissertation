@@ -1,9 +1,12 @@
 """Main file."""
 
 from swarm import Swarm
-from math import sqrt, sin, cos
 from game import two_item_game
+
 import random
+import numpy
+import itertools
+from math import sqrt, sin, cos
 
 
 def update_plot(i, swarm, plot, fitness_func):
@@ -13,16 +16,33 @@ def update_plot(i, swarm, plot, fitness_func):
     return plot,
 
 
+def generate_palette(no_groups, group_size):
+    """Create list of color assignments for particles."""
+    palette = numpy.arange(0, 100, 100. / no_groups, dtype=float)
+    colors = [
+        color 
+        for color_group in 
+        itertools.izip(*((palette,) * group_size))
+        for color in 
+        color_group
+    ]
+    return colors
+
+
 if __name__ == '__main__':
     iterations = 5000
     dimensions = 2
     group_size = 2
-    no_groups = 25
+    no_groups = 10
     save = True
 
-    graph = False
+    graph = True
 
-    swarm = Swarm(dimensions, group_size, no_groups, respect_boundaries=True, inertial_dampening=1, velocity_dampening=0.15)
+    swarm = Swarm(dimensions, group_size, no_groups, 
+                  respect_boundaries=True, 
+                  velocity_dampening=0.02, 
+                  inertial_dampening=1., 
+                  )
     fitness_func = lambda (x, y): -abs(((x * 10) ** 1.5) - (y * 10)) - (100 if x <= 0 else 0)
     fitness_func = lambda (x, y): -sqrt((0.5 - x) ** 2 + (0.5 - y) ** 2)
     fitness_func = lambda (x, y): sin(10 * x) + cos(10 * y)

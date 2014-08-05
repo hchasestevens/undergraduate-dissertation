@@ -40,7 +40,7 @@ class Particle(object):
     def _get_config(self, kwargs):
         """Set particle configuration, using values from the literature as defaults."""
         # Values from Shi & Eberhart 1998
-        self._inertia = kwargs.get('inertia', 1.2)
+        self._initial_inertia = kwargs.get('initial_inertia', 1.2)
         self._cognitive_comp = kwargs.get('cognitive_comp', 2.)
         self._social_comp = kwargs.get('social_comp', 2.)
         self._respect_boundaries = kwargs.get('respect_boundaries', False)
@@ -48,18 +48,19 @@ class Particle(object):
         self._inertial_dampening = kwargs.get('inertial_dampening', 1.001)
         self._velocity_dampening = kwargs.get('velocity_dampening', 1.)
 
-    def _inertial_dampening_schedule(self, inertia, time):
-        """Return a new inertia as a function of the current inertia and time."""
-        return inertia / self._inertial_dampening
+    @staticmethod
+    def _inertial_dampening_schedule(initial_inertia, inertial_dampening_factor, time):
+        """Return current inertia as a function of the initial inertia, inertial dampening factor, and time."""
+        return initial_inertia / (inertial_dampening_factor ** time)
 
     def update(self, best_neighbor_position):
         """Update the particle's position, velocity, and inertia."""
         cognitive_mod = rand_float()
         social_mod = rand_float()
 
-        self._inertia = self._inertial_dampening_schedule(self._inertia, self._time)
+        current_inertia = self._inertial_dampening_schedule(self._initial_inertia, self._inertial_dampening, self._time)
 
-        inertial_velocity = self._inertia * self._velocity
+        inertial_velocity = current_inertia * self._velocity
         cognitive_velocity = self._cognitive_comp * cognitive_mod * (self._best_position - self.position)
         social_velocity = self._social_comp * social_mod * (best_neighbor_position - self.position)
 

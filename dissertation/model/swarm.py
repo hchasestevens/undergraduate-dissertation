@@ -106,6 +106,8 @@ class Particle(object):
             'time': self._time
         }
 
+        return container
+
     @classmethod
     def from_dict(cls, dict_):
         """

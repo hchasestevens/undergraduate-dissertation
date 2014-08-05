@@ -84,6 +84,58 @@ class Particle(object):
                 self._best_position = self.position.copy()
         return self.Position(fitness=self._best_fitness, position=self._best_position)
 
+    def to_dict(self):
+        """
+        Convert particle at current state to a dict, suitable for JSON 
+        serialization.
+        """
+        container = {
+            'no_params': len(self.position),
+
+            'initial_inertia': self._initial_inertia,
+            'cognitive_comp': self._cognitive_comp,
+            'social_comp': self._social_comp,
+            'respect_boundaries': self._respect_boundaries,
+            'inertial_dampening': self._inertial_dampening,
+            'velocity_dampening': self._velocity_dampening,
+
+            'position': list(self.position),
+            'best_position': list(self._best_position),
+            'best_fitness': self._best_fitness,
+            'velocity': list(self._velocity),
+            'time': self._time
+        }
+
+    @classmethod
+    def from_dict(cls, dict_):
+        """
+        Create particle from dumped particle, preserving original particle
+        state.
+        """
+        no_params = dict_['no_params']
+
+        config = {
+            key: dict_[key]
+            for key in
+            ('initial_inertia', 
+             'cognitive_comp',
+             'social_comp',
+             'respect_boundaries',
+             'inertial_dampening',
+             'velocity_dampening'
+             )
+        }
+
+        particle = cls(no_params, **config)
+
+        particle.position = numpy.array(dict_['position'])
+        particle._best_position = numpy.array(dict_['best_position'])
+        particle._best_fitness = dict_['best_fitness']
+        particle._velocity = numpy.array(dict_['velocity'])
+        particle._time = numpy.array(dict_['time'])
+
+        return particle
+
 
 class Swarm(object):
     """A swarm of particles."""
@@ -194,3 +246,10 @@ class Swarm(object):
             yield self.step(fitness_function, return_groups=return_groups)
             if termination_function(self):
                 break
+
+    def to_dict(self):
+        raise NotImplementedError
+
+    @classmethod
+    def from_dict(cls, dict_):
+        raise NotImplementedError

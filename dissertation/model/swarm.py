@@ -86,7 +86,7 @@ class Particle(object):
 
     def to_dict(self):
         """
-        Convert particle at current state to a dict, suitable for JSON 
+        Convert particle at current state to a dict, suitable for JSON
         serialization.
         """
         dict_ = {
@@ -119,7 +119,7 @@ class Particle(object):
         config = {
             key: dict_[key]
             for key in
-            ('initial_inertia', 
+            ('initial_inertia',
              'cognitive_comp',
              'social_comp',
              'respect_boundaries',
@@ -250,15 +250,16 @@ class Swarm(object):
                 break
 
     def to_dict(self):
+        """Convert swarm to dict, suitable for serialization."""
         dict_ = {
             'particles': {
                 id(particle): particle.to_dict()
-                for particle in 
+                for particle in
                 self.particles
             },
             'groups': [
                 [id(particle) for particle in group]
-                for group in 
+                for group in
                 self.particle_groups
             ]
         }
@@ -267,16 +268,17 @@ class Swarm(object):
 
     @classmethod
     def from_dict(cls, dict_):
+        """Load swarm from dumped dictionary."""
         swarm = cls(0, 0, 0)
-        
+
         particles = {
             id_: Particle.from_dict(particle)
-            for id_, particle in 
+            for id_, particle in
             dict_['particles']
         }
         groups = [
             [particles[id_] for id_ in group]
-            for group in 
+            for group in
             dict_['groups']
         ]
 

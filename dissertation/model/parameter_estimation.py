@@ -1,15 +1,14 @@
 """Functions to optimize particle parameters to match data."""
 
 import itertools
-from collections import namedtuple
 
-import game
 import utils
+from game import communication_scenario_factory, game_factory
 from swarm import Swarm
 
 
-ROHDE_GAMES = map(game.game_factory, (
-    game.communication_scenario_factory(
+ROHDE_GAMES = map(game_factory, (
+    communication_scenario_factory(
         reference_costs=costs,
         ambiguous_reference_cost=-80.,
         success_points=85.,
@@ -31,6 +30,7 @@ ROHDE_GAME_RESULTS = (  # Re-read Rohde et al. and double-check these
 
 
 def get_parameters(particle_position):
+    """Get particle/swarm settings from numpy array."""
     (iterations,
      initial_inertia,
      cognitive_comp,
@@ -41,7 +41,7 @@ def get_parameters(particle_position):
     iterations = int(round(utils.scale_float(iterations, 100, 10000)))
 
     particle_settings = {
-        'initial_inertia': utils.scale_float(inertia, 0., 4.),
+        'initial_inertia': utils.scale_float(initial_inertia, 0., 4.),
         'cognitive_comp': utils.scale_float(cognitive_comp, 0., 4.),
         'social_comp': utils.scale_float(social_comp, 0., 4.),
         'inertial_dampening': utils.scale_float(inertial_dampening, 1., 1.1),
@@ -66,7 +66,6 @@ def fitness(particle_position):
     dimensions = 2
     group_size = 2
     no_groups = 100
-    respect_boundaries = True
 
     iterations, particle_settings = get_parameters(particle_position)
     particle_settings['respect_boundaries'] = True

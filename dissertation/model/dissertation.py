@@ -1,7 +1,7 @@
 """Main file."""
 
 from swarm import Swarm
-from game import two_item_game
+from game import TWO_ITEM_GAME
 
 import random
 import numpy
@@ -20,10 +20,10 @@ def generate_palette(no_groups, group_size):
     """Create list of color assignments for particles."""
     palette = numpy.arange(0, 100, 100. / no_groups, dtype=float)
     colors = [
-        color 
-        for color_group in 
+        color
+        for color_group in
         itertools.izip(*((palette,) * group_size))
-        for color in 
+        for color in
         color_group
     ]
     return colors
@@ -38,16 +38,19 @@ if __name__ == '__main__':
 
     graph = True
 
-    swarm = Swarm(dimensions, group_size, no_groups, 
-                  respect_boundaries=True, 
-                  velocity_dampening=0.02, 
-                  inertial_dampening=1., 
-                  )
+    swarm = Swarm(
+        dimensions,
+        group_size,
+        no_groups,
+        respect_boundaries=True,
+        velocity_dampening=0.02,
+        inertial_dampening=1.,
+    )
     fitness_func = lambda (x, y): -abs(((x * 10) ** 1.5) - (y * 10)) - (100 if x <= 0 else 0)
     fitness_func = lambda (x, y): -sqrt((0.5 - x) ** 2 + (0.5 - y) ** 2)
     fitness_func = lambda (x, y): sin(10 * x) + cos(10 * y)
     fitness_func = lambda (x, y): -abs((random.random() > x) - (random.random() > y))
-    fitness_func = two_item_game
+    fitness_func = TWO_ITEM_GAME
 
     if graph:
         from matplotlib import pyplot as pl
@@ -61,8 +64,9 @@ if __name__ == '__main__':
         anim = animation.FuncAnimation(fig, update_plot, frames=xrange(iterations), fargs=(swarm, plot, fitness_func))
 
         pl.show()
+
     else:
-        for i in swarm.step_until(two_item_game, max_iterations=iterations):
+        for i in swarm.step_until(fitness_func, max_iterations=iterations):
             pass
 
     final = swarm.get_best_position_coords(fitness_func)

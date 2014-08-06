@@ -2,8 +2,6 @@
 
 from itertools import izip
 
-import utils
-
 
 def communication_scenario_factory(reference_costs, ambiguous_reference_cost, success_points):
     """Create a function which will evaluate the communicative success of two agents."""
@@ -38,10 +36,10 @@ def game_factory(comm_func):
     return game
 
 
-two_item_game = game_factory(
+TWO_ITEM_GAME = game_factory(
     communication_scenario_factory(
-        reference_costs=(-1., -2.), 
-        ambiguous_reference_cost=-1.25, 
+        reference_costs=(-1., -2.),
+        ambiguous_reference_cost=-1.25,
         success_points=1.
     )
 )

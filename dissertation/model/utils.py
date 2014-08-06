@@ -51,4 +51,5 @@ second_argument = nth_argument_factory(1)
 
 
 def scale_float(value, x_min, x_max):
+    """Linearly interpolate between given range bounds based on value."""
     return float(value) * (x_max - x_min) + x_min

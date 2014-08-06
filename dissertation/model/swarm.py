@@ -89,7 +89,7 @@ class Particle(object):
         Convert particle at current state to a dict, suitable for JSON 
         serialization.
         """
-        container = {
+        dict_ = {
             'no_params': len(self.position),
 
             'initial_inertia': self._initial_inertia,
@@ -106,7 +106,7 @@ class Particle(object):
             'time': self._time
         }
 
-        return container
+        return dict_
 
     @classmethod
     def from_dict(cls, dict_):
@@ -250,8 +250,37 @@ class Swarm(object):
                 break
 
     def to_dict(self):
-        raise NotImplementedError
+        dict_ = {
+            'particles': {
+                id(particle): particle.to_dict()
+                for particle in 
+                self.particles
+            },
+            'groups': [
+                [id(particle) for particle in group]
+                for group in 
+                self.particle_groups
+            ]
+        }
+
+        return dict_
 
     @classmethod
     def from_dict(cls, dict_):
-        raise NotImplementedError
+        swarm = cls(0, 0, 0)
+        
+        particles = {
+            id_: Particle.from_dict(particle)
+            for id_, particle in 
+            dict_['particles']
+        }
+        groups = [
+            [particles[id_] for id_ in group]
+            for group in 
+            dict_['groups']
+        ]
+
+        swarm.particles = particles.values()
+        swarm.particle_groups = groups
+
+        return swarm

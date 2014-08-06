@@ -6,6 +6,7 @@ from game import TWO_ITEM_GAME
 import random
 import numpy
 import itertools
+import json
 from math import sqrt, sin, cos
 
 
@@ -36,7 +37,7 @@ if __name__ == '__main__':
     no_groups = 10
     save = True
 
-    graph = True
+    graph = False
 
     swarm = Swarm(
         dimensions,
@@ -66,8 +67,10 @@ if __name__ == '__main__':
         pl.show()
 
     else:
-        for i in swarm.step_until(fitness_func, max_iterations=iterations):
-            pass
+        for i, __ in enumerate(swarm.step_until(fitness_func, max_iterations=iterations)):
+            if not i % 10:
+                with open('swarm_state.json', 'w') as f:
+                    json.dump(swarm.to_dict(), f)
 
     final = swarm.get_best_position_coords(fitness_func)
     #print final, fitness_func(final)

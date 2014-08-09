@@ -1,3 +1,6 @@
+"""Contains numerical functions written in Cython."""
+
+
 def comm_success(
 	int cost,
 	int ambiguous_reference_cost,

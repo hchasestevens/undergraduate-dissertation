@@ -1,7 +1,7 @@
 """Main file."""
 
 from swarm import Swarm
-from game import TWO_ITEM_GAME
+from game import two_item_game
 
 import random
 import numpy
@@ -31,13 +31,13 @@ def generate_palette(no_groups, group_size):
 
 
 if __name__ == '__main__':
-    iterations = 5000
+    iterations = 2500
     dimensions = 2
     group_size = 2
-    no_groups = 10
+    no_groups = 150
     save = True
 
-    graph = False
+    graph = True
 
     swarm = Swarm(
         dimensions,
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     fitness_func = lambda (x, y): -sqrt((0.5 - x) ** 2 + (0.5 - y) ** 2)
     fitness_func = lambda (x, y): sin(10 * x) + cos(10 * y)
     fitness_func = lambda (x, y): -abs((random.random() > x) - (random.random() > y))
-    fitness_func = TWO_ITEM_GAME
+    fitness_func = two_item_game
 
     if graph:
         from matplotlib import pyplot as pl

@@ -1,6 +1,9 @@
 """Functions for creating communication games/fitness functions."""
 
+import pyximport; pyximport.install()
 from itertools import izip
+
+from cython_funcs import comm_success
 
 
 def communication_scenario_factory(reference_costs, ambiguous_reference_cost, success_points):
@@ -12,9 +15,14 @@ def communication_scenario_factory(reference_costs, ambiguous_reference_cost, su
         """
         partner_sum = float(sum(partner))
         return sum(
-            (ambiguous_reference_cost * player_ambiguity_probability) +  # Times using ambiguous term
-            (success_points * player_ambiguity_probability * (partner_ambiguity_probability / partner_sum)) +  # Times ambiguous term is understood
-            ((cost + success_points) * (1 - player_ambiguity_probability))  # Times using unambiguous term (always understood)
+            comm_success(
+                cost, 
+                ambiguous_reference_cost, 
+                success_points, 
+                partner_ambiguity_probability, 
+                partner_ambiguity_probability, 
+                partner_sum
+            )
             for cost, player_ambiguity_probability, partner_ambiguity_probability in
             izip(reference_costs, player, partner)
         )
@@ -36,7 +44,7 @@ def game_factory(comm_func):
     return game
 
 
-TWO_ITEM_GAME = game_factory(
+two_item_game = game_factory(
     communication_scenario_factory(
         reference_costs=(-1., -2.),
         ambiguous_reference_cost=-1.25,

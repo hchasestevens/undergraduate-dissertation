@@ -19,20 +19,20 @@ class Particle(object):
 
     Position = collections.namedtuple('Position', 'fitness position')
 
-    def __init__(self, no_params, **kwargs):
+    def __init__(self, position, **kwargs):
         self._get_config(kwargs)
 
         if self._respect_boundaries:
             self.MAX_POSITION = 1
             self.MIN_POSITION = 0
 
-        self.position = numpy.array([rand_float() for param in xrange(no_params)])
+        self.position = position
         self._best_position = self.position.copy()
         self._best_fitness = float('-inf')
         self._velocity = numpy.array([
             rand_uniform(-self.MAX_VELOCITY, self.MAX_VELOCITY)
             for param in
-            xrange(no_params)
+            xrange(len(self.position))
         ])
 
         self._time = 0
@@ -90,7 +90,7 @@ class Particle(object):
         serialization.
         """
         dict_ = {
-            'no_params': len(self.position),
+            'position': list(self.position),
 
             'initial_inertia': self._initial_inertia,
             'cognitive_comp': self._cognitive_comp,
@@ -99,7 +99,6 @@ class Particle(object):
             'inertial_dampening': self._inertial_dampening,
             'velocity_dampening': self._velocity_dampening,
 
-            'position': list(self.position),
             'best_position': list(self._best_position),
             'best_fitness': self._best_fitness,
             'velocity': list(self._velocity),
@@ -114,7 +113,7 @@ class Particle(object):
         Create particle from dumped particle, preserving original particle
         state.
         """
-        no_params = dict_['no_params']
+        position = dict_['position']
 
         config = {
             key: dict_[key]
@@ -128,9 +127,8 @@ class Particle(object):
              )
         }
 
-        particle = cls(no_params, **config)
+        particle = cls(position, **config)
 
-        particle.position = numpy.array(dict_['position'])
         particle._best_position = numpy.array(dict_['best_position'])
         particle._best_fitness = dict_['best_fitness']
         particle._velocity = numpy.array(dict_['velocity'])
@@ -148,12 +146,22 @@ class Swarm(object):
         particles = (particles + particles[:group_size - 1])
         return zip(*(particles[i::group_size - overlap] for i in xrange(group_size)))
 
-    def __init__(self, no_dimensions, group_size, no_groups, **kwargs):
+    def __init__(self, no_dimensions, group_size, no_groups, particle_distribution=None, **kwargs):
+        if particle_distribution is None:
+            def rand_dist():
+                while True:
+                    yield numpy.array([
+                        rand_float() 
+                        for dimensions in 
+                        xrange(no_dimensions)
+                    ])
+            particle_distribution = rand_dist
+
         self.particle_groups = frozenset(
             frozenset(
-                Particle(no_dimensions, **kwargs)
-                for group_members in
-                xrange(group_size)
+                Particle(position, **kwargs)
+                for group_members, position in
+                itertools.izip(xrange(group_size), particle_distribution())
             )
             for groups in
             xrange(no_groups)

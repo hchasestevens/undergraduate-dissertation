@@ -16,11 +16,11 @@ def communication_scenario_factory(reference_costs, ambiguous_reference_cost, su
         partner_sum = float(sum(partner))
         return sum(
             comm_success(
-                cost, 
-                ambiguous_reference_cost, 
-                success_points, 
-                partner_ambiguity_probability, 
-                partner_ambiguity_probability, 
+                cost,
+                ambiguous_reference_cost,
+                success_points,
+                partner_ambiguity_probability,
+                partner_ambiguity_probability,
                 partner_sum
             )
             for cost, player_ambiguity_probability, partner_ambiguity_probability in

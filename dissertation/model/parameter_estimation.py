@@ -2,6 +2,7 @@
 
 import itertools
 import numpy
+import random
 
 import utils
 from game import communication_scenario_factory, game_factory
@@ -86,8 +87,8 @@ def mitchell_sampling_factory(no_dimensions, no_candidates=10):
     def random_uniform():
         while True:
             yield numpy.array([
-                rand_float() 
-                for dimensions in 
+                random.random()
+                for dimensions in
                 xrange(no_dimensions)
             ])
 

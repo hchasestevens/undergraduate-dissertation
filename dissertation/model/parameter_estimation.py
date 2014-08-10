@@ -1,6 +1,7 @@
 """Functions to optimize particle parameters to match data."""
 
 import itertools
+import numpy
 
 import utils
 from game import communication_scenario_factory, game_factory
@@ -38,7 +39,7 @@ def get_parameters(particle_position):
      inertial_dampening,
      velocity_dampening) = particle_position
 
-    iterations = int(round(utils.scale_float(iterations, 100, 10000)))
+    iterations = int(round(utils.scale_float(iterations, 100, 1000)))
 
     particle_settings = {
         'initial_inertia': utils.scale_float(initial_inertia, 0., 4.),
@@ -79,3 +80,33 @@ def fitness(particle_position):
         scores.append(compare(groups, expected_results))
 
     return sum(scores) / float(len(scores))
+
+def mitchell_sampling_factory(no_dimensions, no_candidates=10):
+    """Create sample generator using Mitchell 1991 algorithm."""
+    def random_uniform():
+        while True:
+            yield numpy.array([
+                rand_float() 
+                for dimensions in 
+                xrange(no_dimensions)
+            ])
+
+    def mitchell_sampling():
+        generated = []
+        generator = random_uniform()
+        first = next(generator)
+        generated.append(first)
+        yield first
+        while True:
+            best_candidate = max(
+                (next(generator) for __ in xrange(no_candidates)),
+                key=lambda candidate: min(
+                    numpy.linalg.norm(candidate - point)
+                    for point in 
+                    generated
+                )
+            )
+            generated.append(best_candidate)
+            yield best_candidate
+    
+    return mitchell_sampling

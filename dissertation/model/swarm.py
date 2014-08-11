@@ -179,27 +179,26 @@ class Swarm(object):
 
     def get_best_position_coords(self, fitness_function, particles=None):
         """Get the coordinates of the best-found solution."""
-        return self._get_best_position(fitness_function, particles=particles).position
+        particles = self.particles if particles is None else particles
+        return self._get_best_position(fitness_function, particles).position
 
     @staticmethod
     @utils.cached
-    def _expects_group(fitness_function):
+    def expects_group(fitness_function):
         """Return whether the fitness function expects both a particle and its group."""
         fitness_args = inspect.getargspec(fitness_function).args
         num_args = len(fitness_args)
         assert num_args in (1, 2), "Fitness function must take either one or two arguments."
         return num_args == 2
 
-    def _get_best_position(self, fitness_function, particles=None):
+    @staticmethod
+    def _get_best_position(fitness_function, particles):
         """
         Update all particle best positions with the given fitness function,
         passing in the particle's group if appropriate. Return the best found
         position amongst all particles.
         """
-        particles = self.particles if particles is None else particles
-
-        if self._expects_group(fitness_function):
-            assert particles is not None, "Fitness function expects to be given a group."
+        if Swarm.expects_group(fitness_function):
             group_positions = [particle.position for particle in particles]
             fitness_function = utils.second_argument(group_positions)(fitness_function)
 

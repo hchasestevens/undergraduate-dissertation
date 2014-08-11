@@ -216,7 +216,7 @@ class Swarm(object):
         """
         if self.best_overall_position_coords is None:
             self.best_group_positions = [
-                self._get_best_position(fitness_function, particles=group)
+                self._get_best_position(fitness_function, group)
                 for group in
                 self.particle_groups
             ]
@@ -231,7 +231,7 @@ class Swarm(object):
         ]
 
         self.best_group_positions = [
-            self._get_best_position(fitness_function, particles=group)
+            self._get_best_position(fitness_function, group)
             for group in
             self.particle_groups
         ]

@@ -169,7 +169,7 @@ def fitness(particle_position):
             pass
         scores.append(experiment.difference(get_coordination_results(groups)))
 
-    return sum(scores) / float(len(scores))
+    return -1 * sum(scores) / float(len(scores))
 
 
 def mitchell_sampling_factory(no_dimensions, no_candidates=10):

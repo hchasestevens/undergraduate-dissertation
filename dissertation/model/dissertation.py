@@ -2,6 +2,7 @@
 
 from swarm import Swarm
 from game import two_item_game
+import parameter_estimation
 
 import random
 import numpy
@@ -31,27 +32,21 @@ def generate_palette(no_groups, group_size):
 
 
 if __name__ == '__main__':
-    iterations = 2500
-    dimensions = 2
-    group_size = 2
-    no_groups = 150
+    iterations = 10000
+    dimensions = 6
+    group_size = 100
+    no_groups = 1
     save = True
 
-    graph = True
+    graph = False
 
     swarm = Swarm(
         dimensions,
         group_size,
         no_groups,
-        respect_boundaries=True,
-        velocity_dampening=0.02,
-        inertial_dampening=1.,
+        particle_distribution=parameter_estimation.mitchell_sampling_factory(dimensions),
     )
-    fitness_func = lambda (x, y): -abs(((x * 10) ** 1.5) - (y * 10)) - (100 if x <= 0 else 0)
-    fitness_func = lambda (x, y): -sqrt((0.5 - x) ** 2 + (0.5 - y) ** 2)
-    fitness_func = lambda (x, y): sin(10 * x) + cos(10 * y)
-    fitness_func = lambda (x, y): -abs((random.random() > x) - (random.random() > y))
-    fitness_func = two_item_game
+    fitness_func = parameter_estimation.fitness
 
     if graph:
         from matplotlib import pyplot as pl
@@ -68,9 +63,10 @@ if __name__ == '__main__':
 
     else:
         for i, __ in enumerate(swarm.step_until(fitness_func, max_iterations=iterations)):
-            if not i % 10:
-                with open('swarm_state.json', 'w') as f:
-                    json.dump(swarm.to_dict(), f)
+            print i
+            with open('swarm_state.json', 'w') as f:
+                json.dump(swarm.to_dict(), f)
+        print 
 
     final = swarm.get_best_position_coords(fitness_func)
-    #print final, fitness_func(final)
+    print final, fitness_func(final)

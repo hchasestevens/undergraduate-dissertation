@@ -157,17 +157,13 @@ def fitness(particle_position):
     iterations, particle_settings = get_parameters(particle_position)
     particle_settings['respect_boundaries'] = True
 
-    print 'start'  # TODO: remove
     scores = []
     # run psos with these params
-    for experiment in ROHDE_EXPERIMENTS:
-        print 'start exp'  # TODO: remove
+    for experiment in ROHDE_EXPERIMENTS:  # TODO: parallelize
         swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
         for groups in swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True):
             pass
         scores.append(experiment.difference(get_coordination_results(groups)))
-        print 'end exp'  # TODO: remove
-    print 'end'  # TODO: remove
 
     return sum(scores) / float(len(scores))
 

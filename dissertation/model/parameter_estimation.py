@@ -115,7 +115,11 @@ def get_coordination_results(final_groups):
     Characterize final status of groups into Experiment.CoordinationResults
     object.
     """
-    descriptions = defaultdict(float)
+    descriptions = {
+        'none': 0.,
+        'ambiguous': 0.,
+        'unambiguous': 0.,
+    }
 
     num_groups = float(len(final_groups))
     for p1, p2 in final_groups:

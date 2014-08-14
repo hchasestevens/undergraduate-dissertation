@@ -80,7 +80,7 @@ ROHDE_EXPERIMENTS = frozenset((
             success_points=85.,
         ), 
         Experiment.CoordinationResults(
-            ambigous=0.8,
+            ambiguous=0.8,
             unambiguous=0.0,
             none=0.2,
         )
@@ -117,14 +117,16 @@ def get_coordination_results(final_groups):
     """
     descriptions = defaultdict(float)
 
-    num_groups = float(len(groups))
-    for p1, p2 in groups:
+    num_groups = float(len(final_groups))
+    for p1, p2 in final_groups:
+        p1_pos = p1.position
+        p2_pos = p2.position
         overall_success = 0.
         possible_success = 0.
-        p1_sum = sum(p1)
-        p2_sum = sum(p2)
+        p1_sum = sum(p1_pos)
+        p2_sum = sum(p2_pos)
         
-        for p1_prob, p2_prob in itertools.izip(p1, p2):
+        for p1_prob, p2_prob in itertools.izip(p1_pos, p2_pos):
             overall_success += comm_success(0, 0, 1, p1_prob, p2_prob, p2_sum)
             overall_success += comm_success(0, 0, 1, p2_prob, p1_prob, p1_sum)
             possible_success += 2.
@@ -155,13 +157,17 @@ def fitness(particle_position):
     iterations, particle_settings = get_parameters(particle_position)
     particle_settings['respect_boundaries'] = True
 
+    print 'start'  # TODO: remove
     scores = []
     # run psos with these params
     for experiment in ROHDE_EXPERIMENTS:
+        print 'start exp'  # TODO: remove
         swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
         for groups in swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True):
             pass
         scores.append(experiment.difference(get_coordination_results(groups)))
+        print 'end exp'  # TODO: remove
+    print 'end'  # TODO: remove
 
     return sum(scores) / float(len(scores))
 

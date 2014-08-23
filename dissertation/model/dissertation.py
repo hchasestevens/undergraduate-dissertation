@@ -8,6 +8,8 @@ import random
 import numpy
 import itertools
 import json
+import time
+import os
 from math import sqrt, sin, cos
 
 
@@ -32,6 +34,8 @@ def generate_palette(no_groups, group_size):
 
 
 if __name__ == '__main__':
+    output_location = r'I:\Users\Chase Stevens\Dropbox\Dissertation\swarm_state.json'
+
     iterations = 10000
     dimensions = 6
     group_size = 100
@@ -39,13 +43,19 @@ if __name__ == '__main__':
     save = True
 
     graph = False
-
-    swarm = Swarm(
-        dimensions,
-        group_size,
-        no_groups,
-        particle_distribution=parameter_estimation.mitchell_sampling_factory(dimensions),
-    )
+    
+    if os.path.exists(output_location):
+        with open(output_location, 'r') as f:
+            swarm = Swarm.from_dict(json.load(f))
+            print "Loaded swarm - resuming from iteration", swarm.particles[0]._time
+            print "(Loaded", len(swarm.particles), "particles into", len(swarm.particle_groups), "groups)"
+    else:
+        swarm = Swarm(
+            dimensions,
+            group_size,
+            no_groups,
+            particle_distribution=parameter_estimation.mitchell_sampling_factory(dimensions),
+        )
     fitness_func = parameter_estimation.fitness
 
     if graph:
@@ -62,10 +72,12 @@ if __name__ == '__main__':
         pl.show()
 
     else:
+        t = time.time()
         for i, __ in enumerate(swarm.step_until(fitness_func, max_iterations=iterations)):
-            print i
-            with open('swarm_state.json', 'w') as f:
+            with open(r'I:\Users\Chase Stevens\Dropbox\Dissertation\swarm_state.json', 'w') as f:
                 json.dump(swarm.to_dict(), f)
+            print i, time.time() - t
+            t = time.time()
         print 
 
     final = swarm.get_best_position_coords(fitness_func)

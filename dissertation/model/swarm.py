@@ -5,6 +5,7 @@ import collections
 import operator
 import itertools
 import inspect
+import uuid
 from random import random as rand_float, uniform as rand_uniform
 
 import utils
@@ -20,6 +21,8 @@ class Particle(object):
     Position = collections.namedtuple('Position', 'fitness position')
 
     def __init__(self, position, **kwargs):
+        self.id_ = str(uuid.uuid1())
+
         self._get_config(kwargs)
 
         if self._respect_boundaries:
@@ -127,7 +130,7 @@ class Particle(object):
              )
         }
 
-        particle = cls(position, **config)
+        particle = cls(numpy.array(position), **config)
 
         particle._best_position = numpy.array(dict_['best_position'])
         particle._best_fitness = dict_['best_fitness']
@@ -260,12 +263,12 @@ class Swarm(object):
         """Convert swarm to dict, suitable for serialization."""
         dict_ = {
             'particles': {
-                id(particle): particle.to_dict()
+                particle.id_: particle.to_dict()
                 for particle in
                 self.particles
             },
             'groups': [
-                [id(particle) for particle in group]
+                [particle.id_ for particle in group]
                 for group in
                 self.particle_groups
             ]
@@ -276,15 +279,15 @@ class Swarm(object):
     @classmethod
     def from_dict(cls, dict_):
         """Load swarm from dumped dictionary."""
-        swarm = cls(0, 0, 0)
+        swarm = cls(0, len(dict_['particles']), len(dict_['groups']))
 
         particles = {
-            id_: Particle.from_dict(particle)
+            unicode(id_): Particle.from_dict(particle)
             for id_, particle in
-            dict_['particles']
+            dict_['particles'].iteritems()
         }
         groups = [
-            [particles[id_] for id_ in group]
+            [particles[unicode(id_)] for id_ in group]
             for group in
             dict_['groups']
         ]

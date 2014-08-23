@@ -74,8 +74,9 @@ if __name__ == '__main__':
     else:
         t = time.time()
         for i, __ in enumerate(swarm.step_until(fitness_func, max_iterations=iterations)):
-            with open(r'I:\Users\Chase Stevens\Dropbox\Dissertation\swarm_state.json', 'w') as f:
+            with open(output_location, 'w') as f:
                 json.dump(swarm.to_dict(), f)
+            print
             print i, time.time() - t
             t = time.time()
         print 

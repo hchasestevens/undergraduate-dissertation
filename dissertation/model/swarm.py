@@ -93,7 +93,7 @@ class Particle(object):
         serialization.
         """
         dict_ = {
-            'position': list(self.position),
+            'position': self.position.tolist(),
 
             'initial_inertia': self._initial_inertia,
             'cognitive_comp': self._cognitive_comp,
@@ -102,9 +102,9 @@ class Particle(object):
             'inertial_dampening': self._inertial_dampening,
             'velocity_dampening': self._velocity_dampening,
 
-            'best_position': list(self._best_position),
+            'best_position': self._best_position.tolist(),
             'best_fitness': self._best_fitness,
-            'velocity': list(self._velocity),
+            'velocity': self._velocity.tolist(),
             'time': self._time
         }
 
@@ -135,7 +135,7 @@ class Particle(object):
         particle._best_position = numpy.array(dict_['best_position'])
         particle._best_fitness = dict_['best_fitness']
         particle._velocity = numpy.array(dict_['velocity'])
-        particle._time = numpy.array(dict_['time'])
+        particle._time = int(dict_['time'])
 
         return particle
 

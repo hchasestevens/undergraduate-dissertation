@@ -19,7 +19,7 @@ def communication_scenario_factory(reference_costs, ambiguous_reference_cost, su
                 cost,
                 ambiguous_reference_cost,
                 success_points,
-                partner_ambiguity_probability,
+                player_ambiguity_probability,
                 partner_ambiguity_probability,
                 partner_sum
             )

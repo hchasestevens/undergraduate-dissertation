@@ -113,7 +113,7 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
         (p_max, p_min) = if (not . respect_boundaries) conf 
                             then (max_position conf, min_position conf)
                             else (1.0, 0.0)
-        point' = clip p_max p_min $ velocity' |* (velocity_dampening conf) |+| current_point
+        point' = clip p_min p_max $ velocity' |* (velocity_dampening conf) |+| current_point
         fitness_func' = if all (<= p_max) point' && all (>= p_min) point'  -- Technique from Engelbrecht 2005 
                            then Just fitness_func 
                            else Nothing

@@ -3,11 +3,8 @@ import Data.List (maximumBy)
 
 
 -- Vector operators
-(*|) :: Num a => a -> [a] -> [a]
-x *| v = map (* x) v
-
 (|*) :: Num a => [a] -> a -> [a]
-(|*) = flip (*|)
+vector |* scalar = map (* scalar) vector
 
 (|-|) :: (Num a) => [a] -> [a] -> [a]
 (|-|) = zipWith (-)
@@ -106,7 +103,7 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
 		-- new velocity:
 		inertia = current_inertia particle
 
-		inertial_velocity = inertia *| (velocity particle)
+		inertial_velocity = velocity particle |* inertia
 		cognitive_velocity = (point . best_position) particle |-| current_point |* (cognitive_comp conf) |* cognitive_mod
 		social_velocity = (point best_neighbor_position) |-| current_point |* (social_comp conf) |* social_mod
 
@@ -121,7 +118,6 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
 
 
 main = do
-	print $ 2.0 *| [1..5]
 	print $ [1..5] |* 2.0
 	print $ [1..5] |+| [1..5]
 	print $ [1..5] |-| [1..5]

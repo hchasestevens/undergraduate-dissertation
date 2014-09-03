@@ -110,13 +110,17 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
 		velocity' = clip v_min v_max $ inertial_velocity |+| cognitive_velocity |+| social_velocity
 		
 		-- new position:
-		(p_max, p_min) = if (not . respect_boundaries) conf then (max_position conf, min_position conf) else (1.0, 0.0)
+		(p_max, p_min) = if (not . respect_boundaries) conf 
+							then (max_position conf, min_position conf)
+							else (1.0, 0.0)
 		point' = clip p_max p_min $ velocity' |* (velocity_dampening conf) |+| current_point
-		fitness_func' = if all (<= p_max) point' && all (>= p_min) point' then Just fitness_func else Nothing  -- Technique from Engelbrecht 2005 
+		fitness_func' = if all (<= p_max) point' && all (>= p_min) point'  -- Technique from Engelbrecht 2005 
+						   then Just fitness_func 
+						   else Nothing
 		position' = make_position point' fitness_func'
 
-		-- check for new best position:
-		best_position' = maximumBy (compare `on` fitness) [best_position particle, position']
+		-- check for new best position (n.b. order matters):
+		best_position' = maximumBy (compare `on` fitness) [position', best_position particle]
 
 
 main = do

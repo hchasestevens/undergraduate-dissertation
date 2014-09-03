@@ -7,4 +7,4 @@ The model's success will be measured in terms of its ability to emulate the fina
 
 Following the creation of an initial working prototype, additional training and test data will be captured by having participants on Amazon's Mechanical Turk service play variants of the Rohde et al. communication games. A further model will then be trained on and tested against these data.
 
-Finally, the model will be used to generate predictions for scenarios that would be infeasible or impossible to test in the lab, with the aim of shedding light on how factors such as varying group sizes, group interactions, and shifting referential cost affect coordination of ambiguous form usage.
+Finally, the model will be used to generate predictions for scenarios that would be infeasible or impossible to test in the lab, with the aim of shedding light on how factors such as varying group sizes, group interactions, addition of agents to established groups, and shifting referential cost affect coordination of ambiguous form usage.

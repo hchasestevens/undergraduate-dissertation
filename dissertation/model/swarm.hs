@@ -68,10 +68,10 @@ data Particle = Particle {
 } deriving (Show)
 
 new_particle :: Int -> ParticleConfig -> Position -> [Float] -> Particle
-new_particle id_num conf pos vel = 
+new_particle id_num cfg pos vel = 
     Particle {
         uuid=id_num, 
-        config=conf, 
+        config=cfg, 
         position=pos, 
         velocity=vel,
         best_position=pos,
@@ -79,9 +79,9 @@ new_particle id_num conf pos vel =
     }
 
 current_inertia :: Particle -> Float
-current_inertia particle = initial_inertia conf / inertial_dampening conf ^ time particle
+current_inertia particle = initial_inertia cfg / inertial_dampening cfg ^ time particle
     where
-        conf = config particle
+        cfg = config particle
 
 clip :: (Ord a) => a -> a -> [a] -> [a]
 clip min_value max_value = map ((max min_value) . (min max_value))
@@ -95,8 +95,8 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
         time=time particle + 1
     }
     where
-        conf = config particle
-        v_max = max_velocity conf
+        cfg = config particle
+        v_max = max_velocity cfg
         v_min = -v_max
         current_point = point . position $ particle
 
@@ -104,16 +104,16 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
         inertia = current_inertia particle
 
         inertial_velocity = velocity particle |* inertia
-        cognitive_velocity = (point . best_position) particle |-| current_point |* (cognitive_comp conf) |* cognitive_mod
-        social_velocity = (point best_neighbor_position) |-| current_point |* (social_comp conf) |* social_mod
+        cognitive_velocity = (point . best_position) particle |-| current_point |* (cognitive_comp cfg) |* cognitive_mod
+        social_velocity = (point best_neighbor_position) |-| current_point |* (social_comp cfg) |* social_mod
 
         velocity' = clip v_min v_max $ inertial_velocity |+| cognitive_velocity |+| social_velocity
         
         -- new position:
-        (p_max, p_min) = if (not . respect_boundaries) conf 
-                            then (max_position conf, min_position conf)
+        (p_max, p_min) = if (not . respect_boundaries) cfg 
+                            then (max_position cfg, min_position cfg)
                             else (1.0, 0.0)
-        point' = clip p_min p_max $ velocity' |* (velocity_dampening conf) |+| current_point
+        point' = clip p_min p_max $ velocity' |* (velocity_dampening cfg) |+| current_point
         fitness_func' = if all (<= p_max) point' && all (>= p_min) point'  -- Technique from Engelbrecht 2005 
                            then Just fitness_func 
                            else Nothing

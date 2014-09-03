@@ -89,9 +89,9 @@ clip min_value max_value = map ((max min_value) . (min max_value))
 update :: Position -> ([Float] -> Float) -> Particle -> Float -> Float -> Particle
 update best_neighbor_position fitness_func particle cognitive_mod social_mod =
 	particle {
-		position=new_position,
-		velocity=new_velocity,
-		best_position=new_best_position,
+		position=position',
+		velocity=velocity',
+		best_position=best_position',
 		time=time particle + 1
 	}
 	where
@@ -107,14 +107,16 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
 		cognitive_velocity = (point . best_position) particle |-| current_point |* (cognitive_comp conf) |* cognitive_mod
 		social_velocity = (point best_neighbor_position) |-| current_point |* (social_comp conf) |* social_mod
 
-		new_velocity = clip v_min v_max $ inertial_velocity |+| cognitive_velocity |+| social_velocity
+		velocity' = clip v_min v_max $ inertial_velocity |+| cognitive_velocity |+| social_velocity
 		
 		-- new position:
-		new_point = clip (max_position conf) (min_position conf) $ new_velocity |* (velocity_dampening conf) |+| current_point
-		new_position = make_position new_point $ Just fitness_func
+		(p_max, p_min) = if (not . respect_boundaries) conf then (max_position conf, min_position conf) else (1.0, 0.0)
+		point' = clip p_max p_min $ velocity' |* (velocity_dampening conf) |+| current_point
+		fitness_func' = if all (<= p_max) point' && all (>= p_min) point' then Just fitness_func else Nothing  -- Technique from Engelbrecht 2005 
+		position' = make_position point' fitness_func'
 
 		-- check for new best position:
-		new_best_position = maximumBy (compare `on` fitness) [best_position particle, new_position]
+		best_position' = maximumBy (compare `on` fitness) [best_position particle, position']
 
 
 main = do

@@ -1,5 +1,6 @@
 """Functions to optimize particle parameters to match data."""
 
+import math
 import itertools
 import numpy
 import random
@@ -27,11 +28,11 @@ class Experiment(namedtuple('Experiment', 'settings results')):
         )
 
     def difference(self, other_results):
-        return sum(
+        return math.sqrt(sum(
             abs(getattr(self.results, field) - getattr(other_results, field)) ** 2
             for field in
             self.results._fields
-        )
+        ))
 
 
 COORDINATED_COMM_THRESHOLD = 0.95
@@ -146,6 +147,7 @@ def get_coordination_results(final_groups):
 
     return Experiment.CoordinationResults(**descriptions)
 
+fit_count = 0
 
 def fitness(particle_position):
     """
@@ -153,8 +155,9 @@ def fitness(particle_position):
     resultant model to Rohde et al. experimental data. Expects 6-dimensional
     search space.
     """
+    global fit_count
     # Constants:
-    dimensions = 2
+    dimensions = 3
     group_size = 2
     no_groups = 100
 
@@ -163,12 +166,14 @@ def fitness(particle_position):
 
     scores = []
     # run psos with these params
-    for experiment in ROHDE_EXPERIMENTS:  # TODO: parallelize
+    for i, experiment in enumerate(ROHDE_EXPERIMENTS):  # TODO: parallelize
+        print ' ', fit_count, i, '\b' * 100,
         swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
         for groups in swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True):
             pass
         scores.append(experiment.difference(get_coordination_results(groups)))
-
+    fit_count += 1
+    
     return -1 * sum(scores) / float(len(scores))
 
 

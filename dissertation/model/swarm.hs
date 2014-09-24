@@ -1,6 +1,8 @@
 import Data.Function (on)
 import Data.List (maximumBy)
 
+import Util (split_by)
+
 
 -- Vector operators
 (|*) :: Num a => [a] -> a -> [a]
@@ -13,12 +15,15 @@ vector |* scalar = map (* scalar) vector
 (|+|) = zipWith (+)
 
 
+type FitnessFunction = ([Float] -> Float)
+
+
 data Position = Position {
     point :: [Float],
     fitness :: Maybe Float
 } deriving (Show)
 
-make_position :: [Float] -> Maybe ([Float] -> Float) -> Position
+make_position :: [Float] -> Maybe FitnessFunction -> Position
 make_position point (Just fitness_func) = Position {point=point, fitness=Just $ fitness_func point}
 make_position point _ = Position {point=point, fitness=Nothing}
 
@@ -86,7 +91,7 @@ current_inertia particle = initial_inertia cfg / inertial_dampening cfg ^ time p
 clip :: (Ord a) => a -> a -> [a] -> [a]
 clip min_value max_value = map ((max min_value) . (min max_value))
 
-update :: Position -> ([Float] -> Float) -> Particle -> Float -> Float -> Particle
+update :: Position -> FitnessFunction -> Particle -> Float -> Float -> Particle
 update best_neighbor_position fitness_func particle cognitive_mod social_mod =
     particle {
         position=position',
@@ -121,6 +126,31 @@ update best_neighbor_position fitness_func particle cognitive_mod social_mod =
 
         -- check for new best position (n.b. order matters):
         best_position' = maximumBy (compare `on` fitness) [position', best_position particle]
+
+
+data Swarm = Swarm {
+    particle_groups :: [[Particle]],
+    best_overall_position :: Maybe Position,
+    best_group_positions :: [Maybe Position]
+}
+
+new_swarm :: Int -> Int -> [[Float]] -> ParticleConfig -> [Float] -> Swarm
+new_swarm group_size no_groups particle_distribution particle_config randoms = 
+    Swarm {
+        particle_groups = groups,
+        best_overall_position = Nothing,
+        best_group_positions = map (const Nothing) [1..no_groups]
+    }
+    where
+        no_dimensions = length $ particle_distribution !! 0
+        velocities = split_by no_dimensions randoms
+        particles = zip3 [1..no_groups * group_size] velocities $ map (flip make_position Nothing) particle_distribution
+        groups = split_by group_size [new_particle id_ particle_config pos vel | (id_, vel, pos) <- particles]
+
+step :: Swarm -> FitnessFunction -> [Float] -> Swarm
+step swarm fitness_function randoms = undefined
+
+
 
 
 main = do

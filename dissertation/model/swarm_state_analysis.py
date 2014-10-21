@@ -37,4 +37,13 @@ print sum(particle['best_fitness'] for particle in particles) / p_num
 for i, field in enumerate(fields):
     print field, sum(p[i] for p in p_bests) / p_num
 
+print
+
+print 'current average'
+p_bests = [particle['position'] for particle in particles]
+p_num = float(len(p_bests))
+#print sum(particle['fitness'] for particle in particles) / p_num
+for i, field in enumerate(fields):
+    print field, sum(p[i] for p in p_bests) / p_num
+
 raw_input()

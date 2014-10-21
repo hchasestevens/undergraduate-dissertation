@@ -13,10 +13,13 @@ import os
 from math import sqrt, sin, cos
 
 
+
 def update_plot(i, swarm, plot, fitness_func):
     """Update the swarm and scatterplot."""
     print i, '\b' * (len(str(i)) + 2),
-    plot.set_offsets(zip([particle.position for particle in swarm.step(fitness_func)]))
+    #positions = zip([particle.position for particle in swarm.step(fitness_func)])
+    positions = zip(*[particle.position for particle in swarm.step(fitness_func)])
+    plot._offsets3d = positions
     return plot,
 
 
@@ -36,31 +39,52 @@ def generate_palette(no_groups, group_size):
 if __name__ == '__main__':
 
     iterations, particle_settings = parameter_estimation.get_parameters([
-        0.751514602212,
-        0.210075329848,
-        0.37874577661,
-        0.908434832974,
-        0.470475740784,
-        0.388060367141,
-    ])
+        0.227433595456,
+        0.164422992223,
+        0.172200786557,
+        0.724353357827,
+        0.27397204375,
+        0.601238973507,
+    ])  # best
+    #iterations, particle_settings = parameter_estimation.get_parameters([
+    #    0.538772541686,
+    #    0.186187012571,
+    #    0.360443196045,
+    #    0.283675647127,
+    #    0.400248261219,
+    #    0.680943939049,
+    #])  # best average
+    #iterations, particle_settings = parameter_estimation.get_parameters([
+    #    0.396914503137,
+    #    0.176216831764,
+    #    0.270423442168,
+    #    0.491717435815,
+    #    0.356311126033,
+    #    0.625809376338,
+    #])  # average
     dimensions = 3
     group_size = 2
     no_groups = 1000
 
-    graph = False
+    graph = True
 
     if graph:
         from matplotlib import pyplot as pl
         from matplotlib import animation
+        from mpl_toolkits.mplot3d import Axes3D
 
-        fig = pl.figure()
-        pl.axis([-0.05, 1.05,] * dimensions)
+        for i, experiment in enumerate(parameter_estimation.ROHDE_EXPERIMENTS):
+            fig = pl.figure()
+            ax = fig.add_subplot(111, projection = '3d')
+            #pl.axis([-0.05, 1.05,] * dimensions)
 
-        plot = pl.scatter(*zip(*[particle.position for particle in swarm.step(fitness_func)]), alpha=0.2)
+            swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
+            #plot = pl.scatter(*zip(*[particle.position for particle in swarm.step(experiment.game)]), alpha=0.2)
+            plot = pl.scatter(*zip(*[particle.position for particle in swarm.step(experiment.game)]))
 
-        anim = animation.FuncAnimation(fig, update_plot, frames=xrange(iterations), fargs=(swarm, plot, fitness_func))
+            anim = animation.FuncAnimation(fig, update_plot, frames=xrange(iterations), fargs=(swarm, plot, experiment.game))
 
-        pl.show()
+            pl.show()
 
     else:
         cycle = itertools.cycle('\\|/-')

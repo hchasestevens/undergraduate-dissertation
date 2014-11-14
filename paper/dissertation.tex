@@ -18,16 +18,65 @@ Particle swarm optimization (PSO) has been proposed as a means of modelling chan
 \end{abstract}
 
 
+
 \section{Introduction}
+In "Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" (2012), Rohde et al. present an iterated language game in which participants aim to indicate and object to their partner via use of one of several possible refering term. Participants gain points upon successful communication, but must spend points in order to communicate. Each referent has a corresponding unambiguous form that players may choose to send to
+their partners, alternatively, players may send an ambigous form with a different cost that could potentially indicate a number of referents. The 
+studies run by Rohde et al. demonstrated the likelihood of a pair of participants to successfully coordinate their use of an ambigous reference to be partially contingent on the relative costs of the unambigous and ambiguous references.
+
+... * Can this be modelled as a PSO task, with participants as particles in the same neighborhood?
+
+... * If so, this can be used to extrapolate, find interesting results, run infeasible experiments
+
+... * Further, PSO might be useful for modelling other linguistic phenomena
+
+... * Parameters might give (vague) indications about human cognition/social interaction
+
+... * If not, why not?
+
+... * Might other approaches (HPSO from Liu et al. "Human Behavior-Based Particle Swarm Optimization" (2014), standard PSO with explicit modelling of common ground) be more successful or appropriate?
+
+
 
 \section{Background}
+\subsection{Particle swarm optimization}
+\subsubsection{origin}
+\subsubsection{previous work}
+- Noto et al. (2013) "Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" ("Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
 
-\section{Method}
+- Cheng et al. (2008) "A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
+\subsubsection{parameters and equations}
+
+\subsection{Rohde et al. 2012}
+\subsubsection{More detailed overview of method}
+\subsubsection{More detailed overview of results}
+\subsubsection{Game-theoretic model}
+
+
+\section{Methods}
+\subsection{Modelling language game as PSO task}
+\subsubsection{Mixed-strategy search space}
+\subsubsection{Particles are agents}
+\subsubsection{Criteria for "ambiguous coordination" and "unambiguous coordination"}
+\subsubsection{Model with particles resticted to search space vs. not}
+
+\subsection{Optimizing parameters for PSO with PSO}
+\subsubsection{Evaluating error}
 
 \section{Results}
+\subsection{Results of meta-optimization (PSO parameters)}
+\subsection{Results for model with search space restriction}
+- Rates at approximately correct levels, but reacts incorrectly to cost adjustments
+\subsection{Results for model without}
+- Ratios of rates track well onto data from experiments, but rates much lower
+
 
 \section{Discussion}
 
+
+
 \section{Conclusion}
+
+
 
 \end{document}

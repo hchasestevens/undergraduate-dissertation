@@ -14,7 +14,7 @@
 \maketitle
 
 \begin{abstract}
-Particle swarm optimization (PSO) has been proposed as a means of modelling changes in human behaviour in a social context. PSO has also been shown to be an effective optimization method for non-differentiable problems with continuous search spaces, and has seen widespread use as such. In this report, the language game presented in Rohde et al.'s "Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" is modelled as a particle swarm optimization task, with the aim of creating a system which captures the results seen in Rodhe et al.'s experiments. Further to this, PSO's suitability for use in language games with dynamic fitness functions and how we might frame PSO's behaviour from game-theoretic and psycholinguistic standpoints are also discussed.
+Particle swarm optimization (PSO) has been proposed as a means of modeling changes in human behaviour in a social context. PSO has also been shown to be an effective optimization method for non-differentiable problems with continuous search spaces, and has seen widespread use as such. In this report, the language game presented in Rohde et al.'s "Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" is modeled as a particle swarm optimization task, with the aim of creating a system which captures the results seen in Rodhe et al.'s experiments. Further to this, PSO's suitability for use in language games with dynamic fitness functions and how we might frame PSO's behaviour from game-theoretic and psycholinguistic standpoints are also discussed.
 \end{abstract}
 
 
@@ -24,28 +24,22 @@ In "Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambi
 their partners, alternatively, players may send an ambiguous form with a different cost that could potentially indicate a number of referents. The 
 studies run by Rohde et al. demonstrated the likelihood of a pair of participants to successfully coordinate their use of an ambiguous reference to be partially contingent on the relative costs of the unambiguous and ambiguous references.
 
-... * Can this be modelled as a PSO task, with participants as particles in the same neighborhood?
+Particle swarm optimization, as originally introduced by Kennedy and Eberhart (1995), can serve not only as a general optimization method, but also as a means of modeling human social behaviour, especially in the context of collaborative problem solving (Kennedy 1997). Modeling the language games used in Rohde et al. as particle swarm optimization tasks, if possible, would allow a more exhaustive exploration of the effects of various form costs on reference coordination, offering a comprehensive picture of the circumstances under which ambiguous form entrainment is possible and likely. Further to this, an accurate particle-swarm-based model of human coordination in a discourse setting might shed light on more fundamental aspects of human cognition and social interaction as represented via the model's parameters. A successful model could also suggest particle swarm optimization's suitability for the modeling of other linguistic phenomena. 
 
-... * If so, this can be used to extrapolate, find interesting results, run infeasible experiments
+Conversely, if particle swarm optimization is not a viable means of modeling the results observed in Rohde et al., this could suggest a fundamental difference between human linguistic behaviours and other social behaviours as successfully modeled via PSO. A negative finding might also suggest that specialized models, such as Liu et al.'s "human behaviour-based particle swarm optimization" (2014), are required for the modeling of more complex human social interactions.
 
-... * Further, PSO might be useful for modelling other linguistic phenomena
-
-... * Parameters might give (vague) indications about human cognition/social interaction
-
-... * If not, why not?
-
-... * Might other approaches (HPSO from Liu et al. "Human Behavior-Based Particle Swarm Optimization" (2014), standard PSO with explicit modelling of common ground) be more successful or appropriate?
+To address these possibilities, this report models Rohde et al.'s experiments as a particle swarm optimization task, utilizing a mixed strategy search space to represent form production and comprehension.
 
 
 
 \section{Background}
 \subsection{Particle swarm optimization}
-\subsubsection{origin}
-\subsubsection{previous work}
+\subsubsection{Origin}
+\subsubsection{Previous work}
 - Noto et al. (2013) "Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" ("Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
 
 - Cheng et al. (2008) "A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
-\subsubsection{parameters and equations}
+\subsubsection{Parameters and equations}
 
 \subsection{Rohde et al. 2012}
 \subsubsection{More detailed overview of method}
@@ -54,7 +48,7 @@ studies run by Rohde et al. demonstrated the likelihood of a pair of participant
 
 
 \section{Methods}
-\subsection{Modelling language game as PSO task}
+\subsection{Modeling language game as PSO task}
 \subsubsection{Mixed-strategy search space}
 \subsubsection{Particles are agents}
 \subsubsection{Criteria for "ambiguous coordination" and "unambiguous coordination"}

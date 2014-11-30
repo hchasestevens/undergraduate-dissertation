@@ -1,0 +1,36 @@
+iterations, particle_settings = parameter_estimation.get_parameters([
+        0.227433595456,
+        0.164422992223,
+        0.172200786557,
+        0.724353357827,
+        0.27397204375,
+        0.601238973507,
+    ])
+
+0
+ \
+CoordinationResults(ambiguous=0.03300000000000002, unambiguous=0.005, none=0.962
+0000000000007)
+CoordinationResults(ambiguous=0.6, unambiguous=0.0, none=0.4)
+0.798347042332
+
+1
+ |
+CoordinationResults(ambiguous=0.025000000000000015, unambiguous=0.006, none=0.96
+90000000000007)
+CoordinationResults(ambiguous=0.5, unambiguous=0.1, none=0.4)
+0.747142556678
+
+2
+ /
+CoordinationResults(ambiguous=0.03300000000000002, unambiguous=0.006, none=0.961
+0000000000007)
+CoordinationResults(ambiguous=0.8, unambiguous=0.0, none=0.2)
+1.08048415074
+
+3
+ -
+CoordinationResults(ambiguous=0.023000000000000013, unambiguous=0.004, none=0.97
+30000000000008)
+CoordinationResults(ambiguous=0.5, unambiguous=0.1, none=0.4)
+0.751714041375

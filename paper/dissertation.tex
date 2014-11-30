@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+\usepackage{apacite}
 \usepackage{graphicx}
 \usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage[toc,page]{appendix}
@@ -8,27 +9,30 @@
 
 \begin{document}
 
-\title{Dissertation in Language Sciences}
+\title{``Dissertation in Language Sciences"}
 \author{s1107496}
 
 \maketitle
 
 \begin{abstract}
-Particle swarm optimization (PSO) has been proposed as a means of modeling changes in human behaviour in a social context. PSO has also been shown to be an effective optimization method for non-differentiable problems with continuous search spaces, and has seen widespread use as such. In this report, the language game presented in Rohde et al.'s "Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" is modeled as a particle swarm optimization task, with the aim of creating a system which captures the results seen in Rodhe et al.'s experiments. Further to this, PSO's suitability for use in language games with dynamic fitness functions and how we might frame PSO's behaviour from game-theoretic and psycholinguistic standpoints are also discussed.
+Particle swarm optimization (PSO) has been proposed as a means of modeling changes in human behaviour in a social context. PSO has also been shown to be an effective optimization method for non-differentiable problems with continuous search spaces, and has seen widespread use as such. In this paper, the language game presented in \citeauthor{rohde2012}'s ``Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" is modeled as a particle swarm optimization task, with the aim of creating a system which captures the results seen in \citeauthor{rohde2012}'s experiments. Two such possible systems are presented, one of which is successful in modeling these results. Further to this, PSO's suitability for use in language games with highly dynamic objective functions, how we might frame PSO's behaviour from game-theoretic and psycholinguistic standpoints, and predictions made by the successful PSO-based model are also discussed.
 \end{abstract}
 
 
 
 \section{Introduction}
-In "Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" (2012), Rohde et al. present an iterated language game in which participants aim to indicate an object to their partner via use of one of several possible referring terms. Participants gain points upon successful communication, but must spend points in order to communicate. Each referent has a corresponding unambiguous form that players may choose to send to
-their partners, alternatively, players may send an ambiguous form with a different cost that could potentially indicate a number of referents. The 
-studies run by Rohde et al. demonstrated the likelihood of a pair of participants to successfully coordinate their use of an ambiguous reference to be partially contingent on the relative costs of the unambiguous and ambiguous references.
+Modeling to gain insight to linguistics - other successful models - Elman - Frank and Goodman - Kirby - ``This paper considers how modeling..."?
 
-Particle swarm optimization, as originally introduced by Kennedy and Eberhart (1995), can serve not only as a general optimization method, but also as a means of modeling human social behaviour, especially in the context of collaborative problem solving (Kennedy 1997). Modeling the language games used in Rohde et al. as particle swarm optimization tasks, if possible, would allow a more exhaustive exploration of the effects of various form costs on reference coordination, offering a comprehensive picture of the circumstances under which ambiguous form entrainment is possible and likely. Further to this, an accurate particle-swarm-based model of human coordination in a discourse setting might shed light on more fundamental aspects of human cognition and social interaction as represented via the model's parameters. A successful model could also suggest particle swarm optimization's suitability for the modeling of other linguistic phenomena. 
+Reference - what is reference? - Speakers/comprehenders - Cost/ambiguity - how do we capture this? - analysis through game theory - Jaeger
 
-Conversely, if particle swarm optimization is not a viable means of modeling the results observed in Rohde et al., this could suggest a fundamental difference between human linguistic behaviours and other social behaviours as successfully modeled via PSO. A negative finding might also suggest that specialized models, such as Liu et al.'s "human behaviour-based particle swarm optimization" (2014), are required for the modeling of more complex human social interactions.
+In ``Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" \citeyearpar{rohde2012}, \citeauthor{rohde2012} present an iterated language game in which participants aim to indicate an object to their partner via use of one of several possible referring terms. Participants gain points upon successful communication, but must spend points in order to communicate. Each referent has a corresponding unambiguous form that players may choose to send to
+their partners, alternatively, players may send an ambiguous form with a different cost that could potentially indicate a number of referents. The studies run by \citeauthor{rohde2012} demonstrated the likelihood of a pair of participants to successfully coordinate their use of an ambiguous reference to be partially contingent on the relative costs of the unambiguous and ambiguous references.
 
-To address these possibilities, this report models Rohde et al.'s experiments as a particle swarm optimization task, utilizing a mixed strategy search space to represent form production and comprehension.
+Particle swarm optimization, as originally introduced by \citet*{kennedyeberhart1995}, can serve not only as a general optimization method, but also as a means of modeling human social behaviour, especially in the context of collaborative problem solving \citep{kennedy1997}. Modeling the language games used in \citeauthor{rohde2012} as particle swarm optimization tasks, if possible, would allow a more exhaustive exploration of the effects of various form costs on reference coordination, offering a comprehensive picture of the circumstances under which ambiguous form entrainment is possible and likely. Further to this, an accurate particle-swarm-based model of human coordination in a discourse setting might shed light on more fundamental aspects of human cognition and social interaction as represented via the model's parameters. A successful model could also suggest particle swarm optimization's suitability for the modeling of other linguistic phenomena. 
+
+Conversely, if particle swarm optimization is not a viable means of modeling the results observed in \citeauthor{rohde2012}, this could suggest a fundamental difference between human linguistic behaviours and other social behaviours as successfully modeled via PSO. A negative finding might also suggest that specialized models, such as \citeauthor{liu2014}'s ``human behaviour-based particle swarm optimization" \citeyearpar{liu2014}, are required for the modeling of more complex human social interactions.
+
+To address these possibilities, this paper models \citeauthor{rohde2012}'s experiments as a particle swarm optimization task, utilizing a mixed strategy search space to represent form production and comprehension. Two model variants are presented. In the first, particles are restricted to a unit interval search space, resulting in a model which fails to capture the effects seen in \citeauthor{rohde2012} The second model, which utilizes a technique suggested in \citealt[p. 252]{engelbrecht2005} to allow for an unrestricted search space, exhibits responses to form costs in keeping proportionally with the results found by  \citeauthor{rohde2012}
 
 
 
@@ -36,9 +40,9 @@ To address these possibilities, this report models Rohde et al.'s experiments as
 \subsection{Particle swarm optimization}
 \subsubsection{Origin}
 \subsubsection{Previous work}
-- Noto et al. (2013) "Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" ("Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
+- Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" (``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
 
-- Cheng et al. (2008) "A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
+- Cheng et al. (2008) ``A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
 \subsubsection{Parameters and equations}
 
 \subsection{Rohde et al. 2012}
@@ -71,6 +75,10 @@ To address these possibilities, this report models Rohde et al.'s experiments as
 
 \section{Conclusion}
 
+
+
+\bibliographystyle{apacite}
+\bibliography{dissertation.bib}
 
 
 \end{document}

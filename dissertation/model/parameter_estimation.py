@@ -35,7 +35,9 @@ class Experiment(namedtuple('Experiment', 'settings results')):
         ))
 
 
+#COORDINATED_COMM_THRESHOLD = 0.675
 COORDINATED_COMM_THRESHOLD = 0.95
+COORDINATED_COMM_THRESHOLD = 0.90
 
 ROHDE_EXPERIMENTS = frozenset((
     Experiment(  # Flowers

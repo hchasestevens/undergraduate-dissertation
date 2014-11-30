@@ -65,8 +65,9 @@ if __name__ == '__main__':
     dimensions = 3
     group_size = 2
     no_groups = 1000
+    particle_settings['respect_boundaries'] = True  # Actually seems to track more closely without this, just at much lower (1/10th) rates
 
-    graph = True
+    graph = False
 
     if graph:
         from matplotlib import pyplot as pl
@@ -91,7 +92,20 @@ if __name__ == '__main__':
         for i, experiment in enumerate(parameter_estimation.ROHDE_EXPERIMENTS):
             print i
             swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
-            for groups in swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True):
+            for j, groups in enumerate(swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True)):
+                if i == 0:
+                    from matplotlib import pyplot as plt
+                    from mpl_toolkits.mplot3d import Axes3D
+                    import os
+                    os.chdir(r'I:\Users\Chase Stevens\Dropbox\Dissertation\anim3')
+                    fig = plt.figure()
+                    ax = fig.add_subplot(111, projection='3d')
+ 
+                    positions = zip(*[particle.position for group in groups for particle in group])
+ 
+                    ax.scatter(*positions, c='r', marker='o', alpha=0.1)
+                    plt.savefig('{}.png'.format(str(j).zfill(5)))
+                    plt.clf()
                 print next(cycle), '\b\b\b',
             print
             res = parameter_estimation.get_coordination_results(groups)

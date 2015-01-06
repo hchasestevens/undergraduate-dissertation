@@ -24,7 +24,7 @@ Particle swarm optimization (PSO) has been proposed as a means of modeling chang
 Computational modeling is a powerful tool which has been used extensively in the field of linguistics. By building computational models of linguistic phenomena, it is possible to create simulations which explore the experimentally infeasible or impossible. Computational models can also be used to extrapolate from data collected in the lab, the results of which can be used to drive further studies in potentially fruitful directions. Further to this, computational models uniquely allow for direct inspection of their parameters and processes, which can shed light on aspects of human cognition. Of the multitudinous uses of modeling in the recent linguistics literature, notable examples include the use of iterated learning to demonstrate the spontaneous emergence of syntax from holistic languages \citep{kirby2002}, the use of incremental probabilistic Earley parsing to model garden-path sentence comprehension \citep{hale2001}, the use of Bayesian statistics to model pragmatic reference disambiguation \citep{frankgoodman2012},
 Modeling to gain insight to linguistics - other successful models - Elman - Frank and Goodman - Kirby - ``This paper considers how modeling..."?
 
-Reference - what is reference? - Speakers/comprehenders - Cost/ambiguity - how do we capture this? - analysis through game theory - Jaeger
+Reference - what is reference? Frege sense/reference (RTM) paradigm? - Speakers/comprehenders - Cost/ambiguity (balance cost with failure) - Coordination to reduce cost - how do we capture this? - analysis through game theory - Jaeger
 
 In ``Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" \citeyearpar{rohde2012}, \citeauthor{rohde2012} present an iterated language game in which participants aim to indicate an object to their partner via use of one of several possible referring terms. Participants gain points upon successful communication, but must spend points in order to communicate. Each referent has a corresponding unambiguous form that players may choose to send to
 their partners, alternatively, players may send an ambiguous form with a different cost that could potentially indicate a number of referents. The studies run by \citeauthor{rohde2012} demonstrated the likelihood of a pair of participants to successfully coordinate their use of an ambiguous reference to be partially contingent on the relative costs of the unambiguous and ambiguous references.
@@ -40,6 +40,22 @@ To address these possibilities, this paper models \citeauthor{rohde2012}'s exper
 \section{Background}
 \subsection{Particle swarm optimization}
 \subsubsection{Origin}
+Particle swarm optimization was first formulated by \cite{kennedy1995}
+%kennedy and eberhart (1995)
+in an attempt to model human social behaviour. The initial model was based off of \cite{heppner1990}'s
+%heppner and grenander (1990)'s
+work in modelling bird flocking and roosting behaviour in two-dimensional space, refined to allow for an arbitrary number of dimensions and for particles to share the same or arbitrarily close positions within said multidimensional space. \cite{kennedy1995}
+%kennedy and eberhart
+demonstrated that their new optimization method was suitable for use not only in modelling human social behaviour, but also for the general-purpose optimization of non-linear continuous problems. Specifically, particle swarm optimization was found to be successful both in optimizing the weights of an artificial neural network and in the Schaffer \begin{italics}f6\end{italics} problem, a standard benchmark for general-purpose optimization methods \cite{davis1991}.
+%(Davis 1991).
+%Davis, L., Ed. (1991). Handbook of Genetic Algorithms
+
+As noted by \cite{yang2014},
+%Yang (2014)
+particle swarm optimization's applicability to a large domain of problems paired with its straightfoward conceptual groundings and implementation have spurred on its widespread use in a number of fields, as well as the development of numerous refinements and derivatives of the original algorithm. This paper uses the inertial variant of particle swarm optimization presented by \cite{yang2014},
+%Yang (2014),
+which offers a ``noticable improvement" in speedy convergence on good solutions as compared to standard PSO. 
+
 \subsubsection{Previous work}
 - Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" (``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
 
@@ -56,7 +72,7 @@ To address these possibilities, this paper models \citeauthor{rohde2012}'s exper
 \subsection{Modeling language game as PSO task}
 \subsubsection{Mixed-strategy search space}
 \subsubsection{Particles are agents}
-\subsubsection{Criteria for "ambiguous coordination" and "unambiguous coordination"}
+\subsubsection{Criteria for ``ambiguous coordination" and ``unambiguous coordination"}
 \subsubsection{Model with particles restricted to search space vs. not}
 
 \subsection{Optimizing parameters for PSO with PSO}

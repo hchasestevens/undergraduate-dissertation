@@ -21,7 +21,7 @@ Particle swarm optimization (PSO) has been proposed as a means of modeling chang
 
 
 \section{Introduction}
-Computational modeling is a powerful tool which has been used extensively in the field of linguistics. By building computational models of linguistic phenomena, it is possible to create simulations which explore the experimentally infeasible or impossible. Computational models can also be used to extrapolate from data collected in the lab, the results of which can be used to drive further studies in potentially fruitful directions. Further to this, computational models uniquely allow for direct inspection of their parameters and processes, which can shed light on aspects of human cognition. Of the multitudinous uses of modeling in the recent linguistics literature, notable examples include the use of iterated learning to demonstrate the spontaneous emergence of syntax from holistic languages \citep{kirby2002}, the use of incremental probabilistic Earley parsing to model garden-path sentence comprehension \citep{hale2001}, the use of Bayesian statistics to model pragmatic reference disambiguation \citep{frankgoodman2012},
+Computational modeling is a powerful tool which has been used extensively in the field of linguistics. By building computational models of linguistic phenomena, it is possible to create simulations which explore the experimentally infeasible or impossible. Computational models can also be used to extrapolate from data collected in the lab, the results of which can be used to drive further studies in potentially fruitful directions. Further to this, computational models uniquely allow for direct inspection of their parameters and processes, which can shed light on aspects of human cognition. Of the multitudinous uses of modeling in the recent linguistics literature, notable examples include the use of iterated learning to demonstrate the spontaneous emergence of syntax from holistic languages \citep{kirby2002}, the use of incremental probabilistic Earley parsing to model garden-path sentence comprehension \citep{hale2001}, the use of Bayesian statistics to model pragmatic reference disambiguation \citep{frank2012},
 Modeling to gain insight to linguistics - other successful models - Elman - Frank and Goodman - Kirby - ``This paper considers how modeling..."?
 
 Reference - what is reference? Frege sense/reference (RTM) paradigm? - Speakers/comprehenders - Cost/ambiguity (balance cost with failure) - Coordination to reduce cost - how do we capture this? - analysis through game theory - Jaeger
@@ -40,23 +40,11 @@ To address these possibilities, this paper models \citeauthor{rohde2012}'s exper
 \section{Background}
 \subsection{Particle swarm optimization}
 \subsubsection{Origin and concept}
-Particle swarm optimization was first formulated by \cite{kennedy1995}
-%kennedy and eberhart (1995)
-in an attempt to model human social behaviour. The initial model was based off of \cite{heppner1990}'s
-%heppner and grenander (1990)'s
-work in modelling bird flocking and roosting behaviour in two-dimensional space, refined to allow for an arbitrary number of dimensions and for particles to share the same or arbitrarily close positions within said multidimensional space. \cite{kennedy1995}
-%kennedy and eberhart
-demonstrated that their new optimization method was suitable for use not only in modelling human social behaviour, but also for the general-purpose optimization of non-linear continuous problems. Specifically, particle swarm optimization was found to be successful both in optimizing the weights of an artificial neural network and in the Schaffer $f6$ problem, a standard benchmark for general-purpose optimization methods \cite{davis1991}.
-%(Davis 1991).
-%Davis, L., Ed. (1991). Handbook of Genetic Algorithms
+Particle swarm optimization was first formulated by \cite{kennedy1995} in an attempt to model human social behaviour. The initial model was based off of \cite{heppner1990}'s work in modeling bird flocking and roosting behaviour in two-dimensional space, refined to allow for an arbitrary number of dimensions and for particles to share the same or arbitrarily close positions within said multidimensional space. \citeauthor{kennedy1995} demonstrated that their new optimization method was suitable for use not only in modeling human social behaviour, but also for the general-purpose optimization of non-linear continuous problems. Specifically, particle swarm optimization was found to be successful both in optimizing the weights of an artificial neural network and in the Schaffer $f6$ problem, a standard benchmark for general-purpose optimization methods \citep{davis1991}.
 
 The concept behind the particle swarm optimization algorithm is relatively simple. Potential solutions to some problem with $n$ dimensions are represented as particles existing within an $n$-dimensional search space. Each particle has both a position within this space and some velocity vector. Each particle also keeps track of the best position it has been in as evaluated by the given objective function, as well as the result of the objective function as applied to said position. A particle swarm optimization task is run iteratively, until some stopping criterion is reached. Every iteration begins by updating the velocities of all particles. In doing so, a particle is acted upon by two forces: the attraction of the particle to its personal previous best known position, as governed by a ``cognitive" parameter, and its attraction to the best known position within its group, as governed by a ``social" parameter. The particle also maintains some momentum from its previous velocity. Following this, particle positions are updated in accordance with their velocities, with new positions being evaluated via the given objective function and best-known per-particle and group positions updated where appropriate. Initial particle velocities are assigned randomly; in doing so, exploration of the search space is encouraged. 
 
-As noted by \cite{yang2014},
-%Yang (2014)
-particle swarm optimization's applicability to a large domain of problems paired with its straightfoward conceptual groundings and implementation have spurred on its widespread use in a number of fields, as well as the development of numerous refinements and derivatives of the original algorithm. This paper uses the inertial variant of particle swarm optimization presented by \cite{yang2014},
-%Yang (2014),
-which offers a ``noticable improvement" in speedy convergence on good solutions as compared to standard PSO. Further to this variant, for the purposes of this paper each particle's position is updated with respect to the best-found solution within a pre-defined neighboorhood or group of particles, as opposed to the global best-found solution. When these groups do not intersect, this is simply equivalent to running a number of independent particle swarm optimization tasks equal to the number of groups.
+As noted by \citet*[p. 99]{yang2014}, particle swarm optimization's applicability to a large domain of problems paired with its straightforward conceptual groundings and implementation have spurred on its widespread use in a number of fields, as well as the development of numerous refinements and derivatives of the original algorithm. This paper uses the well-known inertial variant of particle swarm optimization, which offers a ``noticeable improvement" in speedy convergence on good solutions as compared to standard PSO \citep[p. 101]{yang2014}. Further to this variant, for the purposes of this paper each particle's position is updated with respect to the best-found solution within a predefined neighborhood or group of particles, as opposed to the global best-found solution. When these groups do not intersect, this is simply equivalent to running a number of independent particle swarm optimization tasks equal to the number of groups.
 
 
 \subsubsection{Previous work}
@@ -70,7 +58,7 @@ In the formulation of PSO employed in this paper, a given particle $i$'s velocit
 \[
 v_i^t = \theta(t) * v_i^{t-1} + \alpha \epsilon_1 + \beta \epsilon_2
 \],
-where $\theta$ is the inertial function, $\alpha$ is the ``cognitive" component parameter, $\beta$ is the ``social" component parameter, and $epsilon_1$ and $epsilon_2$ are random numbers within the range $0..1$ (inclusive).
+where $\theta$ is the inertial scheduling function, $\alpha$ is the ``cognitive" component parameter, $\beta$ is the ``social" component parameter, and $\epsilon_1$ and $\epsilon_2$ are random numbers within the range $0..1$ (inclusive).
 
 \subsection{Rohde et al. 2012}
 \subsubsection{More detailed overview of method}

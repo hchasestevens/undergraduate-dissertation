@@ -217,3 +217,11 @@ pip-log.txt
 *.sln
 *.pyperf
 *.vsps
+paper/dissertation.aux
+paper/dissertation.bbl
+paper/dissertation.bib.bib
+paper/dissertation.bib.blg
+paper/dissertation.blg
+paper/dissertation.dvi
+paper/dissertation.out
+paper/dissertation.synctex.gz

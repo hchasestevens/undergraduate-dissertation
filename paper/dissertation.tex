@@ -33,13 +33,13 @@ Particle swarm optimization, as originally introduced by \citet*{kennedy1995}, c
 
 Conversely, if particle swarm optimization is not a viable means of modeling the results observed in \citeauthor{rohde2012}, this could suggest a fundamental difference between human linguistic behaviours and other social behaviours as successfully modeled via PSO. A negative finding might also suggest that specialized models, such as \citeauthor{liu2014}'s ``human behaviour-based particle swarm optimization" \citeyearpar{liu2014}, are required for the modeling of more complex human social interactions.
 
-To address these possibilities, this paper models \citeauthor{rohde2012}'s experiments as a particle swarm optimization task, utilizing a mixed strategy search space to represent form production and comprehension. Two model variants are presented. In the first, particles are restricted to a unit interval search space, resulting in a model which fails to capture the effects seen in \citeauthor{rohde2012} The second model, which utilizes a technique suggested in \citealt[p. 252]{engelbrecht2005} to allow for an unrestricted search space, exhibits responses to form costs in keeping proportionally with the results found by  \citeauthor{rohde2012}
+To address these possibilities, this paper models \citeauthor{rohde2012}'s experiments as a particle swarm optimization task, utilizing a mixed strategy search space to represent form production and comprehension. Two model variants are presented. In the first, particles are restricted to a unit interval search space, resulting in a model which fails to capture the effects seen in \citeauthor{rohde2012} The second model, which utilizes a technique suggested in \citealt[p. 252]{engelbrecht2005} to allow for an unrestricted search space, exhibits responses to form costs in keeping proportionally with the results found by \citeauthor{rohde2012}.
 
 
 
 \section{Background}
 \subsection{Particle swarm optimization}
-\subsubsection{Origin}
+\subsubsection{Origin and concept}
 Particle swarm optimization was first formulated by \cite{kennedy1995}
 %kennedy and eberhart (1995)
 in an attempt to model human social behaviour. The initial model was based off of \cite{heppner1990}'s
@@ -63,6 +63,8 @@ which offers a ``noticable improvement" in speedy convergence on good solutions 
 - Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" (``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
 
 - Cheng et al. (2008) ``A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
+
+%should be noted that the approach used here differs from traditional application of PSO for linguistics modelling, i.e. using PSO directly to model human optimization of language game (as obj. function) vs. fine-tuning parameters
 \subsubsection{Parameters and equations}
 In the formulation of PSO employed in this paper, a given particle $i$'s velocity at time $t$ can be described as
 \[

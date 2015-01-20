@@ -64,21 +64,7 @@ In the formulation of PSO employed in this paper, a particle $i$ with position $
 \[
 v_i^t = \theta(t) v_i^{t-1} + \alpha \epsilon_1 (x_{N(i)}^* - x_i^{t-1}) + \beta \epsilon_2 (x_i^* - x_i^{t-1})
 \],
-where 
-\begin{itemize}
-\item $\theta$ is the inertial scheduling function, 
-\item $\alpha$ is the ``cognitive" component, 
-\item $\beta$ is the ``social" component, 
-\item $x_{N(i)}^*$ is the global best position known for $i$'s neighborhood or group $N(i)$, 
-\item $x_i^*$ is $i$'s personal best known position, and 
-\item $\epsilon_1$ and $\epsilon_2$ are randomly chosen values within $\left(0.0, 1.0\right]$. 
-\end{itemize}
-Although $\theta$ can take many forms including, most commonly, a constant function \citep[p.~101]{yang2014}, for the purposes of this paper $\theta$ is defined with respect to 
-\begin{itemize}
-\item $\tau$, a base inertia and 
-\item $\sigma$, an inertial dampening factor
-\end{itemize}
-such that
+where $\theta$ is the inertial scheduling function, $\alpha$ is the cognitive component, $\beta$ is the social component, $x_{N(i)}^*$ is the global best position known for $i$'s neighborhood or group $N(i)$, $x_i^*$ is $i$'s personal best known position, and $\epsilon_1$ and $\epsilon_2$ are randomly chosen values within $\left(0.0, 1.0\right]$. Although $\theta$ can take many forms including, most commonly, a constant function \citep[p.~101]{yang2014}, for the purposes of this paper $\theta$ is defined with respect to a base inertia $\tau$ and inertial dampening factor $\sigma$ such that
 \[
 \theta(t) = \frac{\tau}{\sigma^t} 
 \]

@@ -48,6 +48,8 @@ The concept behind the particle swarm optimization algorithm is relatively simpl
 
 As noted by \citet*[p.~99]{yang2014}, particle swarm optimization's applicability to a large domain of problems paired with its straightforward conceptual groundings and implementation have spurred on its widespread use in a number of fields, as well as the development of numerous refinements and derivatives of the original algorithm. This paper uses the well-known inertial variant of particle swarm optimization, which offers a ``noticeable improvement" in speedy convergence on good solutions as compared to standard PSO \citep[p.~101]{yang2014}. Further to this variant, for the purposes of this paper each particle's position is updated with respect to the best-found solution within a predefined neighborhood or group of particles, as opposed to the global best-found solution, as presented in \citet*[p.~79]{solnon2010}. When these groups do not intersect, this is simply equivalent to running a number of independent particle swarm optimization tasks equal to the number of groups.
 
+% mention velocity clamping...? Engelbrecht 109 and in others
+
 
 \subsubsection{Previous work}
 - Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" (``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
@@ -95,8 +97,11 @@ x_i^t = x_i^{t-1} + v_i^t
 \subsection{Modeling language game as PSO task}
 \subsubsection{Mixed-strategy search space}
 \subsubsection{Particles are agents}
-%mention highly dynamic objective function, and why traditional solutions to this (Engelbrecht) are not appropriate in context
-%possibly, mention that this is coevolutionary (pair responding to changes eachother make to objective function) - see if there is any research on this
+%mention highly dynamic objective function, and why traditional solutions to this (Engelbrecht p320-326) are not appropriate in context
+%possibly, mention that this is coevolutionary (pair responding to changes eachother make to objective function) - see if there is any research on this 
+% Possibly measure severity? (Engelbrecht p50) - at least mention env. - probably type 3
+% niching? 
+% coevolutionary game learning (engelbrecht 349)
 \subsubsection{Criteria for ``ambiguous coordination" and ``unambiguous coordination"}
 \subsubsection{Model with particles restricted to search space vs. not}
 

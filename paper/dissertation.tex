@@ -51,13 +51,17 @@ As noted by \citet*[p.~99]{yang2014}, particle swarm optimization's applicabilit
 
 
 \subsubsection{Previous work}
-- Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization"
+\begin{itemize}
 
-- Cheng et al. (2008) ``A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
 
-- Franken \& Engelbrecht (2005) ``Particle swarm optimization approaches to coevolve strategies for the iterated prisoner's dilemma"
+\item Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization"
 
-- should be noted that the approach used here differs from traditional application of PSO for linguistics modelling, i.e. using PSO directly to model human optimization of language game (as objective function) vs. fine-tuning parameters
+\item Cheng et al. (2008) ``A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
+
+\item Franken \& Engelbrecht (2005) ``Particle swarm optimization approaches to coevolve strategies for the iterated prisoner's dilemma"
+
+\item should be noted that the approach used here differs from traditional application of PSO for linguistics modelling, i.e. using PSO directly to model human optimization of language game (as objective function) vs. fine-tuning parameters
+\end{itemize}
 \subsubsection{Formulation and parameters}
 In the formulation of PSO employed in this paper, a particle $i$ with position $x_i$ has a velocity $v_i$ at time $t$ such that
 \[
@@ -75,23 +79,35 @@ x_i^t = x_i^{t-1} + v_i^t
 \subsection{Referential communication games}
 \subsubsection{Overview}
 \subsubsection{Game theoretic approaches}
-\subsubsection{Psycholinguistic approaches}
-\subsubsection{Rohde et al. 2012}
+\begin{itemize}
+\item Benz, Jaeger, Van Rooij (2005) - general application of evolutionary game theory to reference
 
+\item Degen (2012) - Iterated best response
+\end{itemize}
+\subsubsection{Psycholinguistic approaches}
+\begin{itemize}
+\item Golland, Liang, Klein (2010) - speaker modeling listener
+\end{itemize}
+\subsubsection{Rohde et al. 2012}
+\begin{itemize}
+\item When costs are similar, fewer pairs converge
+\end{itemize}
 
 \section{Methods}
 \subsection{Modeling language game as PSO task}
 \subsubsection{Mixed-strategy search space}
 \subsubsection{Particles are agents}
-- mention highly dynamic objective function, and why traditional solutions to this (Engelbrecht p320-326) are not appropriate in context
+\begin{itemize}
+\item mention highly dynamic objective function, and why traditional solutions to this (Engelbrecht p320-326) are not appropriate in context
 
--possibly, mention that this is coevolutionary (pair responding to changes each other make to objective function) - see if there is any research on this (e.g. franken and engelbrecht 2005)
+\item possibly, mention that this is coevolutionary (pair responding to changes each other make to objective function) - see if there is any research on this (e.g. franken and engelbrecht 2005)
 
-- Possibly measure severity? (Engelbrecht p50) - at least mention env. - probably type 3
+\item Possibly measure severity? (Engelbrecht p50) - at least mention env. - probably type 3
 
-- niching? 
+\item niching? 
 
-- coevolutionary game learning (engelbrecht 349)
+\item coevolutionary game learning (engelbrecht 349)
+\end{itemize}
 \subsubsection{Criteria for ``ambiguous coordination" and ``unambiguous coordination"}
 \subsubsection{Model with particles restricted to search space vs. not}
 
@@ -101,15 +117,22 @@ x_i^t = x_i^{t-1} + v_i^t
 \section{Results}
 \subsection{Results of meta-optimization (PSO parameters)}
 \subsection{Results for model with search space restriction}
-- Rates at approximately correct levels, but reacts incorrectly to cost adjustments
+\begin{itemize}
+\item Rates at approximately correct levels, but reacts incorrectly to cost adjustments
+\end{itemize}
 \subsection{Results for model without}
-- Ratios of rates track well onto data from experiments, but rates much lower
-
+\begin{itemize}
+\item Ratios of rates track well onto data from experiments, but rates much lower
+\end{itemize}
 
 \section{Discussion}
+\begin{itemize}
+\item Perhaps mention coevolutionary aspect and difficulties applying PSO to radically dynamic objective functions here?
 
+\item Model has response in keeping with experimental data without agents performing complex modeling (i.e. general optimization is sufficient to produce effects)
 
-
+\item Generating predictions from PSO model
+\end{itemize}
 \section{Conclusion}
 
 

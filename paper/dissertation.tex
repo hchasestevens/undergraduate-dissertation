@@ -23,10 +23,9 @@ Particle swarm optimization (PSO) has been proposed as a means of modeling chang
 
 
 \section{Introduction}
-Computational modeling is a powerful tool which has been used extensively in the field of linguistics. By building computational models of linguistic phenomena, it is possible to create simulations which explore the experimentally infeasible or impossible. Computational models can also be used to extrapolate from data collected in the lab, the results of which can be used to drive further studies in potentially fruitful directions. Further to this, computational models uniquely allow for direct inspection of their parameters and processes, which can shed light on aspects of human cognition. Of the multitudinous uses of modeling in the recent linguistics literature, notable examples include the use of iterated learning to demonstrate the spontaneous emergence of syntax from holistic languages \citep{kirby2002}, the use of incremental probabilistic Earley parsing to model garden-path sentence comprehension \citep{hale2001}, the use of Bayesian statistics to model pragmatic reference disambiguation \citep{frank2012},
-Modeling to gain insight to linguistics - other successful models - Elman - Frank and Goodman - Kirby - ``This paper considers how modeling..."?
+Computational modeling is a powerful tool which has been used extensively in the field of linguistics. By building computational models of linguistic phenomena, it is possible to create simulations which explore the experimentally infeasible or impossible. Computational models can also be used to extrapolate from data collected in the lab, the results of which can be used to drive further studies in potentially fruitful directions. Further to this, computational models uniquely allow for direct inspection of their parameters and processes, which can shed light on aspects of human cognition. Of the multitudinous uses of modeling in the recent linguistics literature, notable examples include the use of iterated learning to demonstrate the spontaneous emergence of syntax from holistic languages \citep{kirby2002}, the use of incremental probabilistic Earley parsing to model garden-path sentence comprehension \citep{hale2001}, and the use of Bayesian statistics to model referential inference \citep{frank2012}. This paper extends this growing body of work by considering how modeling may be applied to the problem of referential coordination in a discourse context.
 
-Reference - what is reference? Frege sense/reference (RTM) paradigm? - Speakers/comprehenders - Cost/ambiguity (balance cost with failure) - Coordination to reduce cost - how do we capture this? - analysis through game theory - Jaeger
+When using references, interlocutors must weigh the costs they incur when producing the reference, both in terms of construction and articulation, against the ease with which their conversational partners will be able to infer the intended referent. When speakers employ references that do not uniquely select a referent within the context of the discourse, they further risk their conversational partner failing to infer the correct referent from those possible. While communicating, interlocutors therefore jointly seek to minimize their expended effort while not violating the constraint imposed by their partner's ability to disambiguate the references used \citep[p.~65-66]{benz2005}. Because of this, the referential strategy a speaker opts to adopt must be sensitive to the relative costs of producing each reference as well as the evolving state of mappings between referential form and intended referent, as coordinated with their interlocutors. 
 
 In ``Communicating with Cost-based Implicature: a Game-Theoretic Approach to Ambiguity" \citeyearpar{rohde2012}, \citeauthor{rohde2012} present an iterated language game in which participants aim to indicate an object to their partner via use of one of several possible referring terms. Participants gain points upon successful communication, but must spend points in order to communicate. Each referent has a corresponding unambiguous form that players may choose to send to
 their partners, alternatively, players may send an ambiguous form with a different cost that could potentially indicate a number of referents. The studies run by \citeauthor{rohde2012} demonstrated the likelihood of a pair of participants to successfully coordinate their use of an ambiguous reference to be partially contingent on the relative costs of the unambiguous and ambiguous references.
@@ -41,7 +40,7 @@ To address these possibilities, this paper models \citeauthor{rohde2012}'s exper
 
 \section{Background}
 \subsection{Particle swarm optimization}
-\subsubsection{Origin and concept}
+\subsubsection{Overview}
 Particle swarm optimization was first formulated by \cite{kennedy1995} in an attempt to model human social behaviour. The initial model was based off of \cite{heppner1990}'s work in modeling bird flocking and roosting behaviour in two-dimensional space, refined to allow for an arbitrary number of dimensions and for particles to share the same or arbitrarily close positions within said multidimensional space. \citeauthor{kennedy1995} demonstrated that their new optimization method was suitable for use not only in modeling human social behaviour, but also for the general-purpose optimization of non-linear continuous problems. Specifically, particle swarm optimization was found to be successful both in optimizing the weights of an artificial neural network and in the Schaffer $f6$ problem, a standard benchmark for general-purpose optimization methods \citep{davis1991}.
 
 The concept behind the particle swarm optimization algorithm is relatively simple. Potential solutions to some problem with $n$ dimensions are represented as particles existing within an $n$-dimensional search space. Each particle has both a position within this space and some velocity vector. Each particle also keeps track of the best position it has been in as evaluated by the given objective function, which is known as its ``personal" best position; a ``global" best position representing the best position found by all particles across a swarm or group is also maintained \citep{chong2013}. A particle swarm optimization task is run iteratively, until some stopping criterion is reached \citep[p.~80]{solnon2010}. Every iteration begins by updating the velocities of all particles. In doing so, a particle is acted upon by two forces: the attraction of the particle to its personal previous best known position, as governed by a ``cognitive" parameter, and its attraction to the best known position within its group, as governed by a ``social" parameter \citep{chong2013}. The particle also maintains some momentum from its previous velocity. Following this, particle positions are updated in accordance with their velocities, with new positions being evaluated via the given objective function and best-known personal and global positions updated where appropriate. Initial particle velocities are assigned randomly; in doing so, exploration of the search space is encouraged, reducing the likelihood of the swarm as a whole becoming caught in a local extremum or local extrema of the objective function \citetwo{yang2014}{32}{solnon2010}{78, 81}. 
@@ -52,14 +51,14 @@ As noted by \citet*[p.~99]{yang2014}, particle swarm optimization's applicabilit
 
 
 \subsubsection{Previous work}
-- Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization" (``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization")
+- Noto et al. (2013) ``Agent-based Social Simulation Model for Analyzing Human Behaviors using Particle Swarm Optimization"
 
 - Cheng et al. (2008) ``A modified Particle Swarm Optimization-based human behavior modeling for emergency evacuation simulation system"
 
 - Franken \& Engelbrecht (2005) ``Particle swarm optimization approaches to coevolve strategies for the iterated prisoner's dilemma"
 
-%should be noted that the approach used here differs from traditional application of PSO for linguistics modelling, i.e. using PSO directly to model human optimization of language game (as obj. function) vs. fine-tuning parameters
-\subsubsection{Parameters and equations}
+- should be noted that the approach used here differs from traditional application of PSO for linguistics modelling, i.e. using PSO directly to model human optimization of language game (as objective function) vs. fine-tuning parameters
+\subsubsection{Formulation and parameters}
 In the formulation of PSO employed in this paper, a particle $i$ with position $x_i$ has a velocity $v_i$ at time $t$ such that
 \[
 v_i^t = \theta(t) v_i^{t-1} + \alpha \epsilon_1 (x_{N(i)}^* - x_i^{t-1}) + \beta \epsilon_2 (x_i^* - x_i^{t-1})
@@ -73,21 +72,26 @@ Finally, the position $x$ of $i$ at time $t$ is defined as
 x_i^t = x_i^{t-1} + v_i^t 
 \]
 
-\subsection{Rohde et al. 2012}
-\subsubsection{More detailed overview of method}
-\subsubsection{More detailed overview of results}
-\subsubsection{Game-theoretic model}
+\subsection{Referential communication games}
+\subsubsection{Overview}
+\subsubsection{Game theoretic approaches}
+\subsubsection{Psycholinguistic approaches}
+\subsubsection{Rohde et al. 2012}
 
 
 \section{Methods}
 \subsection{Modeling language game as PSO task}
 \subsubsection{Mixed-strategy search space}
 \subsubsection{Particles are agents}
-%mention highly dynamic objective function, and why traditional solutions to this (Engelbrecht p320-326) are not appropriate in context
-%possibly, mention that this is coevolutionary (pair responding to changes eachother make to objective function) - see if there is any research on this 
-% Possibly measure severity? (Engelbrecht p50) - at least mention env. - probably type 3
-% niching? 
-% coevolutionary game learning (engelbrecht 349)
+- mention highly dynamic objective function, and why traditional solutions to this (Engelbrecht p320-326) are not appropriate in context
+
+-possibly, mention that this is coevolutionary (pair responding to changes each other make to objective function) - see if there is any research on this (e.g. franken and engelbrecht 2005)
+
+- Possibly measure severity? (Engelbrecht p50) - at least mention env. - probably type 3
+
+- niching? 
+
+- coevolutionary game learning (engelbrecht 349)
 \subsubsection{Criteria for ``ambiguous coordination" and ``unambiguous coordination"}
 \subsubsection{Model with particles restricted to search space vs. not}
 

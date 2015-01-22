@@ -225,3 +225,4 @@ paper/dissertation.blg
 paper/dissertation.dvi
 paper/dissertation.out
 paper/dissertation.synctex.gz
+*.toc

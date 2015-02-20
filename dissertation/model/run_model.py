@@ -89,30 +89,41 @@ if __name__ == '__main__':
 
     else:
         cycle = itertools.cycle('\\|/-')
+        all_experiments = {}
         for i, experiment in enumerate(parameter_estimation.ROHDE_EXPERIMENTS):
             print i
             swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
-            for j, groups in enumerate(swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True)):
-                if i == 0:
-                    from matplotlib import pyplot as plt
-                    from mpl_toolkits.mplot3d import Axes3D
-                    import os
-                    os.chdir(r'I:\Users\Chase Stevens\Dropbox\Dissertation\anim3')
-                    fig = plt.figure()
-                    ax = fig.add_subplot(111, projection='3d')
+            simulation_results = []
+            for __ in xrange(2):  # change to 100
+                for j, groups in enumerate(swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True)):
+                    pass
+                    #if i == 0:
+                        #pass
+                        #from matplotlib import pyplot as plt
+                        #from mpl_toolkits.mplot3d import Axes3D
+                        #import os
+                        #os.chdir(r'I:\Users\Chase Stevens\Dropbox\Dissertation\anim3')
+                        #fig = plt.figure()
+                        #ax = fig.add_subplot(111, projection='3d')
  
-                    positions = zip(*[particle.position for group in groups for particle in group])
+                        #positions = zip(*[particle.position for group in groups for particle in group])
  
-                    ax.scatter(*positions, c='r', marker='o', alpha=0.1)
-                    plt.savefig('{}.png'.format(str(j).zfill(5)))
-                    plt.clf()
-                print next(cycle), '\b\b\b',
-            print
-            res = parameter_estimation.get_coordination_results(groups)
-            print res
-            print experiment.results
-            print experiment.difference(res)
-            print
-
+                        #ax.scatter(*positions, c='r', marker='o', alpha=0.1)
+                        #plt.savefig('{}.png'.format(str(j).zfill(5)))
+                        #plt.clf()
+                    print next(cycle), '\b\b\b',
+                res = parameter_estimation.get_coordination_results(groups)
+                simulation_results.append(res._asdict())
+                print j
+            experiment_profile = {'expected': experiment.results._asdict(), 'settings': experiment.settings._asdict()}
+            all_experiments[i] = {'experiment': experiment_profile, 'simulation': simulation_results}
+            #print
+            #print res
+            #print experiment.results
+            #print experiment.difference(res)
+            #print
+        import json
+        with open(('repair' if particle_settings['respect_boundaries'] else 'replace') + '.json', 'w') as f:
+            json.dump(all_experiments, f)
     #final = swarm.get_best_position_coords(fitness_func)
     #print final, fitness_func(final)

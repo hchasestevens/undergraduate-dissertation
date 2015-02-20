@@ -64,8 +64,10 @@ if __name__ == '__main__':
     #])  # average
     dimensions = 3
     group_size = 2
-    no_groups = 1000
-    particle_settings['respect_boundaries'] = True  # Actually seems to track more closely without this, just at much lower (1/10th) rates
+    #no_groups = 1000
+    no_groups = 10  # Just like in experiment
+    particle_settings = {}  # For std. params
+    particle_settings['respect_boundaries'] = False  # Actually seems to track more closely without this, just at much lower (1/10th) rates
 
     graph = False
 
@@ -91,10 +93,12 @@ if __name__ == '__main__':
         cycle = itertools.cycle('\\|/-')
         all_experiments = {}
         for i, experiment in enumerate(parameter_estimation.ROHDE_EXPERIMENTS):
-            print i
+            #print ('repair' if particle_settings['respect_boundaries'] else 'reject'), i
+            print 'standard', i
             swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
             simulation_results = []
-            for __ in xrange(25):  
+            for __ in xrange(250):  # 250 sims of...
+                swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
                 for j, groups in enumerate(swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True)):
                     pass
                     #if i == 0:
@@ -114,7 +118,8 @@ if __name__ == '__main__':
                     print next(cycle), '\b\b\b',
                 res = parameter_estimation.get_coordination_results(groups)
                 simulation_results.append(res._asdict())
-                print j
+                #print __, ('repair' if particle_settings['respect_boundaries'] else 'reject')
+                print __, 'standard'
             experiment_profile = {'expected': experiment.results._asdict(), 'settings': experiment.settings._asdict()}
             all_experiments[i] = {'experiment': experiment_profile, 'simulation': simulation_results}
             #print
@@ -123,7 +128,8 @@ if __name__ == '__main__':
             #print experiment.difference(res)
             #print
         import json
-        with open(('repair' if particle_settings['respect_boundaries'] else 'replace') + '.json', 'w') as f:
+        #with open(('repair' if particle_settings['respect_boundaries'] else 'reject') + '.json', 'w') as f:
+        with open('standard' + '.json', 'w') as f:
             json.dump(all_experiments, f)
     #final = swarm.get_best_position_coords(fitness_func)
     #print final, fitness_func(final)

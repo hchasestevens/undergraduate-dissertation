@@ -94,7 +94,7 @@ if __name__ == '__main__':
             print i
             swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
             simulation_results = []
-            for __ in xrange(2):  # change to 100
+            for __ in xrange(25):  
                 for j, groups in enumerate(swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True)):
                     pass
                     #if i == 0:

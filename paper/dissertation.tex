@@ -9,7 +9,8 @@
 \usepackage[round]{natbib}
 \usepackage{fancyhdr}
 \usepackage{setspace}
-\usepackage[justification=centering]{caption}
+\usepackage{pgf}
+%\usepackage[justification=centering]{caption}
 \pagestyle{fancy}
 
 \newcommand{\citetwo}[4]{(\citeauthor{#1}, \citeyear{#1}, p.~#2; \citeauthor{#3}, \citeyear{#3}, p.~#4)}
@@ -140,18 +141,18 @@ Particle swarm optimization has likewise been applied to game learning, often us
 
 \subsubsection{Formulation and parameters}
 In the formulation of PSO employed in this paper, a particle $i$ with position $x_i$ has a velocity $v_i$ at time $t$ such that
-\[
+\begin{equation}
 v_i^t = \theta(t) \cdot v_i^{t-1} + \alpha \cdot \epsilon_1 \cdot (x_{N(i)}^* - x_i^{t-1}) + \beta \cdot \epsilon_2 \cdot (x_i^* - x_i^{t-1})
-\],
+\end{equation},
 \marginpar{\textit{Is it appropriate to use bullet points here when enumerating parameters?}}
 where $\theta$ is the inertial scheduling function, $\alpha$ is the cognitive component, $\beta$ is the social component, $x_{N(i)}^*$ is the global best position known for $i$'s neighborhood or group $N(i)$, $x_i^*$ is $i$'s personal best known position, and $\epsilon_1$ and $\epsilon_2$ are randomly chosen values within $\left(0.0, 1.0\right]$. Although $\theta$ can take many forms including, most commonly, a constant function \citep[p.~101]{yang2014}, for the purposes of this paper $\theta$ is defined with respect to a base inertia $\tau$ and inertial dampening factor $\sigma$ such that
-\[
+\begin{equation}
 \theta(t) = \frac{\tau}{\sigma^t} 
-\]
+\end{equation}
 Finally, the position $x$ of $i$ at time $t$ is defined as
-\[
+\begin{equation}
 x_i^t = x_i^{t-1} + v_i^t 
-\]
+\end{equation}
 
 \section{Methods}
 
@@ -179,25 +180,25 @@ In the first model, particles which moved outside the desired search space immed
 
  
 \subsubsection{Objective function}
-In applying particle swarm optimization to the \citeauthor{rohde2012} language game, an appropriate representation of the game's goals must be formulated as an objective function. In the game as presented, the expected number of points awarded to participant $i$ with partner $j$ when asked to communicate referent $r$ can be calculated as follows:
+In applying particle swarm optimization to the \citeauthor{rohde2012} language game, an appropriate representation of the game's goals must be formulated as an objective function. In the game as presented, the expected number of points awarded to participant $i$ given their partner $j$ when asked to communicate referent $r$ can be calculated as follows:
 
 \marginpar{\textit{Is it clear here that these probabilities are reflective of a particle's position, or does that need to be re-stated?}}
-
-\[
-EP_{i}(r|j) = -cost_A \cdot P_i(A|r) \,+\,S \cdot P_i(A|r) \cdot P_j(r|A) \,+\,(S - cost_r) (1 - P_i(A|r))
-\],
+\begin{equation}
+EP_{i}(r|j) = P_i(A|r)(S \cdot P_j(r|A) - cost_A) \,+\, (1 - P_i(A|r))(S - cost_r) 
+\end{equation},
 where $cost_A$ is the cost of production of the ambiguous form, $S$ is the number of points awarded on successful communication (set at 80 and 85 in \citeauthor{rohde2012}, respectively), and $cost_r$ is the cost of production of the unambiguous form for $r$.
 
 Each round, the actual number of points awarded to participants is dependent on samples from $P_i$ and $P_j$, as well as the randomly-chosen $r$. As such, without the strategies of $i$ or $j$ changing, there are for any given round a number of possible scores $i$ might attain. Relying on the game unmodified as the objective function for a particle swarm optimization task would therefore be imprudent, as an inconsistent objective function would be much harder to optimize. Instead, the objective function $f$ used for both models was chosen as 
 \marginpar{\textit{Is the ``given" notation appropriate here, or is there a better way to express this?}}
-\[
+\begin{equation}
 f(i) = \sum_{r \in R} EP_{i}(r|j) + EP_{j}(r|i)
-\]
+\end{equation}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{objective_function_cropped.png}
-\caption{$f(i)$ with respect to partner $j$ (marked) in a two-referent language game, with $cost_A=80$, $cost_{r_1}=60$, $cost_{r_2}=120$, and $S=85$.}
+%\input{objective_function.pgf}
+\caption{$f(i)$ with respect to partner $j$ (marked as ``X") in a two-referent language game, with $cost_A=80$, $cost_{r_1}=60$, $cost_{r_2}=120$, and $S=85$. Note that in the scenario presented on the left, with $x_j = (0.1, 0.9)$, $f$'s global optimum is located in the bottom-left region of the search space, whereas in the scenario presented on the right, where $x_j = (0.9, 0.1)$, the global optimum is located at the bottom-right.}
 \label{fig:1}
 \end{figure}
 

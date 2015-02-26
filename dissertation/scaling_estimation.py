@@ -11,10 +11,10 @@ def mean_square_error(xs, ys):
     return sum(square_errors) / float(len(xs))
 
 
-def hill_climbing(func, iterations=10000):
+def hill_climbing(func, iterations=20000):
     current = random.random()
     cur_error = func(current)
-    print cur_error
+    #print cur_error
     for __ in xrange(iterations):
         change = random.random() / 20.
         if random.choice((True, False)):
@@ -23,7 +23,7 @@ def hill_climbing(func, iterations=10000):
         new_error = func(new)
         if new_error < cur_error:
             current, cur_error = new, new_error
-            print '%.5f' % cur_error
+            #print '%.5f' % cur_error
     return current
 
 
@@ -34,12 +34,20 @@ def make_task(experimental, model):
 
 
 if __name__ == '__main__':
-    experimental = [2, 4, 6, 8]
-    model = [1, 2, 3, 4]
-    task = make_task(experimental, model)
-    scale = hill_climbing(task)
-    print
-    print scale
-    print 'Model: ', ['%.3f' % i for i in model]
-    print 'ScExp: ', ['%.3f' % (scale * i) for i in experimental]
+    experimental = [0.6, 0.5, 0.8, 0.5]
+    models = {
+        'Rejection': [0.032, 0.0268, 0.0316, 0.026],
+        'Repair': [0.3352, 0.2388, 0.3184, 0.2184],
+        'Baseline': [0.0564, 0.0448, 0.0624, 0.0524]
+    }
+    for model_name, model in models.iteritems():
+        task = make_task(experimental, model)
+        scale = hill_climbing(task)
+        print
+        print model_name
+        print 'Scale: ', 1. / scale
+        print 'Error: ', '%.6f' % task(scale)
+        print 'Model: ', ['%.3f' % i for i in model]
+        print 'Exper: ', ['%.3f' % i for i in experimental]
+        print 'ScMod: ', ['%.3f' % ((1. / scale) * i) for i in model]
 

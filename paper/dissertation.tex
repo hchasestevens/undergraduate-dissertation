@@ -204,7 +204,7 @@ The parameter optimization task sought to minimize the discrepancy in rates of a
 \subsection{Meta-optimization task (PSO parameters)}
 \begin{center}
     \begin{tabular}{ l l l r }
-    Parameter & Optimized & Standard & $\% \Delta$ \\ \hline
+    Parameter & Optimized & Standard\footnotemark[1] & $\% \Delta$ \\ \hline
     Cognitive component       & $0.689$ & $2.0$   & $-65.55\%$ \\ \hline
     Social component          & $2.897$ & $2.0$   & $+44.86\%$ \\ \hline
     Inertial dampening factor & $1.027$ & $1.001$ & $+2.58\%$\\ \hline
@@ -213,6 +213,7 @@ The parameter optimization task sought to minimize the discrepancy in rates of a
     Iterations                & $305$   & N/A     & N/A\\ 
     \end{tabular}
 \end{center}
+\footnotetext[1]{These constitute standard PSO parameters for general problems, as recommended in \cite{shi1998} and \cite{solnon2010}.}
 
 \subsection{Comparison of models to experimental data}
 Results for both the rejection and repair models are compared against a baseline model, which makes use of the standard parameters used in the meta-optimization task. For each model, 250 simulations of 10 pairs were performed. Costs from each experiment as taken from the \citeauthor{rohde2012} studies are presented below.

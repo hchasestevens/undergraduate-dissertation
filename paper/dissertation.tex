@@ -133,7 +133,7 @@ As noted by \citet*[p.~99]{yang2014}, PSO is applicable to a large domain of pro
 
 While PSO has been applied to a number of problems within the fields of linguistics and psychology, its primary use has been as a means of optimizing parameters for other models, as opposed to direct application as a model in and of itself (e.g. \citeauthor{chatterjee2005} \citeyear{chatterjee2005}; \citeauthor{mehdad2009} \citeyear{mehdad2009}). Notable exceptions to this trend include the use of PSO to perform unsupervised phoneme clustering \citep{ahmadi2007} and the modeling of human emergency evacuation behaviours via PSO \citep{cheng2008}.
 
-PSO has likewise been applied to game learning, often using a coevolutionary paradigm in which agents play against one another in order to evaluate their fitness. However, traditionally this method has involved PSO over a search space of neural network weights, where the neural networks are used to choose actions given a game state, or in cases where the ``game" is a classical constraint optimization problem, such as the $n$-queens problem \citep[p.~349-351]{engelbrecht2005}. By contrast, in the new approach presented in this paper, the positions of particles themselves define a mixed strategy (see \autoref{sec:search_space}).  
+PSO has likewise been applied to game learning, often using a coevolutionary paradigm in which agents play against one another in order to evaluate their fitness. However, traditionally this method has involved PSO over a search space of neural network weights, where the neural networks are used to choose actions given a game state, or in cases where the ``game" is a classical constraint optimization problem, such as the $n$-queens problem \citep[p.~349-351]{engelbrecht2005}. By contrast, in the new approach presented in this paper, the positions of particles themselves comprise agents' internal states, which directly define a mixed strategy (see \autoref{sec:search_space}).  
 
 \subsubsection{Formulation and parameters}
 In the formulation of PSO employed in this paper, a particle $i$ with position $x_i$ has a velocity $v_i$ at time $t$ such that
@@ -204,7 +204,7 @@ The parameter optimization task sought to minimize the discrepancy in rates of a
 \subsection{Meta-optimization task (PSO parameters)}
 \begin{center}
     \begin{tabular}{ l l l r }
-    Parameter & Optimized & Standard\footnotemark[1] & $\% \Delta$ \\ \hline
+    Parameter & Optimized & Baseline\footnotemark[1] & $\% \Delta$ \\ \hline
     Cognitive component       & $0.689$ & $2.0$   & $-65.55\%$ \\ \hline
     Social component          & $2.897$ & $2.0$   & $+44.86\%$ \\ \hline
     Inertial dampening factor & $1.027$ & $1.001$ & $+2.58\%$\\ \hline
@@ -213,7 +213,7 @@ The parameter optimization task sought to minimize the discrepancy in rates of a
     Iterations                & $305$   & N/A     & N/A\\ 
     \end{tabular}
 \end{center}
-\footnotetext[1]{These constitute standard PSO parameters for general problems, as recommended in \cite{shi1998} and \cite{solnon2010}.}
+\footnotetext[1]{These constitute standard PSO parameters optimized to work well for a number of general problems, as recommended in \cite{shi1998} and \cite{solnon2010}.}
 
 \subsection{Comparison of models to experimental data}
 Results for both the rejection and repair models are compared against a baseline model, which makes use of the standard parameters used in the meta-optimization task. For each model, 250 simulations of 10 pairs were performed. Costs from each experiment as taken from the \citeauthor{rohde2012} studies are presented below.

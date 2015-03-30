@@ -1,6 +1,7 @@
 import parameter_estimation as pe
 from matplotlib import pyplot as pl
 from matplotlib import cm
+import matplotlib as mpl
 
 experiment = pe.Experiment(
     pe.Experiment.Settings(
@@ -11,23 +12,24 @@ experiment = pe.Experiment(
     None
 )
 
-partner_positions = (0.1, 0.9)
+partner_positions = (0.1, 0.9), (0.9, 0.1)
 thous = [x / 1000. for x in range(0, 1001)]
 
+print "Running scenarios."
 scenario = {
     (p1, p2): [[experiment.game((x, y), ((p1, p2),)) for y in thous] for x in thous] 
-    for p1 in partner_positions 
-    for p2 in partner_positions
+    for p1, p2 in partner_positions
 }
+print "Complete."
 
 def graph(*keys):
     fig, axes = pl.subplots(ncols=2)
     
     pl.rc('text', usetex=True)
-    pl.rc('font', size=14, weight='bold')
+    pl.rc('font', size=12, weight='bold')
 
-    minest = min(row for key in keys for cols in scen4[key] for row in cols)
-    maxest = max(row for key in keys for cols in scen4[key] for row in cols)
+    minest = min(row for key in keys for cols in scenario[key] for row in cols)
+    maxest = max(row for key in keys for cols in scenario[key] for row in cols)
     tick_locs = [0, 200, 400, 600, 800, 1000]
     tick_labels = map('${}$'.format, '0.0 0.2 0.4 0.6 0.8 1.0'.split())
     
@@ -46,11 +48,17 @@ def graph(*keys):
         plot.set_xlabel('$P(A|r_2)$')
         if not i: 
             plot.set_ylabel('$P(A|r_1)$')
+   
+    pl.tight_layout()
     
     fig.subplots_adjust(right=0.8)
     cbar_ax = fig.add_axes([0.85, 0.15, 0.05, 0.7])
     cbar = fig.colorbar(im, cax=cbar_ax)
     cbar.set_label('$f(i)$')
+
+    #cax, kw = mpl.colorbar.make_axes([ax for ax in axes.flat])
+    #colorbar = pl.colorbar(im, cax=cax, **kw)
+    #colorbar.set_label('$f(i)$')
     
     pl.show()
 

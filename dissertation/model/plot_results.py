@@ -4,8 +4,9 @@ import math
 from matplotlib import pyplot as pl
 from matplotlib import cm
 from collections import defaultdict
+import numpy
 
-models = 'reject repair standard'.split()
+models = 'repair reject standard'.split()
 
 model_results = {}
 for model in models:
@@ -70,31 +71,99 @@ model_name_mappings = {
     'standard': "Baseline model",
 }
 
+#model_scales = {
+#    'reject': 21.1631486567,
+#    'repair': 2.19155021381,
+#    'standard': 11.3325994847,
+#}
+
+model_scales = {
+    'reject': 21.1632556148,
+    'repair': 2.19157684777,
+    'standard': 11.3327987041,
+}
+
+scaled_model_errors = defaultdict(list)
+model_means = defaultdict(list)
+
+for experiment in experiments:
+    expected_avg = all_experiment_results[experiment]['data']['ambiguous']['average']
+    for model in models:
+        scale = model_scales[model]
+        scaled_model_errors[model_name_mappings[model]].extend(
+            abs(expected_avg - (avg * scale))
+            for avg in 
+            all_experiment_results[experiment][model]['ambiguous']['raw']
+        )
+
+#csv_fname = 'ambiguous_errors.csv'
+#with open(csv_fname, 'w') as f:
+#    for model_name, data in scaled_model_errors.iteritems():
+#        formatted_data = ','.join(str(item) for item in data)
+#        f.write('"{}",{}\n'.format(model_name, formatted_data))
+#import os
+#print os.getcwd()
+
+#fig, ax = pl.subplots()
+
+model_avgs = defaultdict(list)
+model_stds = defaultdict(list)
+exp_avgs = []
+
 for experiment in experiments:
     print experiment
     expected_avg = all_experiment_results[experiment]['data']['ambiguous']['average']
+    exp_avgs.append(expected_avg)
     print 'Data:', expected_avg
     ambiguous_raws = []
     for model in models:
         print '  {}:'.format(model), all_experiment_results[experiment][model]['ambiguous']['average']
         ambiguous_raws.append(all_experiment_results[experiment][model]['ambiguous']['raw'])
+        model_avgs[model].append(all_experiment_results[experiment][model]['ambiguous']['average'])
+        model_stds[model].append(numpy.std(all_experiment_results[experiment][model]['ambiguous']['raw']))
     print
-    pl.rc('text', usetex=True)
-    pl.rc('font', size=14, weight='bold', family='serif', serif='Computer Modern Roman')
-    fig = pl.figure()
-    ax = fig.add_subplot(111)
-    ax.boxplot(ambiguous_raws)
-    ax.set_xticklabels(map(model_name_mappings.get, models))
-    ax.set_yticklabels(r'$0\%$ $20\%$ $40\%$ $60\%$ $80\%$ $100\%$'.split())
-    fig.suptitle('Ambiguous form coordination in experiment ' + str(int(experiment) + 1))
-    ax.set_ylabel('Pairs coordinating using ambiguous form')
-    ax.set_ylim([0, 1])
-    pl.plot((0, 4), (expected_avg, expected_avg), linestyle='-', label='Experimental rate', color='g')
-    pl.legend()
-    pl.show()
+    #pl.rc('text', usetex=True)
+    #pl.rc('font', size=14, weight='bold', family='serif', serif='Computer Modern Roman')
+    #fig = pl.figure()
+    #ax = fig.add_subplot(111)
+    #ax.boxplot(ambiguous_raws)
+    #ax.set_xticklabels(map(model_name_mappings.get, models))
+    #ax.set_yticklabels(r'$0\%$ $20\%$ $40\%$ $60\%$ $80\%$ $100\%$'.split())
+    #fig.suptitle('Ambiguous form coordination in experiment ' + str(int(experiment) + 1))
+    #ax.set_ylabel('Pairs coordinating using ambiguous form')
+    #ax.set_ylim([0, 1])
+    #pl.plot((0, 4), (expected_avg, expected_avg), linestyle='-', label='Experimental rate', color='g')
+    #pl.legend()
+    #pl.show()
 
+fig, ax = pl.subplots()
 
+pl.rc('text', usetex=True)
+pl.rc('font', size=14, family='serif', serif='Computer Modern Roman')
+pl.rc('legend',**{'fontsize':14})
 
+N = 4
+ind = numpy.arange(N) 
+width = 0.2
+bars = []
+bar_names = []
+colors = '0.2 0.4 0.6 0.8'.split()
+for color, (i, model) in zip(colors, enumerate(models)):
+    bars.append(ax.bar(ind + (i+0.5) * width, [item * model_scales[model] for item in model_avgs[model]], width, color=color))
+    bar_names.append(model_name_mappings[model])
+bars.append(ax.bar(ind + (i+1.5) * width, exp_avgs, width, color=colors[-1]))
+bar_names.append('Experimental data')
+
+ax.set_ylim([0.4, 0.9])
+ax.set_xticks(ind+width+ 0.3)
+ax.set_xticklabels([r"\textrm{Experiment X}".replace('X', str(int(e) + 1)) for e in experiments])
+ax.set_ylabel(r'''\textrm{Pairs coordinating using ambiguous form (scaled)}''')
+ax.set_ylabel(r'''\textrm{Ambiguous form coordination rate (scaled)}''')
+ax.set_yticklabels(r"$40\%$ $50\%$ $60\%$ $70\%$ $80\%$ $90\%$".split())
+
+pl.legend(bars, bar_names, loc='upper center', bbox_to_anchor=(0.5,1.05), ncol=2)
+
+pl.show()
 
 
 #experiment = pe.Experiment(

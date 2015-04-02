@@ -4,7 +4,7 @@ from matplotlib import pyplot as pl
 from matplotlib import cm
 import matplotlib as mpl
 
-FNAME = 'repair.vary_success.json'
+FNAME = 'repair.vary_ambiguous_cost.json'
 SCALE = 2.192
 
 def main():
@@ -31,7 +31,7 @@ def main():
         for key in 
         'ambiguous unambiguous'.split()
     ]
-    points = [results[result]['experiment']['settings']['success_points'] for result in results]
+    points = [results[result]['experiment']['settings']['ambiguous_reference_cost'] for result in results]
     for zipped in sorted(izip(points, ambiguous_avgs, unambiguous_avgs), ):
         print ' : '.join(map(str, zipped))
 
@@ -58,7 +58,7 @@ def main():
     pl.plot(sorted_unamb_avgs, label=r'Unambiguous form', linestyle='--')
     ax.set_xticklabels(["${}$".format(int(point)) for point in sorted(points)][::2])
     ax.set_yticklabels(["${}\%$".format(x) for x in "0 20 40 60 80 100".split()])
-    ax.set_xlabel(r"$S$")
+    ax.set_xlabel(r"\textrm{Ambiguous form cost}")
     ax.set_ylabel(r"\textrm{Coordination rate}")
     ax.set_ylim([0, 1])
     pl.legend(loc=2)

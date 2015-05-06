@@ -6,7 +6,8 @@ from matplotlib import cm
 from collections import defaultdict
 import numpy
 
-models = 'repair reject standard'.split()
+#models = 'repair reject standard'.split()
+models = 'repair standard'.split()
 
 model_results = {}
 for model in models:
@@ -67,7 +68,7 @@ for model, results in model_results.iteritems():
 
 model_name_mappings = {
     'reject': "Rejection model",
-    'repair': "Repair model",
+    'repair': "Optimized model",
     'standard': "Baseline model",
 }
 
@@ -144,10 +145,10 @@ pl.rc('legend',**{'fontsize':14})
 
 N = 4
 ind = numpy.arange(N) 
-width = 0.2
+width = 0.25
 bars = []
 bar_names = []
-colors = '0.2 0.4 0.6 0.8'.split()
+colors = '0.3 0.6 0.9'.split()
 for color, (i, model) in zip(colors, enumerate(models)):
     bars.append(ax.bar(ind + (i+0.5) * width, [item * model_scales[model] for item in model_avgs[model]], width, color=color))
     bar_names.append(model_name_mappings[model])
@@ -155,7 +156,7 @@ bars.append(ax.bar(ind + (i+1.5) * width, exp_avgs, width, color=colors[-1]))
 bar_names.append('Experimental data')
 
 ax.set_ylim([0.4, 0.9])
-ax.set_xticks(ind+width+ 0.3)
+ax.set_xticks(ind+width+ 0.25)
 ax.set_xticklabels([r"\textrm{Experiment X}".replace('X', str(int(e) + 1)) for e in experiments])
 ax.set_ylabel(r'''\textrm{Pairs coordinating using ambiguous form (scaled)}''')
 ax.set_ylabel(r'''\textrm{Ambiguous form coordination rate (scaled)}''')

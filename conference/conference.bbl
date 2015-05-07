@@ -1,288 +1,516 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
+Ahmadi%
+, Karray%
+\BCBL {}\ \BBA {} Kamel%
+}{%
+Ahmadi%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+ahmadi2007}
+\APACinsertmetastar {%
+ahmadi2007}%
+\begin{APACrefauthors}%
+Ahmadi, A.%
+, Karray, F.%
+\BCBL {}\ \BBA {} Kamel, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{August}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Cooperative Swarms for Clustering Phoneme Data}
+  {Cooperative swarms for clustering phoneme data}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{IEEE/SP} 14th Workshop on Statistical Signal
+  Processing} {{IEEE/SP} 14th workshop on statistical signal processing}\
+  (\BPG~606-610).
+\newblock
+\begin{APACrefDOI} \doi{10.1109/SSP.2007.4301330} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Benz%
 , J{\"a}ger%
-\BCBL{}\ \BBA{} Van~Rooij%
+\BCBL {}\ \BBA {} Van~Rooij%
 }{%
 Benz%
-\ \protect\BOthers{.}}{%
-{\protect\APACyear{2005}}%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2005}}%
 }]{%
+benz2005}
+\APACinsertmetastar {%
 benz2005}%
-\APACinsertmetastar{%
-benz2005}%
+\begin{APACrefauthors}%
 Benz, A.%
 , J{\"a}ger, G.%
-\BCBL{}\ \BBA{} Van~Rooij, R.%
-%
-\newblock{}\BBOP{}2005\BBCP{}.
-\newblock{}\Bem{An introduction to game theory for linguists}.
-\newblock{}Basingstoke: Palgrave Macmillan.
+\BCBL {}\ \BBA {} Van~Rooij, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2005}.
+\newblock
+\APACrefbtitle {An introduction to game theory for linguists} {An introduction
+  to game theory for linguists}.
+\newblock
+\APACaddressPublisher{Basingstoke}{Palgrave Macmillan}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Brennan%
-\ \BBA{} Clark%
+\ \BBA {} Clark%
 }{%
 Brennan%
-\ \BBA{} Clark%
+\ \BBA {} Clark%
 }{%
-{\protect\APACyear{1996}}%
+{\protect \APACyear {1996}}%
 }]{%
+brennan1996}
+\APACinsertmetastar {%
 brennan1996}%
-\APACinsertmetastar{%
-brennan1996}%
-Brennan, S.~E.%
-\BCBT{}\ \BBA{} Clark, H.~H.%
-%
-\newblock{}\BBOP{}1996\BBCP{}.
-\newblock{}\BBOQ{}Conceptual pacts and lexical choice in conversation.\BBCQ{}
-\newblock{}\Bem{Journal of Experimental Psychology: Learning, Memory, and
-  Cognition}, \Bem{22}(6), 1482.
+\begin{APACrefauthors}%
+Brennan, S\BPBI E.%
+\BCBT {}\ \BBA {} Clark, H\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1996}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Conceptual pacts and lexical choice in conversation.}
+  {Conceptual pacts and lexical choice in conversation.}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Experimental Psychology: Learning, Memory,
+  and Cognition}{22}{6}{1482}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
-Clark%
-\ \BBA{} Murphy%
+\bibitem [\protect \citeauthoryear {%
+Chong%
+\ \BBA {} Zak%
 }{%
-Clark%
-\ \BBA{} Murphy%
+Chong%
+\ \BBA {} Zak%
 }{%
-{\protect\APACyear{1982}}%
+{\protect \APACyear {2013}}%
 }]{%
-clark1982}%
-\APACinsertmetastar{%
-clark1982}%
-Clark, H.~H.%
-\BCBT{}\ \BBA{} Murphy, G.~L.%
-%
-\newblock{}\BBOP{}1982\BBCP{}.
-\newblock{}\BBOQ{}Audience design in meaning and reference.\BBCQ{}
-\newblock{}\Bem{Advances in psychology}, \Bem{9}, 287-299.
+chong2013}
+\APACinsertmetastar {%
+chong2013}%
+\begin{APACrefauthors}%
+Chong, E.%
+\BCBT {}\ \BBA {} Zak, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Particle swarm optimization} {Particle swarm
+  optimization}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {An introduction to optimization} {An introduction to
+  optimization}\ (\BCHAP\ Global search algorithms).
+\newblock
+\APACaddressPublisher{Hoboken, New Jersey}{John Wiley \& Sons}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
-Degen%
-\ \BBA{} Franke%
+\bibitem [\protect \citeauthoryear {%
+Clark%
+\ \BBA {} Murphy%
 }{%
-Degen%
-\ \BBA{} Franke%
+Clark%
+\ \BBA {} Murphy%
 }{%
-{\protect\APACyear{2012}}%
+{\protect \APACyear {1982}}%
 }]{%
+clark1982}
+\APACinsertmetastar {%
+clark1982}%
+\begin{APACrefauthors}%
+Clark, H\BPBI H.%
+\BCBT {}\ \BBA {} Murphy, G\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1982}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Audience design in meaning and reference} {Audience
+  design in meaning and reference}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Advances in psychology}{9}{}{287-299}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Degen%
+\ \BBA {} Franke%
+}{%
+Degen%
+\ \BBA {} Franke%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+degen2012}
+\APACinsertmetastar {%
 degen2012}%
-\APACinsertmetastar{%
-degen2012}%
+\begin{APACrefauthors}%
 Degen, J.%
-\BCBT{}\ \BBA{} Franke, M.%
-%
-\newblock{}\BBOP{}2012, September\BBCP{}.
-\newblock{}\BBOQ{}Optimal reasoning about referential expressions.\BBCQ{}
-\newblock{}\Bem{Proceedings of {SemDIAL}}.
+\BCBT {}\ \BBA {} Franke, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{September}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Optimal reasoning about referential expressions}
+  {Optimal reasoning about referential expressions}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of {SemDIAL}}{}{}{}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Engelbrecht%
 }{%
 Engelbrecht%
 }{%
-{\protect\APACyear{2005}}%
+{\protect \APACyear {2005}}%
 }]{%
+engelbrecht2005}
+\APACinsertmetastar {%
 engelbrecht2005}%
-\APACinsertmetastar{%
-engelbrecht2005}%
-Engelbrecht, A.~P.%
-%
-\newblock{}\BBOP{}2005\BBCP{}.
-\newblock{}\Bem{Fundamentals of computational swarm intelligence}.
-\newblock{}John Wiley \& Sons Ltd., England.
+\begin{APACrefauthors}%
+Engelbrecht, A\BPBI P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2005}.
+\newblock
+\APACrefbtitle {Fundamentals of Computational Swarm Intelligence} {Fundamentals
+  of computational swarm intelligence}.
+\newblock
+\APACaddressPublisher{}{John Wiley \& Sons Ltd., England}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Frank%
-\ \BBA{} Goodman%
+\ \BBA {} Goodman%
 }{%
 Frank%
-\ \BBA{} Goodman%
+\ \BBA {} Goodman%
 }{%
-{\protect\APACyear{2012}}%
+{\protect \APACyear {2012}}%
 }]{%
+frank2012}
+\APACinsertmetastar {%
 frank2012}%
-\APACinsertmetastar{%
-frank2012}%
-Frank, M.~C.%
-\BCBT{}\ \BBA{} Goodman, N.~D.%
-%
-\newblock{}\BBOP{}2012\BBCP{}.
-\newblock{}\BBOQ{}Predicting pragmatic reasoning in language games.\BBCQ{}
-\newblock{}\Bem{Science}, \Bem{336}(6084), 998-998.
+\begin{APACrefauthors}%
+Frank, M\BPBI C.%
+\BCBT {}\ \BBA {} Goodman, N\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Predicting pragmatic reasoning in language games}
+  {Predicting pragmatic reasoning in language games}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Science}{336}{6084}{998-998}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Golland%
 , Liang%
-\BCBL{}\ \BBA{} Klein%
+\BCBL {}\ \BBA {} Klein%
 }{%
 Golland%
-\ \protect\BOthers{.}}{%
-{\protect\APACyear{2010}}%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
 }]{%
+golland2010}
+\APACinsertmetastar {%
 golland2010}%
-\APACinsertmetastar{%
-golland2010}%
+\begin{APACrefauthors}%
 Golland, D.%
 , Liang, P.%
-\BCBL{}\ \BBA{} Klein, D.%
-%
-\newblock{}\BBOP{}2010\BBCP{}.
-\newblock{}\BBOQ{}A game-theoretic approach to generating spatial
-  descriptions.\BBCQ{}
-\newblock{}\BIn{} \Bem{{Proceedings of the 2010 Conference on Empirical Methods
-  in Natural Language Processing}}\ (\BPG\ 410-419).
-\newblock{}
+\BCBL {}\ \BBA {} Klein, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Game-Theoretic Approach to Generating Spatial
+  Descriptions} {A game-theoretic approach to generating spatial
+  descriptions}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{Proceedings of the 2010 Conference on Empirical Methods
+  in Natural Language Processing}} {{Proceedings of the 2010 Conference on
+  Empirical Methods in Natural Language Processing}}\ (\BPG~410-419).
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Grice%
 }{%
 Grice%
 }{%
-{\protect\APACyear{1975}}%
+{\protect \APACyear {1975}}%
 }]{%
+grice1975}
+\APACinsertmetastar {%
 grice1975}%
-\APACinsertmetastar{%
-grice1975}%
-Grice, H.~P.%
-%
-\newblock{}\BBOP{}1975\BBCP{}.
-\newblock{}\BBOQ{}Syntax and semantics.\BBCQ{}
-\newblock{}\Bem{Logic and conversation}, \Bem{3}, 41-58.
+\begin{APACrefauthors}%
+Grice, H\BPBI P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1975}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Syntax and semantics} {Syntax and semantics}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Logic and conversation}{3}{}{41-58}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Horton%
-\ \BBA{} Keysar%
+\ \BBA {} Keysar%
 }{%
 Horton%
-\ \BBA{} Keysar%
+\ \BBA {} Keysar%
 }{%
-{\protect\APACyear{1996}}%
+{\protect \APACyear {1996}}%
 }]{%
+horton1996}
+\APACinsertmetastar {%
 horton1996}%
-\APACinsertmetastar{%
-horton1996}%
-Horton, W.~S.%
-\BCBT{}\ \BBA{} Keysar, B.%
-%
-\newblock{}\BBOP{}1996\BBCP{}.
-\newblock{}\BBOQ{}When do speakers take into account common ground?\BBCQ{}
-\newblock{}\Bem{Cognition}, \Bem{59}(1), 91-117.
+\begin{APACrefauthors}%
+Horton, W\BPBI S.%
+\BCBT {}\ \BBA {} Keysar, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1996}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {When do speakers take into account common ground?} {When
+  do speakers take into account common ground?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Cognition}{59}{1}{91-117}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Kennedy%
 }{%
 Kennedy%
 }{%
-{\protect\APACyear{1997}}%
+{\protect \APACyear {1997}}%
 }]{%
+kennedy1997}
+\APACinsertmetastar {%
 kennedy1997}%
-\APACinsertmetastar{%
-kennedy1997}%
+\begin{APACrefauthors}%
 Kennedy, J.%
-%
-\newblock{}\BBOP{}1997, April\BBCP{}.
-\newblock{}\BBOQ{}The particle swarm: social adaptation of knowledge.\BBCQ{}
-\newblock{}\BIn{} \Bem{{IEEE} international conference on evolutionary
-  computation, 1997.}\ (\BPG\ 303-308).
-\newblock{}
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{April}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The particle swarm: social adaptation of knowledge} {The
+  particle swarm: social adaptation of knowledge}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{IEEE} International Conference on Evolutionary
+  Computation, 1997.} {{IEEE} international conference on evolutionary
+  computation, 1997.}\ (\BPG~303-308).
+\newblock
+\begin{APACrefDOI} \doi{10.1109/ICEC.1997.592326} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
-Lewis%
+\bibitem [\protect \citeauthoryear {%
+Kennedy%
+\ \BBA {} Eberhart%
 }{%
-Lewis%
+Kennedy%
+\ \BBA {} Eberhart%
 }{%
-{\protect\APACyear{1969}}%
+{\protect \APACyear {1995}}%
 }]{%
+kennedy1995}
+\APACinsertmetastar {%
+kennedy1995}%
+\begin{APACrefauthors}%
+Kennedy, J.%
+\BCBT {}\ \BBA {} Eberhart, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{November}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Particle swarm optimization} {Particle swarm
+  optimization}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{IEEE} International Conference on Neural Networks,
+  1995. {P}roceedings.} {{IEEE} international conference on neural networks,
+  1995. {P}roceedings.}\ (\BVOL~4, \BPG~1942-1948).
+\newblock
+\begin{APACrefDOI} \doi{10.1109/ICNN.1995.488968} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lewis%
+}{%
+Lewis%
+}{%
+{\protect \APACyear {1969}}%
+}]{%
+lewis1969}
+\APACinsertmetastar {%
 lewis1969}%
-\APACinsertmetastar{%
-lewis1969}%
+\begin{APACrefauthors}%
 Lewis, D.%
-%
-\newblock{}\BBOP{}1969\BBCP{}.
-\newblock{}\Bem{Convention: A philosophical study}.
-\newblock{}Harvard University Press.
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1969}.
+\newblock
+\APACrefbtitle {Convention: A Philosophical Study} {Convention: A philosophical
+  study}.
+\newblock
+\APACaddressPublisher{}{Harvard University Press}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
-Mitchell%
+\bibitem [\protect \citeauthoryear {%
+Mehdad%
+\ \BBA {} Magnini%
 }{%
-Mitchell%
+Mehdad%
+\ \BBA {} Magnini%
 }{%
-{\protect\APACyear{1991}}%
+{\protect \APACyear {2009}}%
 }]{%
-mitchell1991}%
-\APACinsertmetastar{%
-mitchell1991}%
-Mitchell, D.%
-%
-\newblock{}\BBOP{}1991\BBCP{}.
-\newblock{}\BBOQ{}Spectrally optimal sampling for distribution ray
-  tracing.\BBCQ{}
-\newblock{}\Bem{{ACM SIGGRAPH} Computer Graphics}, \Bem{25}(4), 157-164.
+mehdad2009}
+\APACinsertmetastar {%
+mehdad2009}%
+\begin{APACrefauthors}%
+Mehdad, Y.%
+\BCBT {}\ \BBA {} Magnini, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Optimizing Textual Entailment Recognition Using Particle
+  Swarm Optimization} {Optimizing textual entailment recognition using particle
+  swarm optimization}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the 2009 Workshop on Applied Textual
+  Inference} {Proceedings of the 2009 workshop on applied textual inference}\
+  (\BPG~36-43).
+\newblock
+\APACaddressPublisher{Stroudsburg, {PA}, {USA}}{Association for Computational
+  Linguistics}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
+Mitchell%
+}{%
+Mitchell%
+}{%
+{\protect \APACyear {1991}}%
+}]{%
+mitchell1991}
+\APACinsertmetastar {%
+mitchell1991}%
+\begin{APACrefauthors}%
+Mitchell, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1991}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Spectrally optimal sampling for distribution ray
+  tracing} {Spectrally optimal sampling for distribution ray tracing}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{ACM SIGGRAPH} Computer Graphics}{25}{4}{157-164}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Rohde%
 , Seyfarth%
 , Clark%
 , J{\"a}ger%
-\BCBL{}\ \BBA{} Kaufmann%
+\BCBL {}\ \BBA {} Kaufmann%
 }{%
 Rohde%
-\ \protect\BOthers{.}}{%
-{\protect\APACyear{2012}}%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
 }]{%
+rohde2012}
+\APACinsertmetastar {%
 rohde2012}%
-\APACinsertmetastar{%
-rohde2012}%
+\begin{APACrefauthors}%
 Rohde, H.%
 , Seyfarth, S.%
 , Clark, B.%
 , J{\"a}ger, G.%
-\BCBL{}\ \BBA{} Kaufmann, S.%
-%
-\newblock{}\BBOP{}2012, September\BBCP{}.
-\newblock{}\BBOQ{}Communicating with cost-based implicature: A game-theoretic
-  approach to ambiguity.\BBCQ{}
-\newblock{}\BIn{} \Bem{The 16th workshop on the semantics and pragmatics of
-  dialogue.}
-\newblock{}Paris.
+\BCBL {}\ \BBA {} Kaufmann, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{September}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Communicating with cost-based implicature: A
+  game-theoretic approach to ambiguity} {Communicating with cost-based
+  implicature: A game-theoretic approach to ambiguity}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {The 16th Workshop on the Semantics and Pragmatics of
+  Dialogue.} {The 16th workshop on the semantics and pragmatics of dialogue.}
+\newblock
+\APACaddressPublisher{Paris}{}.
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Shi%
-\ \BBA{} Eberhart%
+\ \BBA {} Eberhart%
 }{%
 Shi%
-\ \BBA{} Eberhart%
+\ \BBA {} Eberhart%
 }{%
-{\protect\APACyear{1998}}%
+{\protect \APACyear {1998}}%
 }]{%
+shi1998}
+\APACinsertmetastar {%
 shi1998}%
-\APACinsertmetastar{%
-shi1998}%
+\begin{APACrefauthors}%
 Shi, Y.%
-\BCBT{}\ \BBA{} Eberhart, R.%
-%
-\newblock{}\BBOP{}1998\BBCP{}.
-\newblock{}\BBOQ{}Parameter selection in particle swarm optimization.\BBCQ{}
-\newblock{}\BIn{} \Bem{Evolutionary programming {VII}}\ (\BPG\ 591-600).
-\newblock{}
+\BCBT {}\ \BBA {} Eberhart, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Parameter selection in particle swarm optimization}
+  {Parameter selection in particle swarm optimization}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Evolutionary programming {VII}} {Evolutionary
+  programming {VII}}\ (\BPG~591-600).
+\PrintBackRefs{\CurrentBib}
 
-\bibitem[\protect\citeauthoryear{%
+\bibitem [\protect \citeauthoryear {%
 Solnon%
 }{%
 Solnon%
 }{%
-{\protect\APACyear{2010}}%
+{\protect \APACyear {2010}}%
 }]{%
+solnon2010}
+\APACinsertmetastar {%
 solnon2010}%
-\APACinsertmetastar{%
-solnon2010}%
+\begin{APACrefauthors}%
 Solnon, C.%
-%
-\newblock{}\BBOP{}2010\BBCP{}.
-\newblock{}\Bem{Ant colony optimization and constraint programming}.
-\newblock{}London Hoboken, NJ: Wiley Online Library.
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2010}.
+\newblock
+\APACrefbtitle {Ant colony optimization and constraint programming} {Ant colony
+  optimization and constraint programming}.
+\newblock
+\APACaddressPublisher{London Hoboken, NJ}{Wiley Online Library}.
+\PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}

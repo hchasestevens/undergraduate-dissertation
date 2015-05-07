@@ -1,146 +1,92 @@
 %
-% File eacl2014.tex
+% File naaclhlt2012.tex
 %
-% Contact g.bouma@rug.nl yannick.parmentier@univ-orleans.fr
-%
-% Based on the instruction file for ACL 2013 
-% which in turns was based on the instruction files for previous 
-% ACL and EACL conferences
 
-%% Based on the instruction file for EACL 2006 by Eneko Agirre and Sergi Balari
-%% and that of ACL 2008 by Joakim Nivre and Noah Smith
-
-\documentclass[11pt]{article}
-\usepackage{eacl2014}
-\usepackage{times}
-\usepackage{url}
+\documentclass[a4paper,11pt]{article}
+\usepackage{naaclhlt2012}
+\usepackage{apacite}
 \usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{natbib}
-\usepackage{hyperref}
-\usepackage{color, colortbl}
 \usepackage{pgf}
-\special{papersize=210mm,297mm} % to avoid having to use "-t a4" with dvips 
-%\setlength\titlebox{6.5cm}  % You can expand the title box if you really have to
 
-\definecolor{Gray}{gray}{0.9}
+\title{Modeling Referential Coordination as a Particle Swarm Optimization Task}
 
-\title{Reconceptualizing Referential Coordination as a Particle Swarm Optimization Task}
-
-\author{H. Chase Stevens \\
-  University of Edinburgh \\
-  3 Charles Street \\
-  Edinburgh, UK \\
-  {\tt chase@chasestevens.com} \\\And
-  Hannah Rohde \\
-  University of Edinburgh \\
-  3 Charles Street \\
-  Edinburgh, UK \\
-  {\tt hannah.rohde@ed.ac.uk} \\}
+\author{ Anonymous PDF:  author names withheld\\}
+%\author{H. Chase Stevens \\
+%  University of Edinburgh \\
+%  3 Charles Street \\
+%  Edinburgh, UK \\
+%  {\tt chase@chasestevens.com} \\\And
+%  Hannah Rohde \\
+%  University of Edinburgh \\
+%  3 Charles Street \\
+%  Edinburgh, UK \\
+%  {\tt hannah.rohde@ed.ac.uk} \\}
 
 \date{}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-The question of how referential choice and interpretation are influenced by production cost remains unresolved in the literature. Recent research (\citeauthor{rohde2012} \citeyear{rodhe2012}; \citeauthor{degen2012} \citeyear{degen2012}; \citeauthor{frank2012} \citeyear{frank2012}) investigates the conditions under which speakers choose to coordinate using ambiguous expressions. This paper takes a novel approach to modeling referential coordination by using particle swarm optimization (PSO), a general-purpose optimization method, to simulate the results of one such study \citep{rohde2012} in which referring expression costs were varied. The PSO-based model presented is used to generate extrapolations from the findings of \cite{rohde2012}; the model is additionally shown to partially emulate observed overinformativity behaviors \citep{brennan1996}. The results are taken to demonstrate that dyadic referential coordination can be framed as a constrained optimization problem in which agents do not need to maintain an explicit representation of the common ground or of each other - a finding in keeping with egocentric accounts of communication \citep{horton1996}.
+The question of how referential choice and interpretation are influenced by production cost remains unresolved in the literature. Recent research \cite{rohde2012,degen2012,frank2012} investigates the conditions under which speakers coordinate the use of ambiguous expressions. This paper takes a novel approach to modeling referential coordination by simulating the results of one such study on referring expression costs \cite{rohde2012}.  The simulation uses a general-purpose optimization method, particle swarm optimization, to capture the previously reported referential choices and to extrapolate to new communicative conditions.  The results replicate observed overinformativity behaviors \cite{brennan1996} and demonstrate that dyadic referential coordination can be framed as a constrained optimization problem in which agents may need only to maintain a simplified representation of the common ground and of each other.
 \end{abstract}
 
-
-
 \section{Introduction}
-An open question in the field of linguistics is how participants in a conversation coordinate their use of referring expressions. When producing referring expressions, interlocutors must weigh the costs they incur, in terms of both construction and articulation, against the ease with which their conversational partners will be able to infer the intended referent. When speakers employ referring expressions that do not uniquely select a referent within the context of the discourse, they further risk their conversational partner failing to infer the correct referent. 
+An open question in the field of linguistics is how participants in a conversation coordinate their use of referring expressions. When producing referring expressions, speakers must weigh the costs an expression incurs, in terms of both construction and articulation, against the ease with which their conversational partners will be able to infer the intended referent. When speakers employ referring expressions that do not uniquely select a referent within the context of the discourse, they risk miscommunication.
 
-For example, consider a context in which there are three plausible referents, a chocolate Labrador, a black Poodle, and a brown American Water Spaniel/German Longhaired Pointer mix. Given the high cost of producing an unambiguous referring expression for the latter, a speaker might attempt to refer to it as ``that brown dog". However, this expression could also be used to indicate the chocolate Labrador, and should the speaker's communicative partner interpret the referring expression as such, rectifying this misinterpretation is likely to be costly. While communicating, interlocutors therefore jointly seek to minimize their expended effort while not violating the constraint imposed by their partner's ability to disambiguate the referring expressions used \citep{benz2005}. Consequently, the referential strategy a speaker adopts must be sensitive to the relative costs of producing each referring expression as well as to the evolving state of mappings between referential form and intended referent, as coordinated with their interlocutors. 
+For example, consider a context in which there are three available referents, a chocolate Labrador, a black Poodle, and a brown American Water Spaniel/German Longhaired Pointer mix. Given the high cost of producing an unambiguous referring expression for the third dog, a speaker might attempt to refer to it as ``that brown dog". However, this expression could also indicate the chocolate Labrador, and rectifying this misinterpretation could be costly. Interlocutors therefore jointly seek to minimize their expended effort while not violating the constraint imposed by their partner's ability to disambiguate the referring expressions used \cite{benz2005}. Thus, speakers' referential strategies must be sensitive to the relative costs of producing each referring expression as well as to the evolving state of mappings between referential forms and intended referents, as coordinated with their interlocutors. 
 
-Recent work has employed the use of language games to investigate how speakers make selections from a given set of available ambiguous and unambiguous referring expressions (\citeauthor{rohde2012}, \citeyear{rohde2012}; \citeauthor{degen2012}, \citeyear{degen2012}; \citeauthor{frank2012}, \citeyear{frank2012}). Unlike some studies which have targeted one-time production choices (e.g. \citeauthor{degen2012}, \citeyear{degen2012}), \citeauthor{rohde2012}'s studies notably involve both human speakers and comprehenders, and test the coordination of referring expressions in a ``conversational" (multiple turn) scenario. To do so, \cite{rohde2012} introduced an iterated language game in which participant dyads were rewarded for coordinating their use of ambiguous and unambiguous referring expressions. In these studies, participants' ability to successfully coordinate on the use of less costly ambiguous forms was shown to be affected by the relative costs of the available competing unambiguous forms. 
+Recent work has used language games to investigate how speakers make selections from a given set of available ambiguous and unambiguous referring expressions \cite{rohde2012,degen2012,frank2012}. Unlike some studies which target one-time production choices (e.g. \citeauthor{degen2012}, \citeyearNP{degen2012}), \citeauthor{rohde2012}'s studies involve a pair of interlocutors coordinating referring expressions in a ``conversational" (multiple turn) scenario. In that work, ``conversations" consisted of iterated language games in which participant dyads were rewarded for coordinating their use of ambiguous and unambiguous referring expressions. Participants' ability to successfully coordinate their use of less costly ambiguous forms was shown to reflect the relative costs of the available competing unambiguous forms. 
 
-This paper seeks to better understand the role of form costs in influencing referential coordination by introducing a computational model of \citeauthor{rohde2012}'s findings. Three crucial considerations are taken into account in selecting a modeling technique: first, the chosen approach needs to represent the internal state of a participant with respect to the game, and to allow the participant's actions to be derived from this state; second, changes in a participant's internal state within the model need to be reflective of the participant's communicative success with their partner, even as their partner's internal state itself changes; and third, the modeling approach should be easily extensible to a large number of potential referential coordination language games. 
+This paper seeks to better understand the role of form costs in referential coordination by introducing a computational model of \citeauthor{rohde2012}'s findings. A suitable modeling technique would (i) represent the internal state of a participant with respect to the game and allow the participant's actions to be derived from this state, (ii) use the participant's communicative success with their partner to update their internal state within the model, even as their partner's internal state itself changes, and (iii) extend easily to other potential language games. 
 
-Particle swarm optimization, the chosen modeling approach, is suitable in all three regards. Particle swarm optimization (PSO) can serve not only as a general optimization method, but also as a means of modeling human social behavior, especially in the context of collaborative problem solving \citep{kennedy1997}. The optimized PSO model presented in this paper, which utilizes a mixed strategy search space to represent form production and comprehension, is shown to outperform a baseline model in replicating human responses to form cost changes. The optimized model is used to extrapolate beyond previously tested conditions, providing a more comprehensive picture of the circumstances under which ambiguous form entrainment is possible and likely. Discussion is devoted to how the parameters of this optimized model and its predictions can be interpreted both in terms of the PSO algorithm and in terms of a broader understanding of the process of referential coordination.
-
+Particle swarm optimization (PSO) is suitable in all three regards. PSO can serve not only as a general optimization method, but also as a means of modeling human social behavior, especially collaborative problem solving \cite{kennedy1997}. The optimized PSO model presented here, which utilizes a mixed strategy search space to represent form production and comprehension, is shown to outperform a baseline model in replicating human responses to form cost changes. The optimized model is used to extrapolate beyond previously tested conditions, providing a more comprehensive picture of the circumstances under which ambiguous form coordination is possible and likely. The parameters of the model and its predictions can be interpreted both in terms of the PSO algorithm itself and in terms of a broader understanding of the process of referential coordination.
 
 
 \section{Background}
 \subsection{Referential coordination}
 \subsubsection{Game theoretic approaches}
-Game theory provides a methodology for understanding agents' actions by modeling them as strategies within games. When deciding on which actions to choose, agents attempt to maximize their expected utility by leveraging their knowledge of the game's state \citep{benz2005}. Game theoretic concepts can be used to describe a number of linguistic phenomena, as primarily established by \cite{lewis1969}, who provided an account of the establishment of conventions as a coordinative game in which agents' interests are aligned. 
+Game theory provides a framework for understanding agents' actions by modeling them as strategies within a game. To decide which action to choose, agents attempt to maximize their expected utility by leveraging their knowledge of the game's state \cite{benz2005}. Game theoretic concepts capture a number of linguistic phenomena that depend on the establishment of conventions between agents whose interests are aligned \cite{lewis1969}.
 
-Recent work has applied game theory to problems of referential coordination. For example, by convention, the use of more general but costly referring expressions implicitly excludes the referents of easily accessed and more specific forms (e.g. ``some" versus ``all"). The establishment of this convention has been explained using an evolutionary game-theoretic approach: both speaker and hearer benefit from an interpretation of the former which carries a greater degree of information (``some but not all") \citep{benz2005}. Game theoretic models have also been used to predict participant behavior in referential inference tasks with some success \citep{degen2012}; however, the need for more nuanced, comprehensive models (an example of which this paper attempts to provide) has become clear. 
+Recent work has applied game theory to problems of referential coordination. For example, by convention, the use of more general but costly referring expressions is taken to implicitly exclude the referents of easily accessed and more specific forms (e.g. ``some" meaning ``not all"). The establishment of this convention has been explained using an evolutionary game-theoretic approach: both speaker and hearer benefit from an interpretation of the former which carries a greater degree of information (``some but not all") \cite{benz2005}. Game theoretic models have also been used to predict participant behavior in referential inference tasks with some success \cite{degen2012}; however, the need for more nuanced, comprehensive models (an example of which this paper attempts to provide) has become clear. 
 
 \subsubsection{Psycholinguistic approaches}
-The problem of referential coordination within the psycholinguistics literature has primarily been framed in terms of audience design. According to one school of thought \citep{clark1982}, speakers carefully tailor utterances to best target their interlocutors; likewise, listeners interpret the meaning of utterances with respect not only to the speaker but, it is claimed, with respect to the speaker's presumed beliefs about the listener as well. Under this model, audience design on the speaker's part enables the listener to disambiguate the referent of an otherwise ambiguous referring expression, provided the listener's internal model of the speaker suffices to allow the listener to understand why the speaker has chosen said expression. 
+The problem of referential coordination within the psycholinguistics literature has primarily been framed in terms of audience design \cite{clark1982}, whereby speakers carefully tailor utterances to best target their interlocutors; likewise, listeners interpret the meaning of utterances with respect not only to the speaker but also with respect to the speaker's presumed beliefs about the listener. Within such an account, a speaker's audience design enables the listener to disambiguate the referent of an otherwise ambiguous referring expression, provided the listener's internal model of the speaker is sufficient to capture why the speaker would have chosen a particular expression. 
 
-As an example (adapted from \citeauthor{clark1982}), suppose Alice uses the referring expression ``your friend" when talking to Bob. Assuming Bob has more than one friend, the referent of this expression is ambiguous. However, if Alice has met only one of Bob's friends, she may rely on him to recognize this fact and interpret the expression accordingly. From Bob's perspective, to disambiguate Alice's referring expression, he must both recall that Alice has met only one of his friends and correctly reason that she will expect him to leverage this information to infer a referent. As interlocutors update and maintain their models of each other and the common information shared between them, they become increasingly entrained on specific lexical forms which are reflective of this shared knowledge and experience.
+As an example (adapted from \citeauthor{clark1982}), suppose Alice uses the referring expression ``your friend" when talking to Bob. Assuming Bob has more than one friend, the referent of this expression is ambiguous. However, if Alice has met only one of Bob's friends, she may rely on him to recognize this fact and interpret the expression accordingly. From Bob's perspective, to disambiguate Alice's referring expression, he must both recall that Alice has met only one of his friends and correctly reason that she will expect him to leverage this information. As interlocutors update and maintain their models of each other and the common information shared between them, they become increasingly entrained on specific lexical forms which are reflective of this shared knowledge and experience.
 
-This understanding of referential coordination is borne out in work on natural language generation. For example, \cite{golland2010} utilize a game-theoretic approach to realize a language game in which an artificial speaker agent must successfully communicate a specified referent to a human listener partner. Their results show that when this artificial speaker is endowed with an internally embedded model of the listener, it is able to substantially outperform simpler models which do not take the listener into account.
+This understanding of referential coordination is borne out in work on natural language generation. For example, \citeA{golland2010} utilize a game-theoretic approach to realize a language game in which an artificial agent must successfully communicate a specified referent to a human listener. Their results show that when this artificial speaker is endowed with an internally embedded model of the listener, it substantially outperforms simpler models which do not take the listener into account.
 
-While this research makes the implicit assumption that the common ground between speaker and hearer informs initial utterance planning, more egocentric models of communication offer a competing view. In a human behavioral study \citep{horton1996} in which participants were required to quickly produce referring expressions for their communicative partners, the addition of time pressure caused the participants to disrespect the common ground more frequently than when speed of production was not encouraged. This was taken to support the conclusion that the common ground does not inform initial utterance planning, but instead is taken into consideration as a filtering mechanism during later-stage utterance production. Furthermore, \cite{horton1996} posited that the common ground may play no role whatsoever in the production of the majority of utterances, given the potential costliness of routinely taking this information into consideration.
+Such research implicitly assumes that the common ground between speaker and hearer informs initial utterance planning, whereas more egocentric models of communication offer a competing view. In a human behavioral study \cite{horton1996} in which participants produced referring expressions for a partner, participants under time pressure were more likely to fail to take into account the shared common ground than when speed was not encouraged. This effect of time pressure was taken as evidence that common ground constraints do not inform initial utterance planning, but instead acts as a filtering mechanism during later-stage utterance production. Furthermore, \citeA{horton1996} posit that common ground may play no role in the production of the majority of utterances, given the cost of routinely taking this information into consideration.
 
-\subsubsection{Rohde et al. (2012)}
-\cite{rohde2012} presents an iterated language game in which participants aim to indicate an object to their partner via use of one of several possible referring terms. Participants gain points upon successful communication, but must spend points in order to communicate. Each referent has a corresponding unambiguous form that players may choose to send to their partners; alternatively, players may send an ambiguous form with a different cost that could potentially indicate a number of referents. Players were incentivized to use the least costly possible expressions to achieve the highest rate of communicative success. Two studies were conducted; in both, two groups of three unambiguous referring expressions each (various types of flowers and trees) were paired with a single less costly ambiguous referring expression which could plausibly be used for any item within the group (``flower" and ``tree"). 
+\subsubsection{Coordination of ambiguous forms}
+\citeA{rohde2012} present an iterated language game in which players try to indicate an object to their partner via one of several possible referring expressions. Players gain points upon successful communication but must spend points to communicate. Each referent has an unambiguous form that speakers may use; alternatively, players may use an ambiguous form that could potentially indicate a number of referents. Players were incentivized to find the least costly forms with which they could achieve a high rate of communicative success. Two studies were conducted using the same set of six referents (various flowers and trees); a constrained lexicon consisted of a set of unambiguous forms (e.g., ``daisy", ``pine") with alternative ambiguous forms (``flower" and ``tree").
 
-The studies conducted by \citeauthor{rohde2012} demonstrate that the likelihood of interlocutors to successfully coordinating on the use of an ambiguous term is partially contingent on the relative costs of the unambiguous and ambiguous referring expressions. Specifically, pairs of participants were more likely to coordinate on when unambiguous form costs were both lower and more similar to each other. This was notably not in keeping with game-theoretic predictions; \citeauthor{rohde2012} suggested that the lower stakes of the second study resulted in a greater willingness on the part of the participants to explore a wider range of referential strategies. The question that this paper asks is whether this behavior can be better understood as an emergent property of a simulation, such as a PSO-based model.
-
-
-\subsection{Particle swarm optimization}
-\subsubsection{Overview}
-Particle swarm optimization, first formulated by \cite{kennedy1995}, has been demonstrated to be suitable not only for use in modeling human social behavior, but also for the general-purpose optimization of non-linear continuous problems, including the optimization of neural network weights and of standard optimization method benchmarks. In the algorithm, potential solutions to some problem are represented as particles existing within an $n$-dimensional search space. Each particle has both a position and velocity within this space. Each particle also keeps track of the best position it has been in as evaluated by the given objective function, which is known as its ``personal" best position; a ``global" best position representing the best position found by any particle within a swarm or swarm subgroup is also maintained \citep{chong2013}. A PSO task is run iteratively, with every iteration beginning by updating the velocities of all particles. In doing so, a particle is acted upon by two forces: the attraction of the particle to its personal previous best known position, as governed by a ``cognitive" parameter, and its attraction to the best known position within its group, as governed by a ``social" parameter \citep{chong2013}. The particle also maintains some momentum from its previous velocity. Following this, particle positions are updated in accordance with their velocities, with new positions being evaluated via the given objective function and best-known personal and global positions updated where appropriate. Initial particle velocities and positions are assigned randomly; in doing so, exploration of the search space is encouraged, reducing the likelihood of the swarm as a whole becoming caught in local extrema of the objective function (\citeauthor{yang2014}, \citeyear{yang2014}; \citeauthor{solnon2010}, \citeyear{solnon2010}). 
-
-This paper uses the well-known inertial variant of PSO, which has been noted to outperform standard PSO in speedily converging on good solutions \citep{yang2014}. Further to this variant, for the purposes of this paper, each particle's position is updated with respect to the best-found solution within a predefined neighborhood or group of particles, as opposed to the global best-found solution, as presented in \citet*{solnon2010}.\footnote{When these particle groups do not intersect, this is simply equivalent to running a number of independent PSO tasks equal to the number of groups.}
-
-\subsubsection{Previous work}
-\label{sec:pso_prev_work}
-
-While PSO has been applied to a number of problems within the fields of linguistics and psychology, its primary use has been as a means of optimizing parameters for other models, as opposed to direct application as a model in and of itself (e.g. \citeauthor{chatterjee2005}, \citeyear{chatterjee2005}; \citeauthor{mehdad2009}, \citeyear{mehdad2009}).\footnote{A notable exception is the use of PSO to perform unsupervised phoneme clustering \citep{ahmadi2007}.}
-
-PSO has likewise been applied to game learning, often using a coevolutionary paradigm in which agents play against one another in order to evaluate their fitness. However, traditionally this method has involved PSO over a search space of neural network weights, where the neural networks are used to choose actions given a game state, or in cases where the ``game" is a classical constraint optimization problem, such as the $n$-queens problem \citep{engelbrecht2005}. By contrast, in the new approach presented in this paper, the positions of particles themselves comprise agents' internal states, which directly define a mixed strategy (see \ref{sec:search_space}); further, the aggregate locations of the particles within the search space after running the optimization task are of primary interest, as opposed to the best solutions found by the swarm.
-
-\subsubsection{Formulation and parameters}
-\label{sec:2.2.3}
-In this paper's formulation of PSO, a particle $i$ with position $x_i$ has a velocity $v_i$ at state $t$ such that 
-\begin{multline}
-\begin{split}
-v_i^t = \theta(t) \cdot v_i^{t-1} & + \alpha \cdot \epsilon_1 \cdot (x_i^* - x_i^{t-1}) \\
-                                  & + \beta \cdot \epsilon_2 \cdot (x_{N(i)}^* - x_i^{t-1})
-\end{split}
-\end{multline}
-where $\theta$ is the inertial scheduling function, $\alpha$ is the cognitive component governing $i$'s attraction to its personal best known position $x_i^*$, $\beta$ is the social component governing $i$'s attraction to the global best position $x_{N(i)}^*$ known for its group $N(i)$, and $\epsilon_1$ and $\epsilon_2$ are randomly chosen values within $\left(0.0, 1.0\right]$. $\theta$ is defined with respect to a base inertia $\tau$ and inertial dampening factor $\sigma$ such that
-\begin{equation}
-\theta(t) = \frac{\tau}{\sigma^t} 
-\end{equation}
-Finally, the position $x$ of $i$ at state $t$ is defined as
-\begin{equation}
-x_i^t = x_i^{t-1} + \phi \cdot v_i^t 
-\end{equation}
-where $\phi$ is a constant velocity dampening factor.
-
+On one hand, players' strategies matched game theoretic predictions: Ambiguous forms were reserved for the referents with the most costly unambiguous form (study 1).  On the other hand, coordination was also partially contingent on the relative costs of unambiguous and ambiguous forms: Pairs were more likely to successfully coordinate when unambiguous form costs were lower and more similar to each other (study 2), contra the prediction that the greater the cost disparity the greater the expected gains in utility for the systematic exchange of a high cost unambiguous form for a low cost ambiguous one. \citeauthor{rohde2012}\ suggested that lower stakes encouraged players to explore a wider range of referential strategies. The question that this paper asks is whether this behavior can be better understood as an emergent property of coordination if game constraints are simulated in a PSO-based model.
 
 
 \section{Methods}
 \subsection{Search space}
 \label{sec:search_space}
-In order to represent a solution to a referential coordination language game, the game-theoretic notion of a mixed strategy was adopted, in which each possible action $a$ within a game is performed by a participant $i$ with some probability $P_i(a)$ \citep{benz2005}. In the representation used, for each referent $r$ the participant can be said to maintain a probability of using the associated ambiguous form $A$, $P_i(A|r)$. Conversely, the probability of a participant using the available unambiguous form for $r$ can be given as $1 - P_i(A|r)$. Therefore, in a language game with $n$ possible referents, a participant's strategy was represented with $n$ independent probabilities, yielding an $n$-dimensional search space. 
+To represent a solution to a referential coordination language game, the game-theoretic notion of a mixed strategy was adopted, whereby each possible action $a$ within a game is performed by a player $i$ with some probability $P_i(a)$ \cite{benz2005}. For a referent $r$, the player can be said to maintain a probability of producing the associated ambiguous form $A$, $P_i(A|r)$. Conversely, the probability of a player producting the unambiguous form to refer to $r$ is $1 - P_i(A|r)$. Therefore, in a game with $n$ possible referents for which $A$ could be used, a player's strategy was represented with $n$ independent probabilities, yielding an $n$-dimensional search space. 
 
-It is important to note that this does not constitute a traditional mixed strategy, in that the sum of a participant's probability of using the ambiguous referring expression over all referents may not equal $1$.  For example, a participant is capable of opting to not use the ambiguous form at all. In this sense, it is more accurate to state that a participant $i$ maintains a separate mixed strategy for each referent $r$, where, for the ambiguous form $A$ and unambiguous form $U$, $P_i(A|r) + P_i(U|r) = 1$.
+It is important to note that this does not constitute a traditional mixed strategy, in that, for a given player, the probabilities over all referents of using the ambiguous form may not sum to $1$.  For example, a player is capable of opting to not use the ambiguous form at all. In this sense, it is more accurate to state that a player $i$ maintains a separate mixed strategy for each referent $r$, where, for the ambiguous form $A$ and unambiguous form $U$, $P_i(A|r) + P_i(U|r) = 1$.
 
-Participants were assumed to optimize their strategies for groups of referents sharing the same ambiguous form independently of other groups. As such, the two studies presented in \citeauthor{rohde2012} were each treated as two independent language games being run concurrently, and the PSO approach presented used 3-dimensional search spaces as opposed to 6-dimensional search spaces. This assumption was justified by the observation that participant pairs in \citeauthor{rohde2012}'s second study were able to coordinate their use of the ambiguous form for one group, but not the other, suggesting that behavior with respect to one form need not mirror the other form.
+Players were assumed to optimize their strategies for groups of referents sharing the same ambiguous form independently of other groups. As such, \citeauthor{rohde2012}'s two studies were each treated as two independent language games being run concurrently. We thus use search spaces with three dimensions not six. Note that some player pairs in \citeauthor{rohde2012}'s second study coordinated the use of the ambiguous form for one group, but not the other, suggesting that behavior with one form need not mirror the other.
 
-Finally, because each dimension in the search space defined above reflects a probability, values outside the interval $[0, 1]$ are invalid. In order to adapt the PSO algorithm to this constraint, in the optimized model presented, particles which moved outside the desired search space immediately had a repair method applied to them, whereby they were relocated to the nearest point which did not violate the given constraints - a technique from the literature \citep{engelbrecht2005}. For a baseline PSO model used for comparison, a standard ``rejection" constraint handling technique was employed \citep{engelbrecht2005}.
-
+Finally, because each dimension in the search space defined above reflects a probability, values outside the interval $[0, 1]$ are invalid. To adapt the PSO algorithm to this constraint, particles in our optimized model which moved outside the desired search space immediately had a repair method applied to them, whereby they were relocated to the nearest point which did not violate the given constraints; as a baseline, a standard ``rejection" constraint-handling technique was employed (see \citeNP{engelbrecht2005}).
  
 \subsection{Objective function}
 \label{sec:objective_func}
-In applying PSO to the language game presented in \cite{rohde2012}, an appropriate representation of the game's goals must be formulated as an objective function. In the game, the expected number of points awarded to participant $i$ given their partner $j$ when asked to communicate referent $r$ can be calculated as follows:\footnote{N.B. that while the notation $P(x|y)$ is normally used solely to indicate the conditional probability of $x$ given $y$, this notation is here additionally used to indicate that the expected number of points $EP_i$ must be evaluated with regards to $i$'s partner $j$, notated as $EP_{i}(r|j)$.}
+In applying PSO to \citeauthor{rohde2012} language game, an appropriate representation of the game's goals must be formulated as an objective function. The expected number of points awarded to player $i$ when asked to communicate referent $r$ to their partner $j$ can be calculated as follows:\footnote{N.B. that while the notation $P(x|y)$ is traditionally used to indicate the conditional probability of $x$ given $y$, here this notation is additionally used to indicate that the expected number of points $EP_i$ must be evaluated with regards to $i$'s partner $j$, notated as $EP_{i}(r|j)$.}
 \begin{multline}
 \begin{split}
 EP_{i}(r|j) = & P_i(A|r)(S \cdot P_j(r|A) - cost_A) \\
               & + (1 - P_i(A|r))(S - cost_r) 
 \end{split}
 \end{multline}
-where $cost_A$ is the cost of production of the ambiguous form, $S$ is the number of points awarded on successful communication (set at 80 and 85 in \citeauthor{rohde2012}, respectively), and $cost_r$ is the cost of production of the unambiguous form for $r$.
+where $cost_A$ is the cost of producing the ambiguous form, $S$ is the number of points awarded on successful communication (80 and 85 for \citeauthor{rohde2012}'s study 1 and 2, respectively), and $cost_r$ is the cost of producing $r$'s unambiguous form.
 
-In each round, the actual number of points awarded to participants is dependent on samples from $P_i$ and $P_j$, as well as the randomly-chosen $r$. As such, without the strategies of $i$ or $j$ changing, there are for any given round a number of possible scores $i$ might attain. To avoid having to optimize a stochastic objective function, the objective function $f$ used for both models was ergo chosen as 
+In each round, the actual number of points awarded to players is dependent on samples from $P_i$ and $P_j$, as well as the randomly-chosen $r$. As such, without the strategies of $i$ or $j$ changing, there are for any given round a number of possible scores $i$ might attain. To avoid optimizing a stochastic objective function, the objective function $f$ was ergo chosen as:
 \begin{equation}
 f(i) = \sum_{r \in R} EP_{i}(r|j) + EP_{j}(r|i)
 \end{equation}
@@ -148,12 +94,11 @@ f(i) = \sum_{r \in R} EP_{i}(r|j) + EP_{j}(r|i)
 
 \subsection{PSO parameter optimization}
 \label{sec:param_opt}
-The PSO model parameters were optimized to best fit the experimental data. The values of the cognitive and social components $\alpha$ and $\beta$ were restricted to the interval $[0,4]$, the inertial dampening factor $\sigma$ to $[1,1.1]$, the base inertia $\tau$ to $[0,4]$, and the velocity dampening constant $\phi$ to $[0,2]$. The number of iterations over which the model was to be run, as restricted to $[100,1000]$, were also optimized.
+The PSO model parameters were optimized to best fit the experimental data. The values of the cognitive and social components $\alpha$ and $\beta$ were restricted to the interval $[0,4]$, the inertial dampening factor $\sigma$ to $[1,1.1]$, base inertia $\tau$ to $[0,4]$, and the velocity dampening constant $\phi$ to $[0,2]$. The number of iterations over which the model was run, $[100,1000]$, was also optimized.
 
-Optimization of these parameters was itself performed via PSO, over $1255$ iterations. The parameter values used for this meta-optimization task were those recommended in \cite{shi1998} and \cite{solnon2010}. A baseline model, against which the optimized model was compared, also used these recommended parameter values. Initial particle positions were assigned using the randomized nonuniform method presented in \cite{mitchell1991}. 
+Optimization of these parameters was itself performed via PSO, over $1255$ iterations. The parameter values used for this meta-optimization followed published recommendations \cite{shi1998,solnon2010}. A baseline model, against which the optimized model was compared, also used these recommended parameter values. Initial particle positions were assigned using a randomized nonuniform method \cite{mitchell1991}. 
 
-The parameter optimization task sought to minimize the discrepancy in rates of ambiguous form coordination, unambiguous form coordination, and failure to coordinate between the model and the experimental data, across all language game variants. In order to evaluate this and compare model behavior with the behavior of human participants in the task, pairs were considered to have coordinated if, when the PSO task had completed, referents could be successfully communicated between the pair $\geq 95\%$ of the time.
-
+The parameter optimization task sought to minimize the discrepancy in rates of ambiguous form coordination, unambiguous form coordination, and failure to coordinate between the model and the experimental data, across all language game variants. To evaluate this and compare model behavior with the behavior of human players in the task, pairs were considered to have coordinated if, when the PSO task had completed, the pair could successfully communicate about referents $\geq 95\%$ of the time.
 
 
 \section{Results and discussion}
@@ -171,31 +116,29 @@ The parameter optimization task sought to minimize the discrepancy in rates of a
     $\phi$     & $1.202$   & $1.0$    & $+20.20\%$\\ \hline
     Iterations & $305$     & N/A      & N/A\\ 
     \end{tabular}
-   	\caption{Comparison of optimized PSO parameters against those recommended in \cite{shi1998} and \cite{solnon2010}.}
+   	\caption{Comparison of optimized PSO parameters against baseline published settings}
 	\label{table:1}
 \end{center}
 \end{table}
 
-The results of the model parameter optimization task are presented in Table \ref{table:1}. Of particular note are the substantial discrepancies between the baseline and optimized values for the cognitive component ($\alpha$), social component ($\beta$), and base inertia ($\tau$).
+The results of the model parameter optimization task are presented in Table \ref{table:1}. Of particular note are the substantial discrepancies between the baseline and optimized values for the cognitive component ($\alpha$), social component ($\beta$), and base inertia ($\tau$). One possible explanation for these discrepancies concerns the dynamic nature of the language game. PSO's cognitive component ($\alpha$) determines how attracted a particle is to its own previously best-found position $x_i^*$, and that the social component ($\beta$) determines how attracted a particle is to the best-found solution within its group (here, dyad) $x_{N(i)}^*$. One possible technique for handling dynamic objective functions such as that presented by the \citeauthor{rohde2012} language game is, on objective function change, to reinitialize or discard $x_i^*$ and to recalculate $f(x_{N(i)}^*)$ \cite{engelbrecht2005}. While the latter is only achievable through a modification of the core PSO algorithm, in a scenario where the objective function changes every iteration, the former is tantamount to lowering $\alpha$ to zero. As the game modeled here is evaluated for each particle against its partner's position, which is updated on every iteration, the game's objective function matches this description; the lowering of $\alpha$ in the game's optimized parameters can therefore be interpreted as the emergence of this dynamic function adaptation technique.
 
-As a possible explanation for these discrepancies, recall from equation 1 (\ref{sec:2.2.3}) that the cognitive component ($\alpha$) determines how attracted a particle is to its own previously best-found position $x_i^*$, and that the social component ($\beta$) determines how attracted a particle is to the best-found solution within its group (here, dyad) $x_{N(i)}^*$. One possible technique for handling dynamic objective functions such as that presented by the \citeauthor{rohde2012} language game is, on objective function change, to reinitialize or discard $x_i^*$ and to recalculate $f(x_{N(i)}^*)$ \citep{engelbrecht2005}. While the latter is only achievable through a modification of the core PSO algorithm, in a scenario wherein the objective function changes every iteration, the former is tantamount to lowering $\alpha$ to zero. As the language game modeled here is evaluated for each particle against its partner's position, which is updated on every iteration, the game's objective function matches this description; the significant lowering of $\alpha$ in optimized parameters for the game can therefore be interpreted as an implementation of this dynamic function adaptation technique.
-
-Another possible explanation is that the divergence is reflective of the nature of the chosen objective function. Language is an inherently cooperative endeavour; referential coordination games may therefore encourage favoring the best strategies across all communicative partners over those that maximize individual fitness. Indeed, the parameter optimization results may be reflective of general human eusociality. It is important, however, to note that any conclusions of this nature drawn from the parameter optimization task must be taken with a grain of salt; the underabundance of data from \citeauthor{rohde2012} and resultant infeasibility of dividing the data into test and training sets makes it likely that the models have been grossly overfit. Confirmation of these results would require not only more extensive human trials under a number of conditions, but also a thorough examination of how adjusting each of the PSO parameters in isolation impacts the model's results.
+Another possible explanation is that the divergence reflects the chosen objective function. Language is an inherently cooperative endeavour; referential coordination games may therefore encourage favoring the best strategies across all communicative partners over those that maximize individual fitness. Indeed, the parameter optimization results may reflect the fundamentally social underpinnings of the human condition. It is important, however, to note that any conclusions of this nature drawn from the parameter optimization task must be taken with a grain of salt; the underabundance of data from \citeauthor{rohde2012} and resultant infeasibility of dividing the data into test and training sets makes it likely that the models have been grossly overfit. Confirmation of these results would require not only more extensive human trials under a number of conditions, but also a thorough examination of how adjusting each of the PSO parameters in isolation impacts the model's results.
 
 
 \subsection{Comparison against baseline}
 \label{sec:model_comparison}
-Results from the optimized model were compared against a baseline model, which made use of the standard parameters used in the meta-optimization task. For both models, 250 simulations of 10 pairs were performed for each of the sets of costs used in \citeauthor{rohde2012} (see Table \ref{table:2}).
+Results from the optimized model were compared against a baseline model, which made use of the standard parameters used in the meta-optimization task. For both models, 250 simulations of 10 pairs were performed for each of \citeauthor{rohde2012}'s sets of costs (see Table \ref{table:2}).
 \begin{table}[]
 \begin{center}
-    \begin{tabular}{ l r r r r }
-    Experiment & $cost_{r_1}$ & $cost_{r_2}$ & $cost_{r_3}$ & $cost_A$\\ \hline
-    Experim. 1 & $60$ & $120$ & $280$ & $80$ \\ \hline
-    Experim. 2 & $60$ & $120$ & $250$ & $80$ \\ \hline
-    Experim. 3 & $80$ & $140$ & $165$ & $80$ \\ \hline
-    Experim. 4 & $80$ & $135$ & $170$ & $80$ \\ 
+    \begin{tabular}{l c c c c | c}
+    Set & $cost_{r_1}$ & $cost_{r_2}$ & $cost_{r_3}$ & $cost_A$ & \\ \hline
+    1/Flowers & $60$ & $120$ & $280$ & $80$ & 1\\ \hline
+    1/Trees & $60$ & $120$ & $250$ & $80$ & 2\\ \hline
+    2/Flowers & $80$ & $140$ & $165$ & $80$ & 3\\ \hline
+    2/Trees & $80$ & $135$ & $170$ & $80$ & 4\\ 
     \end{tabular}
-    \caption{Referring expression costs used in the \citeauthor{rohde2012} studies. Note that each study has 	    been split into two distinct experiments (see \ref{sec:search_space}).}
+    \caption{\citeauthor{rohde2012}'s referring expression costs by set (Study 1 or 2 / Flowers or Trees). For the simulation, each study has  been split into two experiments. The last column shows the experiment number used for reference in the results reported here.}
     \label{table:2}
 \end{center}
 \end{table}
@@ -207,11 +150,12 @@ Results from the optimized model were compared against a baseline model, which m
 \label{fig:model_comp}
 \end{figure}
 
-To assess how similarly both models responded to changing costs as compared to human participants, scaling factors for the optimized and baseline models were derived by minimizing the squared error in ambiguous form coordination rates. The scaling factors found for the optimized and baseline models were $2.19$ and $11.33$ respectively. A comparison of the scaled results from each model to the experimental data is given in Figure \ref{fig:model_comp}. An ANOVA conducted predicting scaled error rate as a function of model type with no random effects (i.e., error for each simulation treated as an independent observation) showed the optimized model to have a significantly lower error rate than the baseline model ($F(1, 1998) = 921.3$, $p<0.001$). This suggests that, while both models demonstrated sensitivity to variations in form costs, and neither perfectly replicated the raw rates of ambiguous coordination observed experimentally, the model using  optimized parameters (once scaled) was best suited for capturing the proportional responses attested in the \cite{rohde2012} studies. 
+To assess how well the two models captured the human behavior on each of \citeauthor{rohde2012}'s cost sets, scaling factors for the optimized and baseline models were derived by minimizing the squared error in ambiguous form coordination rates. The scaling factors found for the optimized and baseline models were $2.19$ and $11.33$ respectively. A comparison of the scaled results from each model to the experimental data is given in Figure \ref{fig:model_comp}. An ANOVA was conducted predicting scaled error rate as a function of model type with each simulation treated as an independent observation. The optimized model showed a significantly lower error rate than the baseline model ($F(1, 1998) = 921.3$, $p<0.001$). This suggests that, while both models demonstrated sensitivity to variations in form costs and neither perfectly replicated the raw rates of ambiguous coordination observed experimentally, the model using optimized parameters best captured the proportional responses attested in the \citeauthor{rohde2012}\ studies. 
 
-It remains to be seen whether parameters optimized to a PSO model using the same constraint handling technique as the baseline might yield more favorable results.\footnote{An alternative model using this technique in conjunction with the above-presented PSO parameters did not outperform the baseline.} A further question is that of initial particle positions: while in this paper an initial position for each particle was assigned randomly, humans are likely to have prior biases that inform their initial strategies; this may account for the increased rates of coordination on the ambiguous form observed in human studies.
+It remains to be seen whether parameters optimized to a PSO model using the same constraint handling technique as the baseline might yield more favorable results.\footnote{An alternative model using this technique in conjunction with the above-presented PSO parameters did not outperform the baseline.} A further question concerns the initial particle positions: In this paper an initial position for each particle was assigned randomly; humans, however, are likely to have prior biases that inform their initial strategies, and this may account for the increased rates of coordination on the ambiguous form observed in the human studies.
 
-A notable feature of the PSO model is the simplicity with which agents are represented. Particles within the swarm consist solely of their current position within the search space, their velocity, and a record of the globally and personally best-found positions. Apart from these, agents have no form of memory whatsoever. Despite this, referential coordination and entrainment behaviors which mirror those of human interlocutors are possible. This presents an account of referential coordination much more in keeping with more egocentric models of communication \citep{horton1996} than the audience design view \citep{clark1982}, especially given that agents maintain no explicit model of their communicative partners or of the common ground. Instead, referential coordination occurs as a response to previous successes, failures, and incurred production costs, resulting in an implicit representation or reflection of the common ground via the agents' mixed strategies. 
+\subsection{Implications for audience design}
+A notable feature of the PSO model is the simplicity with which agents are represented. Particles within the swarm consist solely of their current position within the search space, their velocity, and a record of the globally and personally best-found positions. Apart from these attributes, agents have no form of memory whatsoever. Despite this, referential coordination and entrainment behaviors which mirror those of human interlocutors are possible. This presents an account of referential coordination much more in keeping with more egocentric models of communication \cite{horton1996} than the audience design view \cite{clark1982}, especially given that agents maintain no explicit model of their communicative partners or of the common ground. Instead, referential coordination occurs as a response to previous successes, failures, and incurred production costs, resulting in an implicit representation or reflection of the common ground via the agents' mixed strategies. 
 
 
 \subsection{Predictions from optimized model}
@@ -233,12 +177,12 @@ A notable feature of the PSO model is the simplicity with which agents are repre
 
 Having been shown to outperform the baseline model in mimicking experimental data when scaled, the optimized PSO model was used to predict referential coordination behaviors outside those conditions studied in \cite{rohde2012}. The results of varying ambiguous form cost on ambiguous and unambiguous form coordination \textit{ceteris paribus} are presented in Figure \ref{fig:3},\footnote{It should be noted that because coordination rates have been scaled here as per \ref{sec:model_comparison}, the combined rates in some instances exceed $100\%$. The rates could be normalized or the scaling factor adjusted to avoid this.} while Figure \ref{fig:4} demonstrates the effects of adjusting the number of points awarded for successful communication. As can be seen, the optimized model predicts that overall coordination rates (on both ambiguous and unambiguous forms) increase in response to both higher ambiguous form cost and higher successful communication reward.
 
-In \citeauthor{rohde2012}, it was argued that the lower stakes in the researchers' second study\footnote{Experiments 3 and 4.} (by way of more similar and lower form costs) resulted in more frequent coordination on the ambiguous form by encouraging participants to explore a variety of referential strategies. This appears to be borne out in the predictions generated from the repair model for various successful communication rewards. As the reward for successful communication increases (and overall success becomes more guaranteed), simulated dyads become more likely to coordinate using either the ambiguous form or unambiguous forms, exceeding the rates of coordination observed in human trials. Likewise, when success provides less of a reward (or even a penalty), referential coordination rates drop sharply. 
+In \citeauthor{rohde2012}, it was argued that the lower stakes in the researchers' second study\footnote{Experiments 3 and 4.} (by way of more similar and lower form costs) resulted in more frequent coordination on the ambiguous form by encouraging players to explore a variety of referential strategies. This appears to be borne out in the predictions generated from the repair model for various successful communication rewards. As the reward for successful communication increases (and overall success becomes more guaranteed), simulated dyads become more likely to coordinate using either the ambiguous form or unambiguous forms, exceeding the rates of coordination observed in human trials. Likewise, when success provides less of a reward (or even a penalty), referential coordination rates drop sharply. 
 
 Increasing the cost of the ambiguous form was also predicted by the PSO modeling to increase ambiguous form coordination rates. A possible explanation for this observation is that increasing ambiguous form costs more readily indicate for which of the three referents the form should be produced, rather than the corresponding unambiguous form. For example, in experiment 1, $cost_A$ is less than both $cost_{r2}$ and $cost_{r3}$. Because of this, agents may differ in their choice of strategies, since using the ambiguous form for either referent increases score, or indeed may attempt to use the ambiguous form for both referents simultaneously, reducing overall communicative success. When $cost_A$ instead exceeds the cost of all but one unambiguous form, the referential strategy in which the use of this form is replaced with the use of the ambiguous form becomes highly preferred, an effect which becomes more pronounced as ambiguous form cost increases. This reasoning, however, does not explain why the rate of coordination using the ambiguous form was predicted to remain high when $\forall r \in R,\; cost_A > cost_r$.
 
 \subsubsection{Variation of discourse context after entrainment}
-It is a well established phenomenon that interlocutors who entrain on the use of a high-cost but unambiguous referring expression in a discourse environment containing similar referents will only infrequently switch to using a less costly but more general referring expression when a new discourse context would allow them to do so unambiguously \citep{brennan1996}: an apparent violation of the Gricean maxim of quantity \citep{grice1975}. To investigate whether this property holds for the PSO model, two experiments were conducted which varied in their dimensionality and form costs (see Table \ref{table:4}). For both experiments, to simulate previous entrainment on the unambiguous form, a swarm of particles $I$ was initialized such that $\forall i \in I, \forall r \in R,\, P_i(A|r) = 0$; further, the base inertia parameter ($\tau$) was modified from the optimized value presented in Table \ref{table:1} so as to reflect 305 iterations of the PSO algorithm having already been run.\footnote{As calculated using equation 2 (presented in \ref{sec:2.2.3}).} With these initial conditions set, 305 ``additional" iterations were run.
+It is a well established phenomenon that interlocutors who entrain on the use of a high-cost but unambiguous referring expression in a discourse environment containing similar referents will only infrequently switch to using a less costly but more general referring expression when a new discourse context would allow them to do so unambiguously \cite{brennan1996}: an apparent violation of the Gricean maxim of quantity \cite{grice1975}. To investigate whether this property holds for the PSO model, two experiments were conducted which varied in their dimensionality and form costs (see Table \ref{table:4}). For both experiments, to simulate previous entrainment on the unambiguous form, a swarm of particles $I$ was initialized such that $\forall i \in I, \forall r \in R,\, P_i(A|r) = 0$; further, the base inertia parameter ($\tau$) was modified from the optimized value presented in Table \ref{table:1} so as to reflect 305 iterations of the PSO algorithm having already been run.\footnote{As calculated using equation 2 (presented in \ref{sec:2.2.3}).} With these initial conditions set, 305 ``additional" iterations were run.
 
 For both experiment A and B, 250 simulations were run. In no simulation under either condition did the number of agent pairs entrained on unambiguous forms initially differ from the final number after the simulation had concluded; this is to say, all agents continued using the more costly unambiguous forms. Although in the human studies conducted by \citeauthor{brennan1996} the overinformativity effect was not observed to be universal, this is not taken to be problematic, considering no attempt was made to establish how many iterations of the PSO model in the \citeauthor{rohde2012} language games might correspond to the duration of entrainment in the \citeauthor{brennan1996} studies. 
 
@@ -259,44 +203,12 @@ For both experiment A and B, 250 simulations were run. In no simulation under ei
 \section{Conclusion}
 This paper sought to model the findings of \citeauthor{rohde2012} computationally, and to extrapolate beyond the conditions tested in that work. The paper has demonstrated that PSO offers a framework for replicating the human responses observed in the \citeauthor{rohde2012} language game studies; in particular, this paper has identified a set of parameters for the PSO algorithm which yields a statistically significant improvement in replicating the experimental data over baseline PSO parameters. The resultant model has then been used to predict the effects of varying costs and rewards in one of the \citeauthor{rohde2012} language games on dyadic ambiguous form entrainment. Predictions were also made which appeared to be in keeping with effects noted in \citeauthor{brennan1996}. Overall, the findings appear to demonstrate that it is not unreasonable to explain referential coordination in terms of a generalized optimization process (in which communicative success is maximized and communicative costs minimized), without needing to take into account complex or specialized linguistic processes or reasoning methods.
 
-% If you use BibTeX with a bib file named eacl2014.bib, 
-% you should add the following two lines:
-\bibliographystyle{acl}
+
+
+
+
+\bibliographystyle{apacite}
 \bibliography{conference}
 
-% Otherwise you can include your references as follows:
-%% \begin{thebibliography}{}
-
-%% \bibitem[\protect\citename{Aho and Ullman}1972]{Aho:72}
-%% Alfred~V. Aho and Jeffrey~D. Ullman.
-%% \newblock 1972.
-%% \newblock {\em The Theory of Parsing, Translation and Compiling}, volume~1.
-%% \newblock Prentice-{Hall}, Englewood Cliffs, NJ.
-
-%% \bibitem[\protect\citename{{American Psychological Association}}1983]{APA:83}
-%% {American Psychological Association}.
-%% \newblock 1983.
-%% \newblock {\em Publications Manual}.
-%% \newblock American Psychological Association, Washington, DC.
-
-%% \bibitem[\protect\citename{{Association for Computing Machinery}}1983]{ACM:83}
-%% {Association for Computing Machinery}.
-%% \newblock 1983.
-%% \newblock {\em Computing Reviews}, 24(11):503--512.
-
-%% \bibitem[\protect\citename{Chandra \bgroup et al.\egroup }1981]{Chandra:81}
-%% Ashok~K. Chandra, Dexter~C. Kozen, and Larry~J. Stockmeyer.
-%% \newblock 1981.
-%% \newblock Alternation.
-%% \newblock {\em Journal of the Association for Computing Machinery},
-%%   28(1):114--133.
-
-%% \bibitem[\protect\citename{Gusfield}1997]{Gusfield:97}
-%% Dan Gusfield.
-%% \newblock 1997.
-%% \newblock {\em Algorithms on Strings, Trees and Sequences}.
-%% \newblock Cambridge University Press, Cambridge, UK.
-
-%% \end{thebibliography}
-
 \end{document}
+

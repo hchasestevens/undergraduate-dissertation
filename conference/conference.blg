@@ -1,0 +1,60 @@
+This is BibTeX, Version 0.99c (Web2C 7.5.6)
+The top-level auxiliary file: conference.aux
+The style file: apacite.bst
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: conference.bib
+Repeated entry---line 672 of file conference.bib
+ : @inproceedings{golland2010
+ :                           ,
+I'm skipping whatever remains of this entry
+Warning--No address in engelbrecht2005
+Warning--No publisher in golland2010
+Warning--No address in golland2010
+Warning--No publisher in kennedy1997
+Warning--No address in kennedy1997
+Warning--No address in lewis1969
+Warning--No publisher in rohde2012
+Warning--No publisher in shi1998
+Warning--No address in shi1998
+You've used 15 entries,
+            5327 wiz_defined-function locations,
+            1128 strings with 10465 characters,
+and the built_in function-call counts, 22885 in all, are:
+= -- 2890
+> -- 230
+< -- 1050
++ -- 883
+- -- 30
+* -- 1377
+:= -- 4211
+add.period$ -- 68
+call.type$ -- 15
+change.case$ -- 87
+chr.to.int$ -- 0
+cite$ -- 39
+duplicate$ -- 417
+empty$ -- 953
+format.name$ -- 255
+if$ -- 4567
+int.to.chr$ -- 0
+int.to.str$ -- 30
+missing$ -- 0
+newline$ -- 281
+num.names$ -- 120
+pop$ -- 552
+preamble$ -- 1
+purify$ -- 68
+quote$ -- 0
+skip$ -- 1513
+stack$ -- 0
+substring$ -- 953
+swap$ -- 327
+text.length$ -- 62
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 1424
+warning$ -- 9
+while$ -- 65
+width$ -- 0
+write$ -- 408
+(There was 1 error message)

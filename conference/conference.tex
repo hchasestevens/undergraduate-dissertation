@@ -76,7 +76,7 @@ v_i^t = \theta(t) \cdot v_i^{t-1} & + \alpha \cdot \epsilon_1 \cdot (x_i^* - x_i
                                   & + \beta \cdot \epsilon_2 \cdot (x_{N(i)}^* - x_i^{t-1})
 \end{split}
 \end{multline}
-where $\theta$ is the inertial scheduling function, $\alpha$ is the cognitive component governing $i$'s attraction to its personal best known position $x_i^*$, $\beta$ is the social component governing $i$'s attraction to the best position $x_{N(i)}^*$ known for its group $N(i)$, and $\epsilon_1$ and $\epsilon_2$ are randomly chosen values within $\left(0.0, 1.0\right]$. $\theta$ is defined with respect to a base inertia $\tau$ and inertial dampening factor $\sigma$ such that
+where $\theta$ is the inertial scheduling function, $\alpha$ is the cognitive component governing $i$'s attraction to its personal best known position $x_i^*$, $\beta$ is the social component governing $i$'s attraction to the best position $x_{N(i)}^*$ known for its group $N(i)$, and $\epsilon_1$ and $\epsilon_2$ are randomly chosen values within $\left(0, 1\right]$. $\theta$ is defined with respect to a base inertia $\tau$ and inertial dampening factor $\sigma$ such that
 \begin{equation}
 \theta(t) = \frac{\tau}{\sigma^t} 
 \end{equation}

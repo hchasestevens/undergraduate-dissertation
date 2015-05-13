@@ -3,6 +3,7 @@ from matplotlib import pyplot as pl
 from matplotlib import cm
 import matplotlib as mpl
 import math
+import matplotlib
 
 experiment = pe.Experiment(
     pe.Experiment.Settings(
@@ -37,6 +38,10 @@ scenario = {
 print "Complete."
 
 def graph(*keys):
+    num_colors = 16
+    cust_cmap = [((1. / 16) * x, ) * 3 for x in xrange(16)] * (256 / 16)
+    cust_cmap = matplotlib.colors.ListedColormap(cust_cmap)
+
     fig, axes = pl.subplots(ncols=int(math.ceil(len(keys)/2.)), nrows=2)
     
     pl.rc('text', usetex=True)
@@ -52,7 +57,7 @@ def graph(*keys):
     
     for plot, key, i in zip(axes.flat, keys, xrange(99)):
         #im = plot.imshow(scenario[key], cmap=cm.coolwarm, origin='lower', vmin=minest, vmax=maxest)
-        im = plot.imshow(scenario[key], cmap=cm.jet, origin='lower', vmin=minest, vmax=maxest)
+        im = plot.imshow(scenario[key], cmap=cust_cmap, origin='lower', vmin=minest, vmax=maxest)
         #plot.plot(*tuple(v * 100 for v in key[::-1]), marker='x', markersize=8, color='k', mew=2)
         plot.axis([0, 100, 0, 100])
         if not i:

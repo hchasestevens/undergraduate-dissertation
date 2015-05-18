@@ -119,39 +119,39 @@ if __name__ == '__main__':
                 None
             )
             for x in
-            xrange(80 - 100, 360, 20)
+            xrange(80 - 100, 440, 20)
         ]
-        new_experiments = [ # vary success points
-            Experiment(  
-                Experiment.Settings(
-                    reference_costs=(-60., -120., -280.),
-                    ambiguous_reference_cost=-80.,
-                    success_points=float(x),
-                ), 
-                None
-            )
-            for x in
-            xrange(80 - 100, 360, 20)
-        ]
+        #new_experiments = [ # vary success points
+        #    Experiment(  
+        #        Experiment.Settings(
+        #            reference_costs=(-60., -120., -280.),
+        #            ambiguous_reference_cost=-80.,
+        #            success_points=float(x),
+        #        ), 
+        #        None
+        #    )
+        #    for x in
+        #    xrange(80 - 100, 440, 20)
+        #]
 
-        new_experiments = [ # brennan clark
-            Experiment(  
-                Experiment.Settings(
-                    reference_costs=(-80., -140., -165.),
-                    ambiguous_reference_cost=-80.,
-                    success_points=85.,
-                ), 
-                None
-            ),
-            Experiment(  
-                Experiment.Settings(
-                    reference_costs=(-280.,),
-                    ambiguous_reference_cost=-80.,
-                    success_points=85.,
-                ), 
-                None
-            ),
-        ]
+        #new_experiments = [ # brennan clark
+        #    Experiment(  
+        #        Experiment.Settings(
+        #            reference_costs=(-80., -140., -165.),
+        #            ambiguous_reference_cost=-80.,
+        #            success_points=85.,
+        #        ), 
+        #        None
+        #    ),
+        #    Experiment(  
+        #        Experiment.Settings(
+        #            reference_costs=(-280.,),
+        #            ambiguous_reference_cost=-80.,
+        #            success_points=85.,
+        #        ), 
+        #        None
+        #    ),
+        #]
 
         def brennan_clark(dims):
             def gen():
@@ -169,11 +169,11 @@ if __name__ == '__main__':
             #swarm = Swarm(dimensions, group_size, no_groups, **particle_settings)
             simulation_results = []
             for __ in xrange(250):  # 250 sims of...
-                #swarm = Swarm(len(experiment.settings.reference_costs), group_size, no_groups, **particle_settings)
-                d = len(experiment.settings.reference_costs) # brennan clark
-                swarm = Swarm(d, group_size, no_groups, particle_distribution=brennan_clark(d), **particle_settings) # brennan clark
-                for particle in swarm.particles:
-                    particle._time = 350
+                swarm = Swarm(len(experiment.settings.reference_costs), group_size, no_groups, **particle_settings)
+                #d = len(experiment.settings.reference_costs) # brennan clark
+                #swarm = Swarm(d, group_size, no_groups, particle_distribution=brennan_clark(d), **particle_settings) # brennan clark
+                #for particle in swarm.particles:
+                #    particle._time = 350
                 for j, groups in enumerate(swarm.step_until(experiment.game, max_iterations=iterations, return_groups=True)):
                     pass
                     #if i == 0:
@@ -196,11 +196,11 @@ if __name__ == '__main__':
                 print __, ('repair' if particle_settings['respect_boundaries'] else 'reject')
                 #print __, 'standard'
             #experiment_profile = {'expected': experiment.results._asdict(), 'settings': experiment.settings._asdict()}
-            #experiment_profile = {'expected': '', 'settings': experiment.settings._asdict()}
-            experiment_profile = {'expected': '', 
-                                  'settings': experiment.settings._asdict(), 
-                                  'initial_inertia':particle_settings['initial_inertia'],
-                                  'no_dimensions':d,}
+            experiment_profile = {'expected': '', 'settings': experiment.settings._asdict()}
+            #experiment_profile = {'expected': '', 
+            #                      'settings': experiment.settings._asdict(), 
+            #                      'initial_inertia':particle_settings['initial_inertia'],
+            #                      'no_dimensions':d,}
             all_experiments[i] = {'experiment': experiment_profile, 'simulation': simulation_results}
             #print
             #print res
@@ -208,7 +208,7 @@ if __name__ == '__main__':
             #print experiment.difference(res)
             #print
         import json
-        with open(('repair' if particle_settings['respect_boundaries'] else 'reject') + '.brennan_clark.json', 'w') as f:
+        with open(('repair' if particle_settings['respect_boundaries'] else 'reject') + '.vary_ambiguous_cost.json', 'w') as f:
         #with open('standard' + '.json', 'w') as f:
             json.dump(all_experiments, f)
         import pdb

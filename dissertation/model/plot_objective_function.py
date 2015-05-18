@@ -39,7 +39,8 @@ print "Complete."
 
 def graph(*keys):
     num_colors = 16
-    cust_cmap = [((1. / 16) * x, ) * 3 for x in xrange(16)] * (256 / 16)
+    #cust_cmap = [((1. / 16) * x, ) * 3 for x in xrange(16)] * (256 / 16)
+    cust_cmap = [(0., 0., 0.) if not (x) % 16 else (1. - (1. / 256 * x), 1 - (.5 / 256 * x), 1) for x in xrange(256)]
     cust_cmap = matplotlib.colors.ListedColormap(cust_cmap)
 
     fig, axes = pl.subplots(ncols=int(math.ceil(len(keys)/2.)), nrows=2)

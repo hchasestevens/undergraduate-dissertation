@@ -374,7 +374,7 @@
 \pgftext[x=6.760795in,y=0.559444in,,top]{{\sffamily\fontsize{14.000000}{16.800000}\selectfont \(\displaystyle 380\)}}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=4.176875in,y=0.301822in,,top]{{\sffamily\fontsize{14.000000}{16.800000}\selectfont \(\displaystyle S\)}}%
+\pgftext[x=4.176875in,y=0.301822in,,top]{{\sffamily\fontsize{22.000000}{22.800000}\selectfont \(\displaystyle S\)}}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -623,7 +623,7 @@
 \pgftext[x=0.963194in,y=5.535000in,right,]{{\sffamily\fontsize{14.000000}{16.800000}\selectfont \(\displaystyle 100\%\)}}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.441337in,y=3.075000in,,bottom,rotate=90.000000]{{\sffamily\fontsize{14.000000}{16.800000}\selectfont \textrm{Coordination rate}}}%
+\pgftext[x=0.441337in,y=3.075000in,,bottom,rotate=90.000000]{{\sffamily\fontsize{22.000000}{22.800000}\selectfont \textrm{Coordination rate}}}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%

@@ -1,0 +1,52 @@
+%
+% File naaclhlt2012.tex
+%
+
+\documentclass[a4paper,11pt]{article}
+\usepackage{naaclhlt2012}
+\usepackage{apacite}
+\usepackage{amsmath}
+\usepackage{pgf}
+
+\title{Modeling Referential Coordination as a Particle Swarm Optimization Task}
+
+\author{H. Chase Stevens \\
+  University of Edinburgh \\
+  3 Charles Street \\
+  Edinburgh, UK \\
+  {\tt chase@chasestevens.com} \\\And
+  Hannah Rohde \\
+  University of Edinburgh \\
+  3 Charles Street \\
+  Edinburgh, UK \\
+  {\tt hannah.rohde@ed.ac.uk} \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We take a novel approach to modeling the influence of production cost on referential coordination by employing particle swarm optimization (PSO), a general-purpose optimization method. The PSO-based model replicates behaviors observed in previous research \cite{rohde2012,brennan1996}, indicating that referential coordination can be framed as a constrained optimization problem in which agents may need only to maintain a simplified representation of the common ground.
+\end{abstract}
+
+\section{Introduction}
+The question of how referential choice and interpretation are influenced by production cost remains unresolved in the literature. When producing referring expressions under potentially ambiguous conditions, speakers must weigh the cost of producing an expression against the ease with which their conversational partners will be able to infer the intended referent. Recent research \cite{rohde2012,degen2012,frank2012} investigates the conditions under which speakers coordinate the use of ambiguous expressions through the use of language games; in \citeauthor{rohde2012}, an iterated language game was introduced which targeted dyadic referential coordination over multiple turns. A study conducted using this game showed that the participants' ability to successfully coordinate the use of less costly ambiguous forms was sensitive to the relative cost of competing unambiguous forms.
+
+We build a computational model in order to simulate the findings of said study and, in doing so, to better understand the relationship between form costs and referential coordination. PSO, a swarm-based, general-purpose global optimization method, was chosen for this simulation as it allowed for a natural representation of agents' interactions over time as they sought to jointly optimize their performance in the language game. Our PSO model is capable both of replicating the coordination behaviors observed in human participants and of extrapolating beyond the conditions investigated in the \citeauthor{rohde2012} study.
+
+\section{Methods}
+PSO represents potential solutions for maximizing an objective function as particle positions existing within a multidimensional space. Over a number of iterations, increasingly suitable solutions are found as particles explore this space, their paths influenced by the best-found solutions at a given iteration \cite{kennedy1995}.
+
+To adapt PSO to the \citeauthor{rohde2012} language game, we model agents' strategies as sets of probabilities, yielding a search space in which each dimension represents the preference of an agent to use an ambiguous referring expression for some referent instead of an unambiguous expression of differing production cost. In this way, a pair of particles can represent two interlocutors with two individual referential strategies, the fitness of which can be evaluated with regards to the production costs and successful communication rewards imposed by the language game in conjunction with the likelihood of successful communication as dictated by the partner's referential strategy. 
+
+Whether two agents ultimately succeed in coordinating (and on which referring expressions) is, under this approach, a function of whether the agents' strategies after the final PSO iteration are consistent and compatible with each other. To best replicate the influences of form cost on coordination as observed in \citeauthor{rohde2012}, we optimize the parameters of the PSO algorithm, which specify the movement of particles, to the study.
+
+\section{Results}
+
+
+
+\bibliographystyle{apacite}
+\bibliography{poster}
+
+\end{document}
+

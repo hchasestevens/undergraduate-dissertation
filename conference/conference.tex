@@ -37,7 +37,7 @@ For example, consider a context in which there are three available referents, a 
 
 Recent work has used language games to investigate how speakers make selections from a given set of available ambiguous and unambiguous referring expressions \cite{rohde2012,degen2012,frank2012}. Unlike some studies which target one-time production choices (e.g. \citeauthor{degen2012}, \citeyearNP{degen2012}), \citeauthor{rohde2012}\ analyze pairs of interlocutors coordinating referring expressions in a ``conversational" (multiple turn) scenario. ``Conversations" consisted of iterated language games in which participant dyads were rewarded for coordinating their use of ambiguous and unambiguous referring expressions. The results showed that participants' ability to successfully coordinate their use of less costly ambiguous forms was sensitive to the relative costs of the available competing unambiguous forms. 
 
-This paper seeks to better understand the role of form costs in referential coordination by introducing a computational model of \citeauthor{rohde2012}'s findings. A suitable modeling technique must (i) represent the internal state of a participant with respect to the game and allow the participant's actions to be derived from this state, (ii) use the participant's communicative success with their partner to update their internal state within the model, even as their partner's internal state itself changes, and (iii) extend easily to other potential language games. 
+This paper seeks to better understand the role of form costs in referential coordination by building a computational model of \citeauthor{rohde2012}'s findings. A suitable model must (i) represent the internal state of an agent with respect to the game and allow the agent's actions to be derived from this state, (ii) use the agent's communicative success with their partner to update their internal state within the model, even as their partner's internal state itself changes, and (iii) extend easily to other potential language games. 
 
 Particle swarm optimization (PSO) is suitable in all three regards. PSO can serve not only as a general optimization method, but also as a means of modeling human social behavior, especially collaborative problem solving \cite{kennedy1997}. The optimized PSO model presented here, which utilizes a mixed strategy search space to represent form production and comprehension, is shown to outperform a baseline model in replicating human responses to form cost changes. The optimized model is used to extrapolate beyond previously tested conditions, providing a more comprehensive picture of the circumstances under which ambiguous form coordination is possible and likely. The parameters of the model and its predictions can be interpreted both in terms of the PSO algorithm itself and in terms of a broader understanding of the process of referential coordination.
 
@@ -45,9 +45,9 @@ Particle swarm optimization (PSO) is suitable in all three regards. PSO can serv
 \section{Background}
 \subsection{Referential coordination}
 \subsubsection{Game theoretic approaches}
-Game theory provides a framework for understanding agents' actions by modeling them as strategies within a game. To decide which action to choose, agents attempt to maximize their expected utility by leveraging their knowledge of the game's state \cite{benz2005}. Game theoretic concepts capture a number of linguistic phenomena that depend on the establishment of conventions between agents whose interests are aligned \cite{lewis1969}.
+Game theory provides a framework for modeling agents' actions as strategies within a game. To decide which action to choose, agents attempt to maximize their expected utility by leveraging their knowledge of the game's state \cite{benz2005}. Game theoretic concepts capture many linguistic phenomena that depend on the establishment of conventions between agents whose interests are aligned \cite{lewis1969}.
 
-Recent work has applied game theory to problems of referential coordination. For example, the use of more general but costly expressions is conventionally taken to implicitly exclude the senses of easily accessed and more specific forms (e.g. ``caused to die" excluding ``killed"). The establishment of this convention has been explained using an evolutionary game-theoretic approach: Both speaker and hearer benefit from an interpretation of the former which carries a greater degree of information (``caused to die but didn't kill") \cite{benz2005}. Game theoretic models have also been used to predict participant behavior in referential inference tasks with some success \cite{degen2012}; however, the need for more nuanced, comprehensive models (an example of which this paper attempts to provide) has become clear. 
+Recent work applies game theory to problems of referential coordination. For example, the use of more general but costly expressions is conventionally taken to implicitly exclude the senses of easily accessed and more specific forms (e.g. ``caused to die" excluding ``killed"). The establishment of this convention has been explained using an evolutionary game-theoretic approach: Both speaker and hearer benefit from an interpretation of the former which carries a greater degree of information (``caused to die but didn't kill") \cite{benz2005}. Models have also been used to predict participant behavior in referential inference tasks \cite{degen2012}; however, the need for more nuanced, comprehensive models (an example of which this paper attempts to provide) has become clear. 
 
 \subsubsection{Psycholinguistic approaches}
 The problem of referential coordination within the psycholinguistics literature has primarily been framed in terms of audience design \cite{clark1982}, whereby speakers carefully tailor utterances to best target their interlocutors; likewise, listeners interpret the meaning of utterances with respect not only to the speaker but also with respect to the speaker's presumed beliefs about the listener. Within such an account, a speaker's audience design enables the listener to disambiguate the referent of an otherwise ambiguous referring expression, provided the listener's internal model of the speaker is sufficient to capture why the speaker would have chosen a particular expression. 
@@ -69,7 +69,7 @@ On one hand, players' strategies matched game theoretic predictions: Ambiguous f
 \label{sec:2.2.3}
 PSO, an iterative global optimization algorithm, represents potential solutions to some problem as particles existing within an $n$-dimensional search space \cite{kennedy1995}. Particles have both a position and velocity within this space. Each particle keeps track of the best position it has been in as evaluated by the given objective function, as well as the best solution found by any member of the particle's group \cite{chong2013}. 
 
-In this paper's formulation of PSO, a particle $i$ with position $x_i$ has a velocity $v_i$ at state $t$ such that 
+In this paper's formulation of PSO, a particle $i$ with position $x_i$ has velocity $v_i$ at state $t$:
 \begin{multline} \label{eq:pso_vel}
 \begin{split}
 v_i^t = \theta(t) \cdot v_i^{t-1} & + \alpha \cdot \epsilon_1 \cdot (x_i^* - x_i^{t-1}) \\
@@ -91,7 +91,7 @@ where $\phi$ is a constant velocity dampening factor.
 
 While PSO has been applied to a number of problems within the fields of linguistics and psychology, its primary use has been as a means of optimizing parameters for other models, as opposed to direct application as a model in and of itself (e.g. \citeauthor{mehdad2009}, \citeyearNP{mehdad2009}).\footnote{A notable exception is the use of PSO to perform unsupervised phoneme clustering \cite{ahmadi2007}.}
 
-PSO has likewise been applied to game learning, often using a coevolutionary paradigm. However, traditionally this method has involved PSO over a search space of neural network weights, or for cases where the ``game" is a classical constraint optimization problem, such as the $n$-queens problem \cite{engelbrecht2005}. By contrast, in the new approach presented in this paper, the positions of particles themselves comprise agents' internal states, which directly define a mixed strategy; further, the aggregate locations of the particles within the search space after running the optimization task are of primary interest, as opposed to the best solutions found by the swarm.
+PSO has likewise been applied to game learning, often using a coevolutionary paradigm. Traditionally this method has involved PSO over a search space of neural network weights, or for classical constraint optimization ``games", such as the $n$-queens problem \cite{engelbrecht2005}. By contrast, in this paper, the positions of particles themselves comprise agents' internal states, which directly define a mixed strategy; further, the aggregate locations of the particles within the search space after running the optimization task are of primary interest, as opposed to the best solutions found by the swarm.
 
 
 \section{Methods}
@@ -107,7 +107,8 @@ Finally, because each dimension in the search space defined above reflects a pro
  
 \subsection{Objective function}
 \label{sec:objective_func}
-In applying PSO to the \citeauthor{rohde2012} language game, an appropriate representation of the game's goals must be formulated as an objective function. The expected number of points awarded to player $i$ when asked to communicate referent $r$ to their partner $j$ can be calculated as follows:
+In applying PSO to the \citeauthor{rohde2012}\ language game, an appropriate representation of the game's goals is formulated as an objective function. The expected number of points awarded to player $i$ communicating referent $r$ to their partner $j$ can be calculated as follows:
+
 \begin{multline}
 \begin{split}
 EP_{i}(r|j) = & P_i(A|r)(S \cdot P_j(r|A) - cost_A) \\
@@ -168,7 +169,7 @@ Results from the optimized model were compared against a baseline model, which m
     2/Flowers & $80$ & $140$ & $165$ & $80$ & 3\\ \hline
     2/Trees & $80$ & $135$ & $170$ & $80$ & 4\\ 
     \end{tabular}
-    \caption{\citeauthor{rohde2012}'s referring expression costs by set (Study 1 or 2 / Flowers or Trees). For the simulation in this paper, each study has  been split into two experiments. The last column shows the experiment number used for reference in the results reported here.}
+    \caption{\citeauthor{rohde2012}'s referring expression costs by set (Study 1 or 2 / Flowers or Trees). For the simulation in this paper, each study has  been split into two experiments. The last column shows the experiment number used for reference in this paper.}
     \label{table:2}
 \end{center}
 \end{table}
@@ -176,7 +177,7 @@ Results from the optimized model were compared against a baseline model, which m
 \begin{figure}[t]
 \centering
 \scalebox{.55}{\input{model_comparison.pgf}}
-\caption{Comparison of pairs coordinating using the ambiguous form for both models against the experimental data.}
+\caption{Comparison of pairs coordinating using the ambiguous form for both models against the experimental data}
 \label{fig:model_comp}
 \end{figure}
 
@@ -193,22 +194,22 @@ A notable feature of the PSO model is the simplicity with which agents are repre
 
 \begin{figure}[t]
 \centering
-\scalebox{.475}{\input{vary_cost_a.pgf}}
-\caption{Coordination rate predictions for Experiment 1 with ambiguous form cost varied.}
+\scalebox{.425}{\input{vary_cost_a_extended.pgf}}
+\caption{Coordination rate predictions for Experiment 1 with ambiguous form cost varied (lines at 80, 120, 280 showing costs of unambiguous forms)}
 \label{fig:3}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\scalebox{.475}{\input{vary_s.pgf}}
-\caption{Coordination rate predictions for Experiment 1 with successful communication reward varied.}
+\scalebox{.425}{\input{vary_s_extended_nolines.pgf}}
+\caption{Coordination rate predictions for Experiment 1 with successful communication reward varied }
 \label{fig:4}
 \end{figure}
 
-Having been shown to outperform the baseline model in mimicking experimental data when scaled, the optimized PSO model was used to predict referential coordination behaviors outside those conditions studied in \citeA{rohde2012}. The results of varying ambiguous form cost on coordination rates are presented in Figure \ref{fig:3},\footnote{It should be noted that because coordination rates have been scaled here as per \ref{sec:model_comparison}, the combined rates in some instances exceed $100\%$. The rates could be normalized or the scaling factor adjusted to avoid this.} while Figure \ref{fig:4} demonstrates the effects of adjusting the number of points awarded for successful communication. As can be seen, the optimized model predicts that overall coordination rates increase in response to both higher ambiguous form cost and higher successful communication reward.
+Having been shown to outperform the baseline model in mimicking experimental data when scaled, the optimized PSO model was used to predict referential coordination behaviors outside those conditions studied in \citeA{rohde2012}. The results of varying ambiguous form cost on coordination rates are presented in Figure \ref{fig:3}, while Figure \ref{fig:4} demonstrates the effects of adjusting the number of points awarded for successful communication. As can be seen, the optimized model predicts that overall coordination rates increase in response to both higher ambiguous form cost and higher successful communication reward.\footnote{It should be noted that because coordination rates have been scaled as per \ref{sec:model_comparison}, the combined rates in some instances exceed $100\%$. The rates could be normalized or the scaling factor adjusted to avoid this.}
 
 
-A possible explanation for the positive correlation between ambiguous form cost and ambiguous form coordination rate (Figure \ref{fig:3}) is that increasing ambiguous form costs more readily indicate for which of the three referents the form should be produced. For example, in experiment 1, $cost_A$ is less than both $cost_{r2}$ and $cost_{r3}$. Because of this, agents may differ in their choice of strategies, since using the ambiguous form for either referent can increase the achieved score, or indeed agents may attempt to use the ambiguous form for both referents simultaneously, reducing overall communicative success. When $cost_A$ instead exceeds the cost of all but one unambiguous form, the referential strategy in which the use of this form is replaced with the use of the ambiguous form becomes highly preferred, an effect which becomes more pronounced as ambiguous form cost increases. This reasoning, however, does not explain why the rate of coordination using the ambiguous form was predicted to remain high when $\forall r \in R,\; cost_A > cost_r$.
+The positive correlation between ambiguous form cost and ambiguous form coordination rate (Figure \ref{fig:3}) likely reflects the fact that increasing ambiguous form costs more readily indicate for which of the three referents the form should be produced. For example, in experiment 1, $cost_A$ is less than $cost_{r2}$ and $cost_{r3}$, and hence using the ambiguous form for either referent can increase the achieved score, or indeed agents may attempt to use the ambiguous form for both referents simultaneously, reducing overall communicative success. When $cost_A$ instead exceeds the cost of all but one unambiguous form, the referential strategy to replace the costliest unambiguous form with the ambiguous form becomes highly preferred, an effect which becomes more pronounced as ambiguous form cost increases. As one would predict, when $cost_A$ surpasses the cost of all unambiguous forms, coordination with the ambiguous form stops increasing. Whereas humans likely would avoid replacing any less costly unambiguous form with the ambiguous one, the benefits in the model of retaining coordination and maximizing successful communication rewards are shown to outweigh the attraction of not using the ambiguous form at all. That coordination on the costly ambiguous form arises at all in such cases reflects the random initialization of the agents' strategies.
 
 
 \citeauthor{rohde2012} argue that the lower stakes in study 2 resulted in more frequent coordination on the ambiguous form by encouraging players to explore a variety of referential strategies. This aligns with the PSO predictions that higher rewards on each successful round (Figure \ref{fig:4}) favor coordination.  This is because higher rewards for success in effect create a cushion to absorb the costs of communication failure.
@@ -216,7 +217,7 @@ A possible explanation for the positive correlation between ambiguous form cost 
 \subsubsection{Variation of discourse context after entrainment}
 In apparent violation of the Gricean maxim of quantity \cite{grice1975}, interlocutors who entrain on the use of a high-cost but unambiguous referring expression in one discourse environment have been observed to only infrequently switch to using a less costly but more general referring expression when a new discourse context would allow them to do so unambiguously, i.e., they maintain a `conceptual pact' \cite{brennan1996}. To investigate whether this property holds for the PSO model, two experiments were conducted which varied in their dimensionality and form costs (see Table \ref{table:4}). To simulate previous entrainment on the unambiguous form, all particles $i$ were initialized such that $\forall r \in R,\, P_i(A|r) = 0$; further, the base inertia parameter ($\tau$) was modified from the optimized value presented in Table \ref{table:1} so as to reflect 305 iterations of the PSO algorithm having already been run. With these initial conditions set, 305 ``additional" iterations were run.
 
-For both experiment A and B, 250 simulations were run. In no simulation under either condition did the number of agent pairs entrained on unambiguous forms initially differ from the final number after the simulation had concluded; this is to say, all agents continued using the more costly unambiguous forms. Although \citeauthor{brennan1996} do not report a pattern of uniform overinformativity, this is not taken to be problematic, considering no attempt was made to establish a correspondence between iterations of the PSO model in the \citeauthor{rohde2012} language games and duration of entrainment in the \citeauthor{brennan1996} studies. 
+For both experiment A and B, 250 simulations were run. In no simulation did the number of agent pairs entrained on unambiguous forms initially differ from the final number after the simulation had concluded; this is to say, all agents continued using the more costly unambiguous forms. Although \citeauthor{brennan1996} do not report a pattern of uniform overinformativity, this is not taken to be problematic, considering no attempt was made to establish a correspondence between iterations of the PSO model in the \citeauthor{rohde2012} language games and duration of entrainment in the \citeauthor{brennan1996} studies. 
 
 \begin{table}
 \begin{center}
@@ -225,7 +226,7 @@ For both experiment A and B, 250 simulations were run. In no simulation under ei
     Experim. A & $80$  & $140$ & $165$ & $80$ \\ \hline
     Experim. B & $280$ &       &       & $80$ \\ \hline
     \end{tabular}
-    \caption{Form costs for experiments A and B, which differ in their dimensionality. Note that experiment A's costs are identical to those of Table \ref{table:2}, experiment 3, for which \citeauthor{rohde2012} recorded the highest rate of ambiguous form coordination.}
+    \caption{Form costs for experiments A and B, which differ in their dimensionality. Note that experiment A's costs are identical to those of Table \ref{table:2}, experiment 3, for which \citeauthor{rohde2012}\ recorded the highest rate of ambiguous form coordination.}
     \label{table:4}
 \end{center}
 \end{table}
@@ -233,7 +234,7 @@ For both experiment A and B, 250 simulations were run. In no simulation under ei
 
 
 \section{Conclusion}
-This paper seeks to model referential coordination computationally. The paper demonstrates that PSO offers a framework for replicating the human responses observed in \citeauthor{rohde2012}'s \citeyear{rohde2012} language game studies; in particular, this paper identifies a set of parameters for the PSO algorithm which yields a significant improvement in replicating experimental data over baseline PSO parameters. The resultant model is used to predict the effects of varying costs and rewards in a new language game, extrapolating beyond the conditions tested in \citeauthor{rohde2012}'s studies. Predictions were also made which follow effects noted in \citeauthor{brennan1996}. As a model of human behavior, PSO should not be taken as an unqualified snapshot of how human interlocutors make contextually appropriate reference decisions; rather, this modeling suggests a lower bound for how complex agents need to be to respond to form costs similarly to humans (i.e., a speaker may very well model a listener modeling a speaker modeling a listener, but that may not be necessary to achieve coordination). Overall, the findings demonstrate that it is possible to explain referential coordination in terms of a generalized optimization process (in which communicative success is maximized and communicative costs minimized), without needing to model complex or specialized linguistic processes or reasoning methods.
+This paper seeks to model referential coordination computationally. The paper demonstrates that PSO offers a framework for replicating the human responses observed in \citeauthor{rohde2012}'s \citeyear{rohde2012} language game studies; in particular, this paper identifies a set of parameters for the PSO algorithm which yield a significant improvement in replication over baseline PSO parameters. The resultant model is used to predict the effects of varying costs and rewards, extrapolating beyond the conditions tested in \citeauthor{rohde2012}'s studies. Predictions were also made which follow effects noted in \citeauthor{brennan1996}. As a model of human behavior, PSO should not be taken as an unqualified snapshot of how human interlocutors make contextually appropriate reference decisions; rather, this modeling suggests a lower bound for how complex agents need to be to respond to form costs similarly to humans (i.e., a speaker may very well model a listener modeling a speaker modeling a listener, but that may not be necessary to achieve coordination). Overall, the findings demonstrate that it is possible to explain referential coordination in terms of a generalized optimization process (in which communicative success is maximized and communicative costs minimized), without needing to model complex or specialized linguistic processes or reasoning methods.
 
 
 

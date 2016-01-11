@@ -1,0 +1,137 @@
+<!-- Bootstrap v3.0.3 -->
+<link href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css" rel="stylesheet" />
+<section class="container" id="Survey" style="margin-bottom:15px; padding: 10px 10px; font-family: Verdana, Geneva, sans-serif; color:#333333; font-size:0.9em;">
+<div class="row col-xs-12 col-md-12"><!-- Instructions -->
+<div class="panel panel-primary">
+<div class="panel-heading"><strong>Welcome</strong></div>
+
+<div class="panel-body">
+<h5><span style="font-size: 0.9em; line-height: 1.6em;">By participating in this experiment, you consent to the terms presented in the following document:&nbsp;</span><a href="http://blake.ppls.ed.ac.uk/~pling/consent.html" style="font-size: 0.9em; line-height: 1.6em; background-color: rgb(255, 255, 255);" target="_blank">http://blake.ppls.ed.ac.uk/~pling/consent.html</a><span style="font-size: 0.9em; line-height: 1.6em;">.</span></h5>
+
+<p>To begin, please fill in the general information below.</p>
+</div>
+</div>
+<!-- End Instructions --><!-- Survey Body -->
+
+<section><input name="experiment" type="hidden" value="${experiment}" />
+<fieldset><label>1. What is your gender? </label>
+
+<div class="radio"><label><input name="Gender" type="radio" value="Male" />Male </label>&nbsp;</div>
+
+<div class="radio"><label><input name="Gender" type="radio" value="Female" />Female </label></div>
+
+<div class="radio"><label><input name="Gender" type="radio" value="Other" />Other/Prefer not to answer </label></div>
+</fieldset>
+
+<fieldset>
+<div class="input-group"><label>2. What is your age?</label> <input class="form-control" name="Age" size="120" type="text" /></div>
+</fieldset>
+
+<fieldset>
+<div class="input-group"><label>3. What is the first language you learned as a child?</label> <input class="form-control" name="Language" size="120" type="text" /></div>
+</fieldset>
+
+<fieldset><label>4. Was any language other than English spoken in your home before the age of 6? </label>
+
+<div class="radio"><label><input name="English" type="radio" value="Yes" />Yes </label>&nbsp;</div>
+
+<div class="radio"><label><input name="English" type="radio" value="No" />No </label></div>
+</fieldset>
+
+<div class="panel-heading">
+<div class="panel panel-primary">
+<div class="panel-heading"><strong>Instructions</strong></div>
+
+<div class="panel-body">
+<div class="panel-body">
+<div style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; line-height: normal;"><span style="font-family:verdana,geneva,sans-serif;">This experiment asks you to think about language as a transaction: &nbsp;messages have costs, communication has rewards. &nbsp;Your goal is to successfully indicate one of several&nbsp;objects to a partner. For the following questions, imagine that:</span></div>
+
+<ul>
+	<li style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; line-height: normal;"><span style="font-family:verdana,geneva,sans-serif;">You must communicate with your partner by sending one of a limited number of messages.&nbsp;</span></li>
+	<li style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; line-height: normal;"><span style="font-family:verdana,geneva,sans-serif;"><span class="im">Sending a message incurs a cost.</span></span></li>
+	<li style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; line-height: normal;"><span style="font-family:verdana,geneva,sans-serif;"><span class="im">Different messages cost different amounts.&nbsp;&nbsp;</span></span></li>
+	<li style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8px; line-height: normal;"><span style="font-family:verdana,geneva,sans-serif;"><span class="im">If your partner selects the intended object, communication is successful and you and your partner receive a reward.</span></span></li>
+</ul>
+
+<p><span style="font-family:verdana,geneva,sans-serif;">In this hypothetical scenario, the three objects to communicate about are: a rose, a tulip, or a daisy. If your partner successfully understands which object you are referring to, you will both receive a reward of <strong>$${reward}</strong>.</span></p>
+
+<table>
+	<tbody>
+		<tr>
+			<td><img alt="Rose" height="100" src="http://i.imgur.com/5kJNQaL.png" /></td>
+			<td><img alt="Daisy" height="100" src="http://i.imgur.com/HRRk3qZ.png" /></td>
+			<td><img alt="Tulip" height="100" src="http://i.imgur.com/HhqlcPh.png" /></td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p><span style="font-family:verdana,geneva,sans-serif;">There are four possible messages which can be sent, each with their own costs. These are as follows:</span></p>
+
+<table>
+	<tbody>
+		<tr>
+			<td><b>Message &nbsp; </b></td>
+			<td><b>Cost</b></td>
+		</tr>
+		<tr>
+			<td>&quot;Rose&quot;</td>
+			<td>$${rose_cost}</td>
+		</tr>
+		<tr>
+			<td>&quot;Daisy&quot;</td>
+			<td>$${daisy_cost}</td>
+		</tr>
+		<tr>
+			<td>&quot;Tulip&quot;</td>
+			<td>$${tulip_cost}</td>
+		</tr>
+		<tr>
+			<td>&quot;Flower&quot;</td>
+			<td>$${flower_cost}</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<p>Note:&nbsp;In each of the following questions, you will be asked to indicate your&nbsp;likelihood to send one of the two messages. Please indicate this by dragging the slider to reflect the strength of your preference for one message over another. For example, if you drag the slider all the way to the left, this means you would only ever send the message on the left-hand side, whereas leaving the slider in the center (between the two options) means you would be equally likely to send either of the messages.</p>
+</div>
+</div>
+</div>
+</div>
+
+<fieldset><label>5. In this scenario, which message would you be likely to send to your partner to indicate a rose (for a potential reward of $${reward})? </label>
+
+<div class="radio"><label for="fader1">I would only consider sending <b>&quot;Rose&quot;</b> (for a cost of $${rose_cost})</label>&nbsp; <input id="fader1" max="1" min="0" name="rose" step="0.01" type="range" value="0.5" /> <label for="fader1">&nbsp;I would only consider sending <b>&quot;Flower&quot;</b> (for a cost of $${flower_cost})</label>&nbsp;</div>
+</fieldset>
+
+<fieldset><label>6. In this scenario, which message would you be likely to send to your partner to indicate a daisy</label><span style="font-family: Verdana, Geneva, sans-serif; font-size: 11.7px; font-weight: bold; line-height: 20.8px; background-color: rgb(251, 251, 251);">&nbsp;(for a potential reward of $${reward})</span><label>? </label>
+
+<div class="radio"><label for="fader2">I would only consider sending <b>&quot;Daisy&quot;</b> (for a cost of $${daisy_cost})</label>&nbsp; <input id="fader2" max="1" min="0" name="daisy" step="0.01" type="range" value="0.5" /> <label for="fader2">&nbsp;I would only consider sending <b>&quot;Flower&quot;</b> (for a cost of $${flower_cost})</label>&nbsp;</div>
+</fieldset>
+
+<fieldset><label>7. In this scenario, which message would you be likely to send to your partner to indicate a tulip</label><span style="font-family: Verdana, Geneva, sans-serif; font-size: 11.7px; font-weight: bold; line-height: 20.8px; background-color: rgb(251, 251, 251);">&nbsp;(for a potential reward of $${reward})</span><label>? </label>
+
+<div class="radio"><label for="fader3">I would only consider sending <b>&quot;Tulip&quot;</b> (for a cost of $${tulip_cost})</label>&nbsp; <input id="fader3" max="1" min="0" name="tulip" step="0.01" type="range" value="0.5" /> <label for="fader3">&nbsp;I would only consider sending <b>&quot;Flower&quot;</b> (for a cost of $${flower_cost})</label>&nbsp;</div>
+</fieldset>
+
+<fieldset><label>8. If your partner were guaranteed to understand which flower you meant to indicate, which message would you be likely to send to your partner to indicate a tulip</label><span style="font-family: Verdana, Geneva, sans-serif; font-size: 11.7px; font-weight: bold; line-height: 20.8px; background-color: rgb(251, 251, 251);">&nbsp;(for a potential reward of $${reward})</span><label>? </label>
+
+<div class="radio"><label for="fader4">I would only consider sending <b>&quot;Tulip&quot;</b> (for a cost of $${tulip_cost})</label>&nbsp; <input id="fader4" max="1" min="0" name="tulip" step="0.01" type="range" value="0.5" /> <label for="fader4">&nbsp;I would only consider sending <b>&quot;Flower&quot;</b> (for a cost of $${flower_cost})</label>&nbsp;</div>
+</fieldset>
+
+<fieldset>
+<div class="input-group"><label>9. Please add any comments you have regarding this experiment (optional).</label> <input class="form-control" name="Age" size="120" type="text" /></div>
+</fieldset>
+</section>
+</div>
+</section>
+<!-- End Survey Body --><!-- close container -->
+<style type="text/css">fieldset {
+    padding: 10px;
+    background:#fbfbfb;
+    border-radius:5px;
+    margin-bottom:5px;
+}
+</style>

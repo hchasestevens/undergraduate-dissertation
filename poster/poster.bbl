@@ -1,0 +1,166 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Brennan%
+\ \BBA {} Clark%
+}{%
+Brennan%
+\ \BBA {} Clark%
+}{%
+{\protect \APACyear {1996}}%
+}]{%
+brennan1996}
+\APACinsertmetastar {%
+brennan1996}%
+\begin{APACrefauthors}%
+Brennan, S\BPBI E.%
+\BCBT {}\ \BBA {} Clark, H\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1996}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Conceptual pacts and lexical choice in conversation.}
+  {Conceptual pacts and lexical choice in conversation.}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Experimental Psychology: Learning, Memory,
+  and Cognition}{22}{6}{1482}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Degen%
+\ \BBA {} Franke%
+}{%
+Degen%
+\ \BBA {} Franke%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+degen2012}
+\APACinsertmetastar {%
+degen2012}%
+\begin{APACrefauthors}%
+Degen, J.%
+\BCBT {}\ \BBA {} Franke, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Optimal reasoning about referential expressions}
+  {Optimal reasoning about referential expressions}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of {SemDIAL}}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Frank%
+\ \BBA {} Goodman%
+}{%
+Frank%
+\ \BBA {} Goodman%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+frank2012}
+\APACinsertmetastar {%
+frank2012}%
+\begin{APACrefauthors}%
+Frank, M\BPBI C.%
+\BCBT {}\ \BBA {} Goodman, N\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Predicting pragmatic reasoning in language games}
+  {Predicting pragmatic reasoning in language games}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Science}{336}{6084}{998-998}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Horton%
+\ \BBA {} Keysar%
+}{%
+Horton%
+\ \BBA {} Keysar%
+}{%
+{\protect \APACyear {1996}}%
+}]{%
+horton1996}
+\APACinsertmetastar {%
+horton1996}%
+\begin{APACrefauthors}%
+Horton, W\BPBI S.%
+\BCBT {}\ \BBA {} Keysar, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1996}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {When do speakers take into account common ground?} {When
+  do speakers take into account common ground?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Cognition}{59}{1}{91-117}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kennedy%
+\ \BBA {} Eberhart%
+}{%
+Kennedy%
+\ \BBA {} Eberhart%
+}{%
+{\protect \APACyear {1995}}%
+}]{%
+kennedy1995}
+\APACinsertmetastar {%
+kennedy1995}%
+\begin{APACrefauthors}%
+Kennedy, J.%
+\BCBT {}\ \BBA {} Eberhart, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Particle swarm optimization} {Particle swarm
+  optimization}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{IEEE} International Conference on Neural Networks,
+  1995. {P}roceedings.} {{IEEE} international conference on neural networks,
+  1995. {P}roceedings.}\ (\BVOL~4, \BPG~1942-1948).
+\newblock
+\begin{APACrefDOI} \doi{10.1109/ICNN.1995.488968} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Rohde%
+\ \protect \BOthers {.}}{%
+Rohde%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+rohde2012}
+\APACinsertmetastar {%
+rohde2012}%
+\begin{APACrefauthors}%
+Rohde, H.%
+\BCBT {}\ \BOthersPeriod {.}
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Communicating with cost-based implicature: A
+  game-theoretic approach to ambiguity} {Communicating with cost-based
+  implicature: A game-theoretic approach to ambiguity}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {The 16th Workshop on the Semantics and Pragmatics of
+  Dialogue.} {The 16th workshop on the semantics and pragmatics of dialogue.}
+\newblock
+\APACaddressPublisher{Paris}{}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

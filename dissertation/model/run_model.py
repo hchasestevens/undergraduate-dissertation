@@ -1,4 +1,4 @@
-"""Main file."""
+﻿"""Main file."""
 
 from swarm import Swarm
 from game import two_item_game
@@ -35,6 +35,38 @@ def generate_palette(no_groups, group_size):
         color_group
     ]
     return colors
+
+
+def load_mturk_distributions():
+    """
+    Return distribution drawn from MTurk data.
+    """
+    with open(r'I:\Users\Chase Stevens\Documents\GitHub\undergraduate-dissertation\mturk\batch_1\distributions.json', 'r') as f:
+        dist_data = json.load(f)
+    order = ('rose', 'daisy', 'tulip')
+    ranges = [(x / 10., y / 10.) for x, y in zip(range(10), range(1, 11))]
+    
+    def mturk_distribution(settings):
+        key = tuple(
+            value / -100  # hoping there won't be any issues here with floating-point
+            for value in 
+            settings.reference_costs + (settings.ambiguous_reference_cost,)
+        )
+        distribution = dist_data[key]
+        while True:
+            position = []
+            for item in order:  # actually, performing this piecemeal might yield incoherent positions... better to form distributions over individual coherent responses?
+                # roulette wheel selection
+                target = random.random()
+                cum_sum = 0.0
+                for prob, bounds in zip(distribution[item], ranges):
+                    cum_sum += prob
+                    if cum_sum >= target:
+                        break
+                position.append(random.uniform(*bounds))
+            yield numpy.array(position)
+
+    return mturk_distribution
 
 
 if __name__ == '__main__':
